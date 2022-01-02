@@ -1,0 +1,11 @@
+#Start
+start: |
+  Hi @${username}.
+  This bot will help you keep track of sporting events.
+#Language
+language: Language
+language_change: Change language
+language_select: Please choose a language.
+language_selected: You have selected English.
+#Error
+messageError: Sorry, I can't understand you. Use the buttons. If you don't see the buttons, send me /start

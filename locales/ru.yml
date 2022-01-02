@@ -1,0 +1,11 @@
+#Start
+start: |
+  Привет @${username}.
+  Этот бот поможет следить за спортивными событиями.
+#Language
+language: Язык
+language_change: Сменить язык
+language_select: Пожалуйста, выберите язык.
+language_selected: Вы выбрали русский язык.
+#Error
+messageError: Извини, я не могу тебя понять. Используй кнопки. Если не видишь кнопки, отправь мне /start
