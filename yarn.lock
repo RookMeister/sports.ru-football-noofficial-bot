@@ -1276,6 +1276,13 @@ pino@^6.13.2:
     quick-format-unescaped "^4.0.3"
     sonic-boom "^1.0.2"
 
+playwright-chromium@^1.17.1:
+  version "1.17.1"
+  resolved "https://registry.yarnpkg.com/playwright-chromium/-/playwright-chromium-1.17.1.tgz#82e0e0e1af61d004fcdb33df9527ece52f5f4b76"
+  integrity sha512-EnCtsP/QTWWoQV/cFYpt2wgKwcOdoa2iHBlBaldHB8gobtynMKwk96rzldaRS4YimFibIzREFkWCNMrrb3LRMQ==
+  dependencies:
+    playwright-core "=1.17.1"
+
 playwright-core@=1.17.1:
   version "1.17.1"
   resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.17.1.tgz#a16e0f89284a0ed8ae6d77e1c905c84b8a2ba022"

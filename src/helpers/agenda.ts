@@ -1,5 +1,5 @@
 import { Agenda } from 'agenda';
-import playwright from 'playwright';
+import { chromium } from 'playwright-chromium';
 import { MatchesModel } from '@bot/models/matches.model';
 
 export const initAgenda = async () => {
@@ -13,7 +13,7 @@ export const initAgenda = async () => {
 
     agenda.define('check matches', async () => {
       try {
-        const browser = await playwright.chromium.launch({ headless: true });
+        const browser = await chromium.launch({ headless: true });
         const page = await browser.newPage();
         await page.goto('https://www.sports.ru/football');
         const ids = await page.$eval('[data-accordion-id="teaser"]', (elms: any) => {
