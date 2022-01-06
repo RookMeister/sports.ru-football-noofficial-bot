@@ -1,7 +1,7 @@
 import { Markup } from 'telegraf';
 
 type TArrayKeyboardButtons = { text: string, callback_data: string, hide: boolean }[];
-type TArrayButtons = { label: string, value?: string }[];
+type TArrayButtons = { label: string, value?: string, active: number }[];
 
 export const inlineKeyboard = (array: TArrayButtons, size: number = 1, column = false) => {
   const buttons = markupButtons(array);
@@ -13,7 +13,8 @@ export const replyKeyboard = (array: TArrayButtons, size: number = 1, column = f
 };
 
 const markupButtons = (buttons: TArrayButtons) => {
-  return buttons.map(b => {
+  const arr = buttons.filter(b => b.active);
+  return arr.map(b => {
     return Markup.button.callback(b.label, b.value || b.label);
   })
 };

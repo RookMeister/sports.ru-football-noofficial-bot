@@ -1,0 +1,16 @@
+{
+  "mainMenu": {
+    "size": 1,
+    "column": false,
+    "values": [
+      { "label": "Матчи", "active": 1 },
+      { "label": "Статистика", "active": 0 },
+      { "label": "О боте", "active": 0 }
+    ]
+  },
+  "matchesUpdate": {
+    "size": 1,
+    "column": false,
+    "values": [{ "label": "Обновить", "value": "update-matches", "active": 1 }]
+  }
+}
