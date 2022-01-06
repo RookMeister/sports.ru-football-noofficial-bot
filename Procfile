@@ -1,1 +1,1 @@
-worker: yarn build && yarn start
+worker: npx playwright install && yarn build && yarn start
