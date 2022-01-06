@@ -29,7 +29,7 @@ export default async function request<T>(url: string) : Promise<T> {
 // URL Statistics
 export async function getMatches(ids: string[]): Promise<IDataMatches>  {
   const requests =
-    ids.map(id => request(`https://www.sports.ru/core/stat/match/online/?args={"id":${id}}`));
+    ids.map(id => request(`${process.env.API_SPORTSRU_ONLINE}?args={"id":${id}}`));
   const response = await Promise.all(requests);
   const data = [];
   const tournamentIndex = {};
@@ -52,30 +52,30 @@ export async function getMatches(ids: string[]): Promise<IDataMatches>  {
   return data;
 }
 export async function getTeaserMatches(): Promise<ISportsTeaserResponse>  {
-  const url = 'https://www.sports.ru/core/stat/match/teaser/';
+  const url = process.env.API_SPORTSRU_TEASER;
   return await request(url);
 }
 export async function getGoalsMatch(id: number): Promise<ISportsGoalsResponse>  {
-  const url = `https://www.sports.ru/core/stat/match/goals/?args={"id":${id}}`;
+  const url = `${process.env.API_SPORTSRU_GOALS}?args={"id":${id}}`;
   return await request(url);
 }
 export async function getTornaments(): Promise<ISportsTournamentsListResponse>  {
-  const url = `https://www.sports.ru/core/stat/gadget/tournament_list/?args={"sport_id":208}`;
+  const url = `${process.env.API_SPORTSRU_TOURNAMENTS}?args={"sport_id":208}`;
   return await request(url);
 }
 export async function getTornamentTable(tournament_id: string): Promise<ISportsTournamentTableResponse>  {
-  const url = `https://www.sports.ru/core/stat/gadget/tournament_table/?args={"tournament_id":${tournament_id}}`;
+  const url = `${process.env.API_SPORTSRU_TOURNAMENT_TABLE}?args={"tournament_id":${tournament_id}}`;
   return await request(url);
 }
 export async function getTornamentLastMatches(tournament_id: string): Promise<ISportsTournamentMatchesResponse>  {
-  const url = `https://www.sports.ru/core/stat/gadget/last_matches/?args={"tournament_id":${tournament_id}}`;
+  const url = `${process.env.API_SPORTSRU_TOURNAMENT_LAST_MATCHES}?args={"tournament_id":${tournament_id}}`;
   return await request(url);
 }
 export async function getTornamentFutureMatches(tournament_id: string): Promise<ISportsTournamentMatchesResponse>  {
-  const url = `https://www.sports.ru/core/stat/gadget/future_matches/?args={"tournament_id":${tournament_id}}`;
+  const url = `${process.env.API_SPORTSRU_TOURNAMENT_FUTURE_MATCHES}?args={"tournament_id":${tournament_id}}`;
   return await request(url);
 }
 export async function getTornamentPlayersStat(tournament_id: string): Promise<ISportsTournamentPlayersStatResponse>  {
-  const url = `https://www.sports.ru/core/stat/gadget/players_stat/?args={"tournament_id":${tournament_id}}`;
+  const url = `${process.env.API_SPORTSRU_TOURNAMENT_PLAYER_STAT}?args={"tournament_id":${tournament_id}}`;
   return await request(url);
 }
