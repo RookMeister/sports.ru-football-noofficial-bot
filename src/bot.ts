@@ -33,7 +33,7 @@ bot.start(startCommandHandler);
 bot.hears('Матчи', (ctx) => matchesHandler(ctx));
 bot.action('update-matches', (ctx) => matchesHandler(ctx, true));
 
-bot.command('setTime', timeCommandHandler);
+bot.command('time', timeCommandHandler);
 bot.action(selectData('select-time').filter(), setTimeZoneHandler);
 
 bot.on('text', (ctx) => ctx.reply('Извини, я не могу тебя понять. Используй кнопки. Если не видишь кнопки, отправь мне /start'));
