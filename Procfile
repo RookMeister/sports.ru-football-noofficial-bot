@@ -1,1 +1,1 @@
-worker: npm run build && npm run start
+worker: yarn build && yarn start
