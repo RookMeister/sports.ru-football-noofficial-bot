@@ -2,7 +2,7 @@ import { Telegraf } from 'telegraf';
 import config from '@bot/config';
 import { initAgenda } from '@bot/helpers/agenda';
 
-// import { selectData } from '@bot/helpers/callback-data';
+import { selectData } from '@bot/helpers/callback-data';
 
 import { setupLoggerMiddleware } from '@bot/middlewares/setup-logger.middleware';
 import { setupSessionMiddleware } from '@bot/middlewares/setup-session.middleware';
@@ -12,6 +12,7 @@ import { setLastActionToUserMiddleware } from '@bot/middlewares/last-action-to-u
 
 import { startCommandHandler } from '@bot/handlers/start-command.handler';
 import { matchesHandler } from '@bot/handlers/matches.handler';
+import { timeCommandHandler, setTimeZoneHandler } from '@bot/handlers/timezone.handler';
 
 const bot = new Telegraf(config.BOT_TOKEN, {
   telegram: {
@@ -31,6 +32,9 @@ bot.start(startCommandHandler);
 
 bot.hears('Матчи', (ctx) => matchesHandler(ctx));
 bot.action('update-matches', (ctx) => matchesHandler(ctx, true));
+
+bot.command('setTime', timeCommandHandler);
+bot.action(selectData('select-time').filter(), setTimeZoneHandler);
 
 bot.on('text', (ctx) => ctx.reply('Извини, я не могу тебя понять. Используй кнопки. Если не видишь кнопки, отправь мне /start'));
 
