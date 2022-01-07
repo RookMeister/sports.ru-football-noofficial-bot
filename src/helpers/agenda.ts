@@ -13,8 +13,9 @@ export const initAgenda = async () => {
 
     agenda.define('check matches', async () => {
       try {
-        const browser = await chromium.launch({ headless: true });
-        const page = await browser.newPage();
+        const browser = await chromium.launch({ chromiumSandbox: false });
+        const context = await browser.newContext();
+        const page = await context.newPage();
         await page.goto('https://www.sports.ru/football');
         const ids = await page.$eval('[data-accordion-id="teaser"]', (elms: any) => {
           const matches = [];
