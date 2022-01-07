@@ -28,10 +28,14 @@ export default async function request<T>(url: string) : Promise<T> {
 
 export async function getReviewMatches(): Promise<any[]> {
   const ids = process.env.ID_CHANELS.split(',');
+  const urls =
+    ids.map(id => `https://www.googleapis.com/youtube/v3/search?key=${process.env.API_KEY_YOTUBE}&channelId=${id}&part=snippet,id&order=date&maxResults=20`);
+  console.log(urls);
   const requests =
     ids.map(id => request(`https://www.googleapis.com/youtube/v3/search?key=${process.env.API_KEY_YOTUBE}&channelId=${id}&part=snippet,id&order=date&maxResults=20`));
   const response = await Promise.all(requests);
   const data = [];
+  console.log(1, response);
   response.forEach((y: any) => {
     y.items.forEach((v: any) => {
       console.log('get', v.snippet.title, v.snippet.publishedAt);
