@@ -12,8 +12,9 @@ export class Matches extends TimeStamps {
     const month = today.getUTCMonth();
     const day = today.getUTCDate();
     const date = `${day}-${month+1}-${year}`;
-    const { ids } = await this.findOne({ date });
-    return ids || null;
+    const matches = await this.findOne({ date });
+    const ids = matches ? matches.ids : null;
+    return ids;
   }
 
   static async saveMatches(this: ReturnModelType<typeof Matches>, { ids }) {

@@ -10,8 +10,6 @@ import { ISportsMatchResponse, IDataMatches } from '@bot/interfaces/sports.ru.in
 export const matchesHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = matchesUpdate
   const keyboard = inlineKeyboard(values, size, column);
-  // const matches = await getTeaserMatches();
-  // const info = convertTeaserData(matches);
   const ids = await MatchesModel.getTodayMatches();
   const matches = await getMatches(ids);
   const info = convertTeaserData(matches, ctx.dbuser.timeZone);
