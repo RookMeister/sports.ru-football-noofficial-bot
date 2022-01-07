@@ -10,14 +10,7 @@ export class Reviews extends TimeStamps {
   @prop({ required: true, default: '' }) channelTitle: string;
 
   static async saveReviews(this: ReturnModelType<typeof Reviews>, review: any) {
-    const today = new Date();
-    const year = today.getUTCFullYear();
-    const month = today.getUTCMonth();
-    const day = today.getUTCDate();
-    const date = `${day}-${month+1}-${year}`;
-
     const reviewFind = await this.findOne({ videoId: review.videoId });
-    console.log(review.title);
     if (!reviewFind) {
       console.log('save', review.title);
       this.create(review)
