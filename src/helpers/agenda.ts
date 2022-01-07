@@ -1,6 +1,8 @@
 import { Agenda } from 'agenda';
 import { chromium } from 'playwright-chromium';
+import { getReviewMatches } from '@bot/helpers/api'
 import { MatchesModel } from '@bot/models/matches.model';
+import { ReviewsModel } from '@bot/models/reviews.model';
 
 export const initAgenda = async () => {
   try {
@@ -47,8 +49,15 @@ export const initAgenda = async () => {
         console.log('check matches', error);
       }
     });
+    agenda.define('check reviews', async () => {
+      const reviews = await getReviewMatches();
+      for (const r of reviews) {
+        await ReviewsModel.saveReviews(r);
+      }
+    })
 
     await agenda.start();
     await agenda.every('1 hours', 'check matches');
+    await agenda.every('30 minutes', 'check reviews');
   } catch {}
 }

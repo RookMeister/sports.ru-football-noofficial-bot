@@ -26,7 +26,29 @@ export default async function request<T>(url: string) : Promise<T> {
   }
 }
 
-// URL Statistics
+export async function getReviewMatches(): Promise<any[]> {
+  const ids = process.env.ID_CHANELS.split(',');
+  const requests =
+    ids.map(id => request(`https://www.googleapis.com/youtube/v3/search?key=${process.env.API_KEY_YOTUBE}&channelId=${id}&part=snippet,id&order=date&maxResults=20`));
+  const response = await Promise.all(requests);
+  const data = [];
+  response.forEach((y: any) => {
+    y.items.forEach((v: any) => {
+      const condition1 = v.snippet.title.includes('Обзор матча');
+      const condition2 = v.snippet.title.includes('Лучшие моменты матча');
+      if (condition1 || condition2) {
+        data.push({
+          videoId: v.id.videoId,
+          url: `https://www.youtube.com/watch?v=${v.id.videoId}`,
+          date: v.snippet.publishedAt,
+          title: v.snippet.title,
+          channelTitle: v.snippet.channelTitle
+        })
+      }
+    });
+  })
+  return data
+}
 export async function getMatches(ids: string[] | null): Promise<IDataMatches | null>  {
   if (!ids) {
     return null;
