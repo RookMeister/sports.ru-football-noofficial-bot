@@ -33,9 +33,17 @@ function convertTeaserData(matches: IDataMatches | null, timeZone: string) {
     // if (t.sport.id === 208) {
       res.push(`\r\n<b><i>${t.name}</i></b>\r\n`);
       for (const m of t.matches) {
+        let string = ''
         const date = setTime(timeZone, m.start_time.full).split(', ');
-        let string = `<b>${date[0]}</b> <a href="${m.page_info.desktop_url}">${m.first_team.name} \u2014 ${m.second_team.name}</a>`;
-        string += ` ${m.status_id > 1 ? m.score + ' ' + m.status_name : `в ${date[1]}`}\r\n`;
+        if (m.status_id === 1) {
+          string += `<b>${date[0]}</b> `;
+        }
+        string += `<a href="${m.page_info.desktop_url}">${m.first_team.name} \u2014 ${m.second_team.name}</a> `;
+        if (m.status_id > 1) {
+          string += `${m.score + ' ' + m.status_name}\r\n`;
+        } else {
+          string += `в ${date[1]}\r\n`;
+        }
         res.push(string);
       }
   };
