@@ -34,7 +34,7 @@ export async function getReviewMatches(): Promise<any[]> {
   const data = [];
   response.forEach((y: any) => {
     y.items.forEach((v: any) => {
-      console.log('get', v.snippet.title);
+      console.log('get', v.snippet.title, v.snippet.publishedAt);
       const condition1 = v.snippet.title.includes('Обзор матча');
       const condition2 = v.snippet.title.includes('Лучшие моменты матча');
       if (condition1 || condition2) {
