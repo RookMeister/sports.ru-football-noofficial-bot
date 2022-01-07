@@ -16,8 +16,10 @@ export class Reviews extends TimeStamps {
     const day = today.getUTCDate();
     const date = `${day}-${month+1}-${year}`;
 
-    const reviewFind = await this.findOne({ videoId: review.videoId })
+    const reviewFind = await this.findOne({ videoId: review.videoId });
+    console.log(review.title);
     if (!reviewFind) {
+      console.log('save', review.title);
       this.create(review)
     }
   }
