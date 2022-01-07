@@ -41,7 +41,7 @@ async function convertTeaserData(matches: IDataMatches | null, timeZone: string)
         }
         string += `<a href="${m.page_info.desktop_url}">${m.first_team.name} - ${m.second_team.name}</a> `;
         if (m.status_id > 1) {
-          string += `${m.score + ' ' + m.status_name}`;
+          string += `${m.score + ' ' + m.state_name}`;
           const review = await ReviewsModel.findReview(`${m.first_team.name} - ${m.second_team.name}`);
           if (review) {
             string += ` <a href="${review.url}">Обзор матча</a>\r\n`
