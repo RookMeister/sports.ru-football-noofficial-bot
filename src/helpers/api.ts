@@ -32,7 +32,7 @@ export async function getReviewMatches(): Promise<any[]> {
     ids.map(id => `https://www.googleapis.com/youtube/v3/search?key=${process.env.API_KEY_YOTUBE}&channelId=${id}&part=snippet,id&order=date&maxResults=20`);
   console.log(urls);
   const requests =
-    ids.map(id => request(`https://www.googleapis.com/youtube/v3/search?key=${process.env.API_KEY_YOTUBE}&channelId=${id}&part=snippet,id&order=date&maxResults=20`));
+    ids.map(id => request(`https://www.googleapis.com/youtube/v3/search?key=${process.env.API_KEY_YOTUBE}&channelId=${id}&part=snippet,id&order=date&maxResults=20&regionCode=RU`));
   const response = await Promise.all(requests);
   const data = [];
   console.log(1, response);
