@@ -39,10 +39,10 @@ async function convertTeaserData(matches: IDataMatches | null, timeZone: string)
         if (m.status_id === 1) {
           string += `<b>${date[0]}</b> `;
         }
-        string += `<a href="${m.page_info.desktop_url}">${m.first_team.name} - ${m.second_team.name}</a> `;
+        string += `<a href="${m.page_info.desktop_url}">${m.first_team.name} \u2014 ${m.second_team.name}</a> `;
         if (m.status_id > 1) {
           string += `${m.score + ' ' + m.state_name}`;
-          const review = await ReviewsModel.findReview(`${m.first_team.name} - ${m.second_team.name}`);
+          const review = await ReviewsModel.findReview(`${m.first_team.name} \u2014 ${m.second_team.name}`);
           if (review) {
             string += ` <a href="${review.url}">Обзор матча</a>\r\n`
           } else {

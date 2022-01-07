@@ -41,7 +41,7 @@ export async function getReviewMatches(): Promise<any[]> {
           videoId: v.id.videoId,
           url: `https://www.youtube.com/watch?v=${v.id.videoId}`,
           date: v.snippet.publishedAt,
-          title: v.snippet.title,
+          title: v.snippet.title.replace('-', '—'),
           channelTitle: v.snippet.channelTitle
         })
       }
