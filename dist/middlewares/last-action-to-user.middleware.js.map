@@ -1,1 +1,0 @@
-{"version":3,"file":"last-action-to-user.middleware.js","sourceRoot":"","sources":["../../src/middlewares/last-action-to-user.middleware.ts"],"names":[],"mappings":";;;AAEO,KAAK,UAAU,6BAA6B,CAAC,GAAY,EAAE,IAAgB;IAChF,GAAG,CAAC,MAAM,CAAC,SAAS,GAAG,IAAI,IAAI,EAAE,CAAC;IAClC,GAAG,CAAC,MAAM,GAAG,MAAM,GAAG,CAAC,MAAM,CAAC,IAAI,EAAE,CAAC;IACrC,OAAO,IAAI,EAAE,CAAA;AACf,CAAC;AAJD,sEAIC"}
