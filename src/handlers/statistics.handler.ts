@@ -93,7 +93,9 @@ async function statMatches(data: ISportsTournamentMatchesResponse) {
           string += 'перенесён\r\n';
         } else if (status_id > 1) {
           string += `${first_team.goals}:${second_team.goals}`;
-          const review = await ReviewsModel.findReview(`${first_team.name} \u2014 ${second_team.name}`);
+          const [date] = new Date().toISOString().split('T');
+          const title = new RegExp(`${first_team.name}|${second_team.name}`);
+          const review = await ReviewsModel.findReview({ date, title });
           if (review) {
             string += ` <a href="${review.url}">Обзор матча</a>\r\n`
           } else {

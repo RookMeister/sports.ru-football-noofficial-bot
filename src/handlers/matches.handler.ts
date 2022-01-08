@@ -39,8 +39,9 @@ async function convertTeaserData(matches: IDataMatches | null, timeZone: string)
       string += `<a href="${m.page_info.desktop_url}">${m.first_team.name} \u2014 ${m.second_team.name}</a> `;
       if (m.status_id > 1) {
         string += `${m.score + ' ' + m.state_name}`;
-        const regex = `/${m.first_team.name} | ${m.second_team.name}/gm`;
-        const review = await ReviewsModel.findReview(`${m.first_team.name} \u2014 ${m.second_team.name}`);
+        const [date] = new Date().toISOString().split('T');
+        const title = new RegExp(`${m.first_team.name}|${m.second_team.name}`);
+        const review = await ReviewsModel.findReview({ date, title });
         if (review) {
           string += ` <a href="${review.url}">Обзор матча</a>\r\n`
         } else {
