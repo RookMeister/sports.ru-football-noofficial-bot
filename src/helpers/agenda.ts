@@ -57,7 +57,7 @@ export const initAgenda = async () => {
     })
 
     await agenda.start();
-    await agenda.every('10 minutes', 'check matches');
-    await agenda.every('30 minutes', 'check reviews');
+    await agenda.every('1 hours', 'check matches');
+    await agenda.every('2 hours', 'check reviews');
   } catch {}
 }

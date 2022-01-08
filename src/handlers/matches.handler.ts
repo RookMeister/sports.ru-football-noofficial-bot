@@ -42,7 +42,6 @@ async function convertTeaserData(matches: IDataMatches | null, timeZone: string)
         const [date] = new Date().toISOString().split('T');
         const title = new RegExp(`${m.first_team.name}|${m.second_team.name}`);
         const review = await ReviewsModel.findReview({ date, title });
-        console.log(date, title, review);
         if (review) {
           string += ` <a href="${review.url}">Обзор матча</a>\r\n`
         } else {
