@@ -4,7 +4,7 @@
     "column": false,
     "values": [
       { "label": "Матчи", "active": 1 },
-      { "label": "Статистика", "active": 0 },
+      { "label": "Статистика", "active": 1 },
       { "label": "О боте", "active": 0 }
     ]
   },
@@ -12,6 +12,25 @@
     "size": 1,
     "column": false,
     "values": [{ "label": "Обновить", "value": "update-matches", "active": 1 }]
+  },
+  "statTournamentMenu": {
+    "size": 3,
+    "column": false,
+    "values": [
+      { "active": 1, "value": "select-tournament:$.table", "label":	"Таблица" },
+      { "active": 1, "value": "select-tournament:$.last", "label":	" Результаты" },
+      { "active": 1, "value": "select-tournament:$.future", "label":	"Календарь" },
+      { "active": 1, "value": "select-tournament:$.back", "label":	"Назад" },
+      { "active": 0, "value": "select-tournament:$.player", "label":	"Статистика игроков" }
+    ]
+  },
+  "statBotMenu": {
+    "size": 3,
+    "column": false,
+    "values": [
+      { "active": 1, "label":"Вчера", "value": "select-stat-bot:prev" },
+      { "active": 1, "label":"Сегодня", "value": "select-stat-bot:now" }
+    ]
   },
   "setTime": {
     "size": 6,
