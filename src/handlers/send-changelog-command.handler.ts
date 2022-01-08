@@ -8,7 +8,7 @@ export const sendChangelogCommandHandler = async (ctx: Context) => {
     const usersData = await UserModel.findAllUsers();
     for (let [i, user] of usersData.entries()) {
       let info = '<b>Новые изменения:</b>\r\n';
-      info += changelog[changelog.length - 1].text;
+      info += changelog[0].text;
       if (!user.status) {
         await UserModel.saveStatusUser({ id: user.chat_id, status: 'ok' });
       }

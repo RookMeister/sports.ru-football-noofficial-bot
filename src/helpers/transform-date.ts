@@ -5,3 +5,15 @@ export const setTime = (timeZone: string, date: string) => {
   newDate.setHours(hours + diff);
   return newDate.toLocaleString('ru', { day: "numeric", month: "numeric", hour: "numeric", minute: "numeric" });
 }
+
+export const UTCDate = (prev = false) => {
+  const today = new Date();
+  if (prev) {
+    today.setUTCDate(today.getUTCDate() - 1);
+  }
+  const year = today.getUTCFullYear();
+  const month = today.getUTCMonth();
+  const day = today.getUTCDate();
+  const date = `${year}-${month+1}-${day}`;
+  return date;
+}
