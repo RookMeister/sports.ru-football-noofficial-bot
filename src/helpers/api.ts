@@ -33,20 +33,22 @@ export async function getReviewMatches(): Promise<any[]> {
   const response = await Promise.all(requests);
   const data = [];
   response.forEach((y: any) => {
-    y.items.forEach((v: any) => {
-      const condition1 = v.snippet.title.includes('Обзор матча');
-      const condition2 = v.snippet.title.includes('Лучшие моменты матча');
-      const condition3 = v.snippet.title.includes('Огляд матчу');
-      if (condition1 || condition2 || condition3) {
-        data.push({
-          videoId: v.id.videoId,
-          url: `https://www.youtube.com/watch?v=${v.id.videoId}`,
-          date: v.snippet.publishedAt,
-          title: v.snippet.title.replace('-', '—'),
-          channelTitle: v.snippet.channelTitle
-        })
-      }
-    });
+    if (y.items) {
+      y.items.forEach((v: any) => {
+        const condition1 = v.snippet.title.includes('Обзор матча');
+        const condition2 = v.snippet.title.includes('Лучшие моменты матча');
+        const condition3 = v.snippet.title.includes('Огляд матчу');
+        if (condition1 || condition2 || condition3) {
+          data.push({
+            videoId: v.id.videoId,
+            url: `https://www.youtube.com/watch?v=${v.id.videoId}`,
+            date: v.snippet.publishedAt,
+            title: v.snippet.title.replace('-', '—'),
+            channelTitle: v.snippet.channelTitle
+          })
+        }
+      });
+    }
   })
   return data
 }
