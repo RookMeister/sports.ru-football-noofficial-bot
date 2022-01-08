@@ -13,6 +13,7 @@ import { setLastActionToUserMiddleware } from '@bot/middlewares/last-action-to-u
 import { startCommandHandler } from '@bot/handlers/start-command.handler';
 import { matchesHandler } from '@bot/handlers/matches.handler';
 import { timeCommandHandler, setTimeZoneHandler } from '@bot/handlers/timezone.handler';
+import { sendChangelogCommandHandler } from '@bot/handlers/send-changelog-command.handler';
 
 const bot = new Telegraf(config.BOT_TOKEN, {
   telegram: {
@@ -35,6 +36,8 @@ bot.action('update-matches', (ctx) => matchesHandler(ctx, true));
 
 bot.command('time', timeCommandHandler);
 bot.action(selectData('select-time').filter(), setTimeZoneHandler);
+
+bot.command('sendChangeLog', (ctx) => sendChangelogCommandHandler(ctx));
 
 bot.on('text', (ctx) => ctx.reply('Извини, я не могу тебя понять. Используй кнопки. Если не видишь кнопки, отправь мне /start'));
 
