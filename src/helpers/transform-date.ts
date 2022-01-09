@@ -1,3 +1,5 @@
+import { formatISO } from 'date-fns';
+
 export const setTime = (timeZone: string, date: string) => {
   const newDate = new Date(date);
   const hours = newDate.getHours();
@@ -11,9 +13,9 @@ export const UTCDate = (prev = false) => {
   if (prev) {
     today.setUTCDate(today.getUTCDate() - 1);
   }
-  const year = today.getUTCFullYear();
-  const month = today.getUTCMonth();
-  const day = today.getUTCDate();
-  const date = `${year}-${month+1}-${day}`;
+  // const year = today.getUTCFullYear();
+  // const month = today.getUTCMonth();
+  // const day = today.getUTCDate();
+  const date = formatISO(today, { representation: 'date' };
   return date;
 }
