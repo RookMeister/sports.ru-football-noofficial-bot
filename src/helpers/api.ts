@@ -64,7 +64,11 @@ export async function getMatches(ids: string[] | null): Promise<IDataMatches | n
   response.forEach((m: ISportsMatchResponse) => {
     if (typeof tournamentIndex[m.tournament.id] === 'undefined') {
       tournamentIndex[m.tournament.id] = Object.keys(tournamentIndex).length;
-      data.push({ name: `${m.tournament.name} ${m.tournament.stage_name}`, matches: [] });
+      const id = m.tournament.id;
+      const name = m.tournament.stage_name
+        ? `${m.tournament.name} ${m.tournament.stage_name}`
+        : m.tournament.name;
+      data.push({ name, id, matches: [] });
     }
     // !tournamentIndex[m.tournament.id] && (tournamentIndex[m.tournament.id] = i) && (data.push({ name: m.tournament.id, matches: [] }));
     data[tournamentIndex[m.tournament.id]].matches.push(m);

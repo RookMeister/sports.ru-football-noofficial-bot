@@ -1,5 +1,5 @@
 // MatchResponse
-export type IDataMatches = { name: string; matches: ISportsMatchResponse[] }[]
+export type IDataMatches = { name: string; id: number; matches: ISportsMatchResponse[] }[]
 export interface ISportsMatchResponse {
   id: number;
   sport_id: number;
