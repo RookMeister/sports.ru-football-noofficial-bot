@@ -35,7 +35,9 @@ export const initAgenda = async () => {
         const matches = await getMatches(ids);
         const tournaments = matches.map(({ name, id }) => ({ name, sports_id: id }))
         TournamentsModel.create(tournaments);
-      } catch (error) {}
+      } catch (error) {
+        console.log('check tournaments', error);
+      }
     });
     agenda.define('check matches', async () => {
       try {
