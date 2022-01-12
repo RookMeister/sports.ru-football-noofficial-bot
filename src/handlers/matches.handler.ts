@@ -7,7 +7,6 @@ import { ReviewsModel } from '@bot/models/reviews.model';
 import { getMatches } from '@bot/helpers/api';
 import { IDataMatches } from '@bot/interfaces/sports.ru.interface';
 
-
 export const matchesHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = matchesUpdate;
   const keyboard = inlineKeyboard(values, size, column);
@@ -38,7 +37,7 @@ async function convertTeaserData(matches: IDataMatches | null, timeZone: string)
       }
       string += `<a href="${m.page_info.desktop_url}">${m.first_team.name} \u2014 ${m.second_team.name}</a> `;
       if (m.status_id > 1) {
-        string += `${m.score + ' ' + m.state_name}`;
+        string += `${m.first_team.score}:${m.second_team.score} ${m.state_name}`;
         const [date] = new Date(m.start_time.full).toISOString().split('T');
         const title = new RegExp(`${m.first_team.name}|${m.second_team.name}`);
         const review = await ReviewsModel.findReview({ date, title });

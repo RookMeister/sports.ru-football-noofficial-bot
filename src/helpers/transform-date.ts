@@ -13,9 +13,6 @@ export const UTCDate = (prev = false) => {
   if (prev) {
     today.setUTCDate(today.getUTCDate() - 1);
   }
-  // const year = today.getUTCFullYear();
-  // const month = today.getUTCMonth();
-  // const day = today.getUTCDate();
   const date = formatISO(today, { representation: 'date' });
   return date;
 }
