@@ -28,7 +28,7 @@ async function convertTeaserData(matches: IDataMatches | null, timeZone: string)
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
   const res = [];
   for (const t of matches) {
-    res.push(`\r\n<b><i>${t.name}</i></b>\r\n`);
+    res.push(`\r\n<b><i>${t.title}</i></b>\r\n`);
     for (const m of t.matches) {
       let string = ''
       const date = setTime(timeZone, m.start_time.full).split(', ');
