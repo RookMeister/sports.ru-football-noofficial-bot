@@ -1,4 +1,4 @@
-import { prop, getModelForClass, ReturnModelType, modelOptions } from '@typegoose/typegoose';
+import { prop, getModelForClass, modelOptions } from '@typegoose/typegoose';
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 
 @modelOptions({ schemaOptions: { timestamps: true } })

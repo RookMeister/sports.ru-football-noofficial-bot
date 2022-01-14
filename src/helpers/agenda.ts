@@ -15,7 +15,6 @@ export const initAgenda = async () => {
       }
     });
 
-
     agenda.define('check tournaments', async () => {
       try {
         const browser = await chromium.launch({ chromiumSandbox: false });
@@ -34,7 +33,7 @@ export const initAgenda = async () => {
         await browser.close();
         const matches = await getMatches(ids);
         const tournaments = matches.map(({ name, id }) => ({ name, sports_id: id }))
-        TournamentsModel.create(tournaments);
+        await TournamentsModel.create(tournaments);
       } catch (error) {
         console.log('check tournaments', error);
       }
