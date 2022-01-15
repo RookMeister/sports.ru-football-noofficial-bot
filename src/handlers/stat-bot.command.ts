@@ -16,9 +16,6 @@ export const statBotCommandHandler = async (ctx: Context, date: string, edit: bo
 
     const [users, stats] = await Promise.all([usersData, statsData]);
 
-    console.log(stringDate, formatISO(users[0].createdAt, { representation: 'date' }));
-    
-
     const alluserscount = users.length || 0;
     const newuserscount = users.filter(user => formatISO(user.createdAt, { representation: 'date' }) === stringDate).length || 0;
     const allcount = stats.find(stat => stat.view === 'all')?.count || 0;

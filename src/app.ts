@@ -11,7 +11,9 @@ process.once("SIGTERM", () => bot.stop("SIGTERM"));
 process.on("uncaughtException", (error) => logger.error(error));
 
 function main() {
-  mongoose.connect(process.env.MONGO);
+  mongoose.connect(process.env.MONGO, {
+    autoIndex: true, //make this also true
+  });
   mongoose.connection.on('error', err => {
     logger.error(
       undefined,
