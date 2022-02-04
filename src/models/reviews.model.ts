@@ -20,6 +20,10 @@ export class Reviews extends TimeStamps {
   static async findReview(this: ReturnModelType<typeof Reviews>,{ date, title }: { date: string, title: RegExp }) {
     return await this.findOne({ title: { '$regex': title, $options: 'i' }, date: { '$regex': date } });
   }
+
+  static async findReviewToday(this: ReturnModelType<typeof Reviews>, date: string) {
+    return await this.find({ date: { '$regex': date } });
+  }
 }
 
 // Get User model
