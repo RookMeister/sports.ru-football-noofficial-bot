@@ -56,10 +56,33 @@ export const initAgenda = async () => {
           });
           return matches;
         });
-        await MatchesModel.saveMatches({ ids });
+        await MatchesModel.saveMatches({ ids, all: false });
         await browser.close();
       } catch (error) {
         console.log('check matches', error);
+      }
+    });
+    agenda.define('check matches all', async () => {
+      try {
+        const browser = await chromium.launch({ chromiumSandbox: false });
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await page.goto('https://www.sports.ru/football/match/');
+        const ids = await page.$eval('[data-control="Common.Accordion"]', (elms: any) => {
+          const matches = [];
+          const list = elms.querySelectorAll('[data-match-id]');
+          list.forEach(li => {
+            if (li.clientHeight) {
+              const id = li.getAttribute('data-match-id');
+              matches.push(id);
+            }
+          });
+          return matches;
+        });
+        await MatchesModel.saveMatches({ ids, all: true });
+        await browser.close();
+      } catch (error) {
+        console.log('check matches all', error);
       }
     });
     agenda.define('check reviews', async () => {
@@ -72,6 +95,7 @@ export const initAgenda = async () => {
     await agenda.start();
     await agenda.every('0 04 * * *', 'check tournaments');
     await agenda.every('1 hours', 'check matches');
+    await agenda.every('1 days', 'check matches all');
     await agenda.every('0 00,04,17,20,23 * * *', 'check reviews');
   } catch {}
 }
