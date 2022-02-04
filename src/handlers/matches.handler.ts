@@ -14,9 +14,9 @@ export const matchesHandler = async (ctx: Context, update = false) => {
   const matches = await getMatches(ids);
   const info = await convertTeaserData(matches, ctx.dbuser.timeZone);
   if (update) {
-    await ctx.editMessageText(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));
+    return await ctx.editMessageText(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));
   } else {
-    await ctx.replyWithHTML(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard });
+    return await ctx.replyWithHTML(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard });
   }
 };
 
