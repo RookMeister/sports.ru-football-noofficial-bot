@@ -20,7 +20,7 @@ export class Matches extends TimeStamps {
   static async getTodayTopMatches(this: ReturnModelType<typeof Matches>) {
     const date = UTCDate();
     const topTournaments = await TournamentsModel.getTopTournamentsId();
-    const topTournamentsIds = topTournaments.map({ sport_id } => sport_id)
+    const topTournamentsIds = topTournaments.map(t => t.sports_id);
     const day = await this.findOne({ date });
     const filter = day.allIds.filter((m) => topTournamentsIds.includes(m.id));
     const ids = filter.map(m => m.matchesIds);
