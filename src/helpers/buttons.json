@@ -13,6 +13,11 @@
     "column": false,
     "values": [{ "label": "Обновить", "value": "update-matches", "active": 1 }]
   },
+  "reviewsUpdate": {
+    "size": 1,
+    "column": false,
+    "values": [{ "label": "Обновить", "value": "update-reviews", "active": 1 }]
+  },
   "statTournamentMenu": {
     "size": 3,
     "column": false,

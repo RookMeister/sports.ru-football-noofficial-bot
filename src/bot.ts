@@ -53,6 +53,7 @@ bot.command('stat', (ctx) => statBotCommandHandler(ctx, 'now', false));
 bot.action(selectData('select-stat-bot').filter(), statBotMenuSelectHandler);
 
 bot.command('reviews', (ctx) => reviewsCommandHandler(ctx));
+bot.action('update-reviews', (ctx) => reviewsCommandHandler(ctx, true));
 
 bot.on('text', (ctx) => ctx.reply('Извини, я не могу тебя понять. Используй кнопки. Если не видишь кнопки, отправь мне /start'));
 
