@@ -73,6 +73,7 @@ export async function getMatches(ids: string[] | null): Promise<IDataMatches | n
     }
     // !tournamentIndex[m.tournament.id] && (tournamentIndex[m.tournament.id] = i) && (data.push({ name: m.tournament.id, matches: [] }));
     data[tournamentIndex[m.tournament.id]].matches.push(m);
+    data[tournamentIndex[m.tournament.id]].matchesIds.push(m.id);
     // matches[i].matches.push({
     //   status: { name: m.status_name, id: m.status_id },
     //   start_time: m.start_time,
