@@ -32,9 +32,9 @@ export const initAgenda = async () => {
         });
         await browser.close();
         const matches = await getMatches(ids);
-        const tournaments = matches.map(({ name, id }) => ({ name, sports_id: id }))
+        // const tournaments = matches.map(({ name, id }) => ({ name, sports_id: id }))
         const matchesAll = matches.map(({ name, id, matchesIds, title }) => ({ name, title, id, matchesIds }))
-        await TournamentsModel.create(tournaments);
+        // await TournamentsModel.create(tournaments);
         await MatchesModel.saveMatchesAll(matchesAll);
       } catch (error) {
         console.log('check tournaments', error);
