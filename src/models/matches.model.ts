@@ -17,13 +17,14 @@ export class Matches extends TimeStamps {
     return ids;
   }
 
-  static async getTodayTopMatches(this: ReturnModelType<typeof Matches>) {
+  static async getTodayTopMatches(this: ReturnModelType<typeof Matches>): Promise<string[]> {
     const date = UTCDate();
     const topTournaments = await TournamentsModel.getTopTournamentsId();
     const topTournamentsIds = topTournaments.map(t => t.sports_id);
     const day = await this.findOne({ date });
     const filter = day.allIds.filter((m) => topTournamentsIds.includes(m.id));
-    const ids = filter.map(m => m.matchesIds);
+    const ids = []
+    filter.forEach(m => ids.push(...m.matchesIds));
     return ids;
   }
 
