@@ -2,6 +2,7 @@ import { prop, getModelForClass, ReturnModelType, modelOptions, Severity } from 
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { UTCDate } from '@bot/helpers/transform-date';
 import { IMatchesSaveAll } from '@bot/interfaces/sports.ru.interface';
+import { TournamentsModel } from '@bot/models/tournamnets.model';
 
 @modelOptions({ schemaOptions: { timestamps: true }, options: { allowMixed: Severity.ALLOW } })
 export class Matches extends TimeStamps {
@@ -13,6 +14,16 @@ export class Matches extends TimeStamps {
     const date = UTCDate();
     const matches = await this.findOne({ date });
     const ids = matches ? matches.ids : null;
+    return ids;
+  }
+
+  static async getTodayTopMatches(this: ReturnModelType<typeof Matches>) {
+    const date = UTCDate();
+    const topTournaments = await TournamentsModel.getTopTournamentsId();
+    const topTournamentsIds = topTournaments.map({ sport_id } => sport_id)
+    const day = await this.findOne({ date });
+    const filter = day.allIds.filter((m) => topTournamentsIds.includes(m.id));
+    const ids = filter.map(m => m.matchesIds);
     return ids;
   }
 
