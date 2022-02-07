@@ -44,6 +44,7 @@ export class Matches extends TimeStamps {
     const date = UTCDate();
 
     const matches = await this.findOne({ date })
+    console.log(matches.date, matchesAll[0]);
     if (matches) {
       matches.allIds = matchesAll;
       matches.save();
