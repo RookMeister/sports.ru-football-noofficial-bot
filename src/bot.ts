@@ -52,6 +52,7 @@ bot.command('changelog', (ctx) => changelogCommandHandler(ctx));
 bot.command('stat', (ctx) => statBotCommandHandler(ctx, 'now', false));
 bot.action(selectData('select-stat-bot').filter(), statBotMenuSelectHandler);
 
+bot.hears('Обзоры', (ctx) => reviewsCommandHandler(ctx));
 bot.command('reviews', (ctx) => reviewsCommandHandler(ctx));
 bot.action('update-reviews', (ctx) => reviewsCommandHandler(ctx, true));
 

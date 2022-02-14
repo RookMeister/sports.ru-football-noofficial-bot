@@ -5,6 +5,7 @@
     "values": [
       { "label": "Матчи", "active": 1 },
       { "label": "Статистика", "active": 1 },
+      { "label": "Обзоры", "active": 1 },
       { "label": "О боте", "active": 0 }
     ]
   },

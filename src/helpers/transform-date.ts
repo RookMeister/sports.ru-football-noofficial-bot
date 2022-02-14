@@ -16,3 +16,11 @@ export const UTCDate = (prev = false) => {
   const date = formatISO(today, { representation: 'date' });
   return date;
 }
+
+export const UTCPrev12 = () => {
+  const today = new Date();
+  today.setHours(today.getUTCHours() - 12);
+  const date = formatISO(today, { representation: 'date' });
+
+  return date;
+}
