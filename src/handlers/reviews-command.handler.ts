@@ -1,9 +1,13 @@
 import { Context } from 'telegraf';
-import { UTCDate } from '@bot/helpers/transform-date';
+import { UTCPrev12 } from '@bot/helpers/transform-date';
 import { ReviewsModel } from '@bot/models/reviews.model';
+import { inlineKeyboard } from '@bot/helpers/keyboards';
+import { reviewsUpdate } from '@bot/helpers/buttons.json';
 
-export const reviewsCommandHandler = async (ctx: Context) => {
-  const stringDate = UTCDate(true);
+export const reviewsCommandHandler = async (ctx: Context, update = false) => {
+  const { size, column, values } = reviewsUpdate;
+  const keyboard = inlineKeyboard(values, size, column);
+  const stringDate = UTCPrev12();
   const reviews = await ReviewsModel.findReviewToday(stringDate);
   let string = `\r\n<b><i>Обзоры матчей за ${stringDate}</i></b>\r\n\r\n`
   if (reviews.length) {
@@ -13,5 +17,9 @@ export const reviewsCommandHandler = async (ctx: Context) => {
   } else {
     string += 'Нет обзоров матчей';
   }
-  return await ctx.replyWithHTML(string, { disable_web_page_preview: true, parse_mode: 'HTML' });
+  if (update) {
+    return await ctx.editMessageText(string, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));
+  } else {
+    return await ctx.replyWithHTML(string, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard });
+  }
 };

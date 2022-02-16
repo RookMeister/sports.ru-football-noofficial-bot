@@ -11,6 +11,7 @@ export const matchesHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = matchesUpdate;
   const keyboard = inlineKeyboard(values, size, column);
   const ids = await MatchesModel.getTodayMatches();
+  // const ids = await MatchesModel.getTodayTopMatches();
   const matches = await getMatches(ids);
   const info = await convertTeaserData(matches, ctx.dbuser.timeZone);
   if (update) {

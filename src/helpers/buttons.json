@@ -5,6 +5,7 @@
     "values": [
       { "label": "Матчи", "active": 1 },
       { "label": "Статистика", "active": 1 },
+      { "label": "Обзоры", "active": 1 },
       { "label": "О боте", "active": 0 }
     ]
   },
@@ -12,6 +13,11 @@
     "size": 1,
     "column": false,
     "values": [{ "label": "Обновить", "value": "update-matches", "active": 1 }]
+  },
+  "reviewsUpdate": {
+    "size": 1,
+    "column": false,
+    "values": [{ "label": "Обновить", "value": "update-reviews", "active": 1 }]
   },
   "statTournamentMenu": {
     "size": 3,

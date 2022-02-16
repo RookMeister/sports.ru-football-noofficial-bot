@@ -69,17 +69,10 @@ export async function getMatches(ids: string[] | null): Promise<IDataMatches | n
       const title = m.tournament.stage_name
         ? `${m.tournament.name} ${m.tournament.stage_name}`
         : m.tournament.name;
-      data.push({ name, title, id, matches: [] });
+      data.push({ name, title, id, matches: [], matchesIds: [] });
     }
-    // !tournamentIndex[m.tournament.id] && (tournamentIndex[m.tournament.id] = i) && (data.push({ name: m.tournament.id, matches: [] }));
     data[tournamentIndex[m.tournament.id]].matches.push(m);
-    // matches[i].matches.push({
-    //   status: { name: m.status_name, id: m.status_id },
-    //   start_time: m.start_time,
-    //   online_url: m.page_info.desktop_url,
-    //   first_team: m.first_team,
-    //   second_team: m.second_team
-    // });
+    data[tournamentIndex[m.tournament.id]].matchesIds.push(m.id);
   })
 
   return data;
