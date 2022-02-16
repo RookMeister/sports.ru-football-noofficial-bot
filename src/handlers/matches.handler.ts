@@ -7,11 +7,10 @@ import { ReviewsModel } from '@bot/models/reviews.model';
 import { getMatches } from '@bot/helpers/api';
 import { IDataMatches } from '@bot/interfaces/sports.ru.interface';
 
-export const matchesHandler = async (ctx: Context, update = false) => {
+export const matchesHandler = async (ctx: Context, update = false, prev = false) => {
   const { size, column, values } = matchesUpdate;
   const keyboard = inlineKeyboard(values, size, column);
-  const ids = await MatchesModel.getTodayMatches();
-  // const ids = await MatchesModel.getTodayTopMatches();
+  const ids = await MatchesModel.getTodayTopMatches(prev);
   const matches = await getMatches(ids);
   const info = await convertTeaserData(matches, ctx.dbuser.timeZone);
   if (update) {
@@ -22,7 +21,7 @@ export const matchesHandler = async (ctx: Context, update = false) => {
 };
 
 async function convertTeaserData(matches: IDataMatches | null, timeZone: string) {
-  if (!matches) {
+  if (!matches || !matches.length) {
     return 'Нет подходящих матчей'
   }
 
