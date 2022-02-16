@@ -17,8 +17,8 @@ export class Matches extends TimeStamps {
     return ids;
   }
 
-  static async getTodayTopMatches(this: ReturnModelType<typeof Matches>): Promise<string[]> {
-    const date = UTCDate();
+  static async getTodayTopMatches(this: ReturnModelType<typeof Matches>, prev: boolean): Promise<string[]> {
+    const date = UTCDate(prev);
     const topTournaments = await TournamentsModel.getTopTournamentsId();
     const topTournamentsIds = topTournaments.map(t => t.sports_id);
     const day = await this.findOne({ date });
@@ -30,7 +30,6 @@ export class Matches extends TimeStamps {
 
   static async saveMatches(this: ReturnModelType<typeof Matches>, { ids }) {
     const date = UTCDate();
-
     const matches = await this.findOne({ date })
     if (matches) {
       matches.ids = ids;
@@ -42,9 +41,7 @@ export class Matches extends TimeStamps {
 
   static async saveMatchesAll(this: ReturnModelType<typeof Matches>, matchesAll: IMatchesSaveAll) {
     const date = UTCDate();
-
     const matches = await this.findOne({ date })
-    console.log(matches.date, matchesAll[0]);
     if (matches) {
       matches.allIds = matchesAll;
       matches.save();
