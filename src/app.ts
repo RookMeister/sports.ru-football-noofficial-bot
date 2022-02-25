@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 import config from "@bot/config";
 import logger from "@bot/logger";
-import { bot, app } from "@bot/bot";
+import bot from "@bot/bot";
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
@@ -31,19 +31,16 @@ function main() {
         msg: "setting webhook",
         url: `${config.BOT_WEBHOOK_URL}${config.BOT_WEBHOOK_PATH}`,
       });
-      await bot.launch({
-        webhook: {
-          domain: config.BOT_WEBHOOK_URL,
-          // hookPath: config.BOT_WEBHOOK_PATH,
-          port: config.BOT_PORT,
-          host: config.BOT_HOST,
-        },
-      });
-      // await bot.launch();
+      // await bot.launch({
+      //   webhook: {
+      //     domain: config.BOT_WEBHOOK_URL,
+      //     // hookPath: config.BOT_WEBHOOK_PATH,
+      //     port: config.BOT_PORT,
+      //     host: config.BOT_HOST,
+      //   },
+      // });
+      await bot.launch();
       bot.catch(data => console.log('ERROR', data));
-      app.listen(config.BOT_PORT).then(() => {
-        console.log('Listening on port', config.BOT_PORT)
-      })
     }
 
     logger.info({ msg: `bot started ${bot.botInfo.username}` });

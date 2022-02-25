@@ -36,9 +36,11 @@ export async function getReviewMatches(): Promise<any[]> {
     if (y.items) {
       y.items.forEach((v: any) => {
         const condition1 = v.snippet.title.includes('Обзор матча');
-        const condition2 = v.snippet.title.includes('Лучшие моменты матча');
-        const condition3 = v.snippet.title.includes('Огляд матчу');
-        if (condition1 || condition2 || condition3) {
+        const condition2 = v.snippet.title.includes('Обзор первого матча');
+        const condition3 = v.snippet.title.includes('Обзор второго матча');
+        const condition4 = v.snippet.title.includes('Лучшие моменты матча');
+        const condition5 = v.snippet.title.includes('Огляд матчу');
+        if (condition1 || condition2 || condition3 || condition4 || condition5) {
           data.push({
             videoId: v.id.videoId,
             url: `https://www.youtube.com/watch?v=${v.id.videoId}`,

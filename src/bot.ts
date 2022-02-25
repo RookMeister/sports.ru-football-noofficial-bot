@@ -1,6 +1,4 @@
 import { Telegraf } from 'telegraf';
-import fastify from 'fastify';
-import telegrafPlugin from 'fastify-telegraf';
 import config from '@bot/config';
 import { initAgenda } from '@bot/helpers/agenda';
 
@@ -28,14 +26,8 @@ const bot = new Telegraf(config.BOT_TOKEN, {
   },
 });
 
-const app = fastify()
 
-const SECRET_PATH = `/telegraf/${bot.secretPathComponent()}`;
-app.register(telegrafPlugin, { bot, path: SECRET_PATH });
 
-app.get('/666', async function (request, reply) {
-  return { hello: 'world' }
-})
 
 initAgenda();
 
@@ -70,4 +62,4 @@ bot.action('update-reviews', (ctx) => reviewsCommandHandler(ctx, true));
 
 bot.on('text', (ctx) => ctx.reply('Извини, я не могу тебя понять. Используй кнопки. Если не видишь кнопки, отправь мне /start'));
 
-export { bot, app };
+export default bot;

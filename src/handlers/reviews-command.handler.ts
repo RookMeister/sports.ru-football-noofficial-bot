@@ -1,5 +1,5 @@
 import { Context } from 'telegraf';
-import { UTCPrev12 } from '@bot/helpers/transform-date';
+import { UTCPrev12Hours } from '@bot/helpers/transform-date';
 import { ReviewsModel } from '@bot/models/reviews.model';
 import { inlineKeyboard } from '@bot/helpers/keyboards';
 import { reviewsUpdate } from '@bot/helpers/buttons.json';
@@ -7,7 +7,7 @@ import { reviewsUpdate } from '@bot/helpers/buttons.json';
 export const reviewsCommandHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = reviewsUpdate;
   const keyboard = inlineKeyboard(values, size, column);
-  const stringDate = UTCPrev12();
+  const stringDate = UTCPrev12Hours();
   const reviews = await ReviewsModel.findReviewToday(stringDate);
   let string = `\r\n<b><i>Обзоры матчей за ${stringDate}</i></b>\r\n\r\n`
   if (reviews.length) {

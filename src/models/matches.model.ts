@@ -1,6 +1,6 @@
 import { prop, getModelForClass, ReturnModelType, modelOptions, Severity } from '@typegoose/typegoose';
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
-import { UTCDate } from '@bot/helpers/transform-date';
+import { UTCDate, UTCPrev1Hours, UTCPrev1Day1Hours } from '@bot/helpers/transform-date';
 import { IMatchesSaveAll } from '@bot/interfaces/sports.ru.interface';
 import { TournamentsModel } from '@bot/models/tournamnets.model';
 
@@ -18,11 +18,11 @@ export class Matches extends TimeStamps {
   }
 
   static async getTodayTopMatches(this: ReturnModelType<typeof Matches>, prev: boolean): Promise<string[]> {
-    const date = UTCDate(prev);
+    const date = prev ? UTCPrev1Day1Hours() : UTCPrev1Hours();
     const topTournaments = await TournamentsModel.getTopTournamentsId();
     const topTournamentsIds = topTournaments.map(t => t.sports_id);
     const day = await this.findOne({ date });
-    const filter = day.allIds.filter((m) => topTournamentsIds.includes(m.id));
+    const filter = day.allIds ? day.allIds.filter((m) => topTournamentsIds.includes(m.id)) : [];
     const ids = []
     filter.forEach(m => ids.push(...m.matchesIds));
     return ids;

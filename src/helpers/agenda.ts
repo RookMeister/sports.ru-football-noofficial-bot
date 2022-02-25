@@ -20,7 +20,7 @@ export const initAgenda = async () => {
         const browser = await chromium.launch({ chromiumSandbox: false });
         const context = await browser.newContext();
         const page = await context.newPage();
-        await page.goto('https://www.sports.ru/football/match/');
+        await page.goto('https://www.sports.ru/football/match/', { waitUntil: 'load', timeout: 0 });
         const ids = await page.$eval('.panel.active-panel', (elms: any) => {
           const matches = [];
           const list = elms.querySelectorAll('[data-match-id]');
@@ -40,53 +40,6 @@ export const initAgenda = async () => {
         console.log('check tournaments', error);
       }
     });
-    agenda.define('check matches', async () => {
-      try {
-        const browser = await chromium.launch({ chromiumSandbox: false });
-        const context = await browser.newContext();
-        const page = await context.newPage();
-        await page.goto('https://www.sports.ru/football');
-        const ids = await page.$eval('[data-accordion-id="teaser"]', (elms: any) => {
-          const matches = [];
-          const list = elms.querySelectorAll('.accordion-group.teaser-group');
-          list.forEach((item, i) => {
-            const listElms = item.querySelectorAll('.teaser-event');
-            listElms.forEach((li) => {
-              const id = li.getAttribute('data-match-id');
-              matches.push(id);
-            });
-          });
-          return matches;
-        });
-        await MatchesModel.saveMatches({ ids });
-        await browser.close();
-      } catch (error) {
-        console.log('check matches', error);
-      }
-    });
-    // agenda.define('check matches all', async () => {
-    //   try {
-    //     const browser = await chromium.launch({ chromiumSandbox: false });
-    //     const context = await browser.newContext();
-    //     const page = await context.newPage();
-    //     await page.goto('https://www.sports.ru/football/match/');
-    //     const ids = await page.$eval('[data-control="Common.Accordion"]', (elms: any) => {
-    //       const matches = [];
-    //       const list = elms.querySelectorAll('[data-match-id]');
-    //       list.forEach(li => {
-    //         if (li.clientHeight) {
-    //           const id = li.getAttribute('data-match-id');
-    //           matches.push(id);
-    //         }
-    //       });
-    //       return matches;
-    //     });
-    //     await MatchesModel.saveMatches({ ids, all: true });
-    //     await browser.close();
-    //   } catch (error) {
-    //     console.log('check matches all', error);
-    //   }
-    // });
     agenda.define('check reviews', async () => {
       const reviews = await getReviewMatches();
       for (const r of reviews) {
@@ -95,10 +48,7 @@ export const initAgenda = async () => {
     })
 
     await agenda.start();
-    await agenda.every('0 00 01 * * *', 'check tournaments');
-    // await agenda.every('1 days', 'check tournaments');
-    await agenda.every('1 hours', 'check matches');
-    // await agenda.every('1 days', 'check matches all');
+    await agenda.every('0 01,02,03 * * *', 'check tournaments');
     await agenda.every('0 01,04,17,20,23 * * *', 'check reviews');
   } catch {}
 }
