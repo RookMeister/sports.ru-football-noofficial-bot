@@ -3,7 +3,7 @@ import { table } from 'table';
 import { selectData } from '@bot/helpers/callback-data';
 import { ReviewsModel } from '@bot/models/reviews.model';
 import { inlineKeyboard } from '@bot/helpers/keyboards';
-import { statTournamentMenu } from '@bot/helpers/buttons.json';
+import { statTournamentMenu } from '@bot/helpers/buttons';
 import {
   getTornaments, getTornamentTable, getTornamentLastMatches, getTornamentFutureMatches, getTornamentPlayersStat
 } from '@bot/helpers/api';

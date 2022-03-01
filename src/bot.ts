@@ -41,8 +41,7 @@ bot.use(setLastActionToUserMiddleware);
 bot.start(startCommandHandler);
 
 bot.hears('Матчи', (ctx) => matchesHandler(ctx));
-bot.action('update-matches', (ctx) => matchesHandler(ctx, true));
-bot.action('update-matches-prev', (ctx) => matchesHandler(ctx, true, true));
+bot.action(selectData('update-matches').filter(), (ctx) => matchesHandler(ctx, true));
 
 bot.hears('Статистика', (ctx) => statCommandHandler(ctx));
 bot.action(selectData('select-tournament').filter(), (ctx) => statTournamentTabletHandler(ctx));

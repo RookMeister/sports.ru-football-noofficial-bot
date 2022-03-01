@@ -5,6 +5,7 @@ import { MatchesModel } from '@bot/models/matches.model';
 import { TournamentsModel } from '@bot/models/tournamnets.model';
 import { ReviewsModel } from '@bot/models/reviews.model';
 import { getMatches } from '@bot/helpers/api';
+import { UTCNext1Day } from '@bot/helpers/transform-date';
 
 export const initAgenda = async () => {
   try {
@@ -20,7 +21,8 @@ export const initAgenda = async () => {
         const browser = await chromium.launch({ chromiumSandbox: false });
         const context = await browser.newContext();
         const page = await context.newPage();
-        await page.goto('https://www.sports.ru/football/match/', { waitUntil: 'load', timeout: 0 });
+        const date = UTCNext1Day();
+        await page.goto(`https://www.sports.ru/football/match/${date}/`, { waitUntil: 'load', timeout: 0 });
         const ids = await page.$eval('.panel.active-panel', (elms: any) => {
           const matches = [];
           const list = elms.querySelectorAll('[data-match-id]');
@@ -48,7 +50,7 @@ export const initAgenda = async () => {
     })
 
     await agenda.start();
-    await agenda.every('0 01,02,03 * * *', 'check tournaments');
+    await agenda.every('0 00,01 * * *', 'check tournaments');
     await agenda.every('0 01,04,17,20,23 * * *', 'check reviews');
   } catch {}
 }

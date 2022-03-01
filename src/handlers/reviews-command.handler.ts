@@ -2,7 +2,7 @@ import { Context } from 'telegraf';
 import { UTCPrev12Hours } from '@bot/helpers/transform-date';
 import { ReviewsModel } from '@bot/models/reviews.model';
 import { inlineKeyboard } from '@bot/helpers/keyboards';
-import { reviewsUpdate } from '@bot/helpers/buttons.json';
+import { reviewsUpdate } from '@bot/helpers/buttons';
 
 export const reviewsCommandHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = reviewsUpdate;

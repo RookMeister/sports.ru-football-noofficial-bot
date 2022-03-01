@@ -1,16 +1,24 @@
 import { inlineKeyboard } from '@bot/helpers/keyboards';
 import { setTime } from '@bot/helpers/transform-date';
-import { matchesUpdate } from '@bot/helpers/buttons.json';
-import { Context } from 'telegraf';
+import { UTCDate } from '@bot/helpers/transform-date';
+import { matchesUpdate } from '@bot/helpers/buttons';
+import { Context, deunionize } from 'telegraf';
 import { MatchesModel } from '@bot/models/matches.model';
 import { ReviewsModel } from '@bot/models/reviews.model';
 import { getMatches } from '@bot/helpers/api';
 import { IDataMatches } from '@bot/interfaces/sports.ru.interface';
+import { selectData } from '@bot/helpers/callback-data';
 
-export const matchesHandler = async (ctx: Context, update = false, prev = false) => {
+export const matchesHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = matchesUpdate;
+  let date = UTCDate()
+  if (update) {
+    const { code } = selectData('update-matches').parse(deunionize(ctx.callbackQuery).data);
+    date = code
+  }
+
   const keyboard = inlineKeyboard(values, size, column);
-  const ids = await MatchesModel.getTodayTopMatches(prev);
+  const ids = await MatchesModel.getTodayTopMatches(date);
   const matches = await getMatches(ids);
   const info = await convertTeaserData(matches, ctx.dbuser.timeZone);
   if (update) {

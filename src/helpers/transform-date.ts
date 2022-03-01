@@ -14,24 +14,16 @@ export const UTCDate = () => {
   return date;
 }
 
+export const UTCNext1Day = () => {
+  const today = new Date();
+  today.setUTCDate(today.getUTCDate() + 1);
+  const date = formatISO(today, { representation: 'date' });
+  return date;
+}
+
 export const UTCPrev1Day = () => {
   const today = new Date();
   today.setUTCDate(today.getUTCDate() - 1);
-  const date = formatISO(today, { representation: 'date' });
-  return date;
-}
-
-export const UTCPrev1Day1Hours = () => {
-  const today = new Date();
-  today.setUTCDate(today.getUTCDate() - 1);
-  today.setHours(today.getUTCHours() - 1);
-  const date = formatISO(today, { representation: 'date' });
-  return date;
-}
-
-export const UTCPrev1Hours = () => {
-  const today = new Date();
-  today.setHours(today.getUTCHours() - 1);
   const date = formatISO(today, { representation: 'date' });
   return date;
 }

@@ -5,7 +5,7 @@ import { selectData } from '@bot/helpers/callback-data';
 import { UTCDate, UTCPrev1Day } from '@bot/helpers/transform-date';
 import { formatISO } from 'date-fns';
 import { inlineKeyboard } from '@bot/helpers/keyboards';
-import { statBotMenu } from '@bot/helpers/buttons.json';
+import { statBotMenu } from '@bot/helpers/buttons';
 
 export const statBotCommandHandler = async (ctx: Context, date: string, edit: boolean) => {
   if (ctx.from.id === 302423620) {

@@ -1,0 +1,75 @@
+import { UTCNext1Day, UTCDate, UTCPrev1Day } from '@bot/helpers/transform-date';
+
+export const mainMenu = {
+  'size': 1,
+  'column': false,
+  'values': [
+    { 'label': 'Матчи', 'active': 1 },
+    { 'label': 'Статистика', 'active': 1 },
+    { 'label': 'Обзоры', 'active': 1 },
+    { 'label': 'О боте', 'active': 0 }
+  ]
+}
+export const matchesUpdate = {
+  'size': 3,
+  'column': false,
+  'values': [
+    { 'label': 'Вчера', 'value': `update-matches:${UTCPrev1Day()}`, 'active': 1 },
+    { 'label': 'Сегодня', 'value': `update-matches:${UTCDate()}`, 'active': 1 },
+    { 'label': 'Завтра', 'value': `update-matches:${UTCNext1Day()}`, 'active': 1 }
+  ]
+}
+export const reviewsUpdate = {
+  'size': 1,
+  'column': false,
+  'values': [{ 'label': 'Обновить', 'value': 'update-reviews', 'active': 1 }]
+}
+export const statTournamentMenu = {
+  'size': 3,
+  'column': false,
+  'values': [
+    { 'active': 1, 'value': 'select-tournament:$.table', 'label':	'Таблица' },
+    { 'active': 1, 'value': 'select-tournament:$.last', 'label':	' Результаты' },
+    { 'active': 1, 'value': 'select-tournament:$.future', 'label':	'Календарь' },
+    { 'active': 1, 'value': 'select-tournament:$.back', 'label':	'Назад' },
+    { 'active': 0, 'value': 'select-tournament:$.player', 'label':	'Статистика игроков' }
+  ]
+}
+export const statBotMenu = {
+  'size': 3,
+  'column': false,
+  'values': [
+    { 'active': 1, 'label':'Вчера', 'value': 'select-stat-bot:prev' },
+    { 'active': 1, 'label':'Сегодня', 'value': 'select-stat-bot:now' }
+  ]
+}
+export const setTime = {
+  'size': 6,
+  'column': false,
+  'values': [
+    { 'active': 1, 'label':'-12', 'value':'select-time:-12' },
+    { 'active': 1, 'label':'-11', 'value':'select-time:-11'},
+    { 'active': 1, 'label':'-10', 'value':'select-time:-10'},
+    { 'active': 1, 'label':'-9', 'value':'select-time:-9'},
+    { 'active': 1, 'label':'-8', 'value':'select-time:-8'},
+    { 'active': 1, 'label':'-7', 'value':'select-time:-7'},
+    { 'active': 1, 'label':'-6', 'value':'select-time:-6'},
+    { 'active': 1, 'label':'-5', 'value':'select-time:-5'},
+    { 'active': 1, 'label':'-4', 'value':'select-time:-4'},
+    { 'active': 1, 'label':'-3', 'value':'select-time:-3'},
+    { 'active': 1, 'label':'-2', 'value':'select-time:-2'},
+    { 'active': 1, 'label':'-1', 'value':'select-time:-1'},
+    { 'active': 1, 'label':'0', 'value':'select-time:0'},
+    { 'active': 1, 'label':'+1', 'value':'select-time:+1'},
+    { 'active': 1, 'label':'+2', 'value':'select-time:+2'},
+    { 'active': 1, 'label':'+3', 'value':'select-time:+3'},
+    { 'active': 1, 'label':'+4', 'value':'select-time:+4'},
+    { 'active': 1, 'label':'+5', 'value':'select-time:+5'},
+    { 'active': 1, 'label':'+6', 'value':'select-time:+6'},
+    { 'active': 1, 'label':'+7', 'value':'select-time:+7'},
+    { 'active': 1, 'label':'+8', 'value':'select-time:+8'},
+    { 'active': 1, 'label':'+9', 'value':'select-time:+9'},
+    { 'active': 1, 'label':'+10', 'value':'select-time:+10'},
+    { 'active': 1, 'label':'+11', 'value':'select-time:+11'}
+  ]
+}
