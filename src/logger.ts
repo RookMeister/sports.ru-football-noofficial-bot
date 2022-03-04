@@ -3,6 +3,7 @@ import config from "@bot/config";
 
 export const loggerOptions: Logger.LoggerOptions = {
   level: config.LOG_LEVEL,
+  timestamp: () => `,"time":"${new Date(Date.now()).toISOString()}"`
 };
 
 if (config.isDevelopment) {
@@ -11,7 +12,7 @@ if (config.isDevelopment) {
     colorize: true,
     translateTime: true,
   };
-}
+} 
 
 const logger = Logger(loggerOptions);
 

@@ -1,5 +1,3 @@
-import { UTCNext1Day, UTCDate, UTCPrev1Day } from '@bot/helpers/transform-date';
-
 export const mainMenu = {
   'size': 1,
   'column': false,
@@ -14,9 +12,9 @@ export const matchesUpdate = {
   'size': 3,
   'column': false,
   'values': [
-    { 'label': 'Вчера', 'value': `update-matches:${UTCPrev1Day()}`, 'active': 1 },
-    { 'label': 'Сегодня', 'value': `update-matches:${UTCDate()}`, 'active': 1 },
-    { 'label': 'Завтра', 'value': `update-matches:${UTCNext1Day()}`, 'active': 1 }
+    { 'label': 'Вчера', 'value': 'update-matches:yesterday', 'active': 1 },
+    { 'label': 'Сегодня', 'value': 'update-matches:today', 'active': 1 },
+    { 'label': 'Завтра', 'value': 'update-matches:tomorrow', 'active': 1 }
   ]
 }
 export const reviewsUpdate = {

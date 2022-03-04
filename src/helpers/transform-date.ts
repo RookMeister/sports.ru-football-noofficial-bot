@@ -8,7 +8,16 @@ export const setTime = (timeZone: string, date: string) => {
   return newDate.toLocaleString('ru', { day: "numeric", month: "numeric", hour: "numeric", minute: "numeric" });
 }
 
-export const UTCDate = () => {
+export const UTCDate = (day = 'today') => {
+  const date = {
+    today: UTCToDay(),
+    yesterday: UTCPrev1Day(),
+    tomorrow: UTCNext1Day()
+  }
+  return date[day]
+}
+
+export const UTCToDay = () => {
   const today = new Date();
   const date = formatISO(today, { representation: 'date' });
   return date;

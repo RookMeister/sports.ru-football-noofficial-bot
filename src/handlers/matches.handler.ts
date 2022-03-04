@@ -14,9 +14,9 @@ export const matchesHandler = async (ctx: Context, update = false) => {
   let date = UTCDate()
   if (update) {
     const { code } = selectData('update-matches').parse(deunionize(ctx.callbackQuery).data);
-    date = code
+    date = UTCDate(code);
   }
-
+  console.log(date);
   const keyboard = inlineKeyboard(values, size, column);
   const ids = await MatchesModel.getTodayTopMatches(date);
   const matches = await getMatches(ids);
