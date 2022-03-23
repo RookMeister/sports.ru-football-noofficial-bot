@@ -14,7 +14,7 @@ export const UTCDate = (day = 'today') => {
     yesterday: UTCPrev1Day(),
     tomorrow: UTCNext1Day()
   }
-  return date[day]
+  return date[day];
 }
 
 export const UTCToDay = () => {

@@ -51,6 +51,6 @@ export const initAgenda = async () => {
 
     await agenda.start();
     await agenda.every('0 00,01 * * *', 'check tournaments');
-    await agenda.every('0 01,04,17,20,23 * * *', 'check reviews');
+    await agenda.every('0 01,02,17,20,23 * * *', 'check reviews');
   } catch {}
 }
