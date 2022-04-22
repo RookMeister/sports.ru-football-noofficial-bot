@@ -6,6 +6,7 @@ export class Reviews extends TimeStamps {
   @prop({ required: true, default: '' }) videoId: string;
   @prop({ required: true, default: '' }) url: string;
   @prop({ required: true, default: '' }) date: string;
+  @prop({ required: true, default: '' }) dateDay: string;
   @prop({ required: true, default: '' }) title: string;
   @prop({ required: true, default: '' }) channelTitle: string;
 

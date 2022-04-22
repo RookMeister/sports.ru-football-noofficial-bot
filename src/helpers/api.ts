@@ -8,6 +8,7 @@ import {
   ISportsTournamentPlayersStatResponse,
   IDataMatches
 } from '@bot/interfaces/sports.ru.interface';
+import { UTCDate } from '@bot/helpers/transform-date';
 
 const _importDynamic = new Function('modulePath', 'return import(modulePath)')
 
@@ -46,6 +47,7 @@ export async function getReviewMatches(): Promise<any[]> {
             videoId: v.id.videoId,
             url: `https://www.youtube.com/watch?v=${v.id.videoId}`,
             date: v.snippet.publishedAt,
+            dateDay: UTCDate(),
             title: v.snippet.title.replace('-', '—'),
             channelTitle: v.snippet.channelTitle
           })
