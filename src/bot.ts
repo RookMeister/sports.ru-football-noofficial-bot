@@ -12,7 +12,7 @@ import { analyticsMiddleware } from '@bot/middlewares/setup-analytics.middleware
 import { setLastActionToUserMiddleware } from '@bot/middlewares/last-action-to-user.middleware';
 
 import { startCommandHandler } from '@bot/handlers/start-command.handler';
-import { reviewsCommandHandler } from '@bot/handlers/reviews-command.handler';
+import { reviewsCommandHandler, reviewsCommandupdateHandler } from '@bot/handlers/reviews-command.handler';
 import { matchesHandler } from '@bot/handlers/matches.handler';
 import { statCommandHandler, statTournamentTabletHandler } from '@bot/handlers/statistics.handler';
 import { timeCommandHandler, setTimeZoneHandler } from '@bot/handlers/timezone.handler';
@@ -58,6 +58,7 @@ bot.action(selectData('select-stat-bot').filter(), statBotMenuSelectHandler);
 bot.hears('Обзоры', (ctx) => reviewsCommandHandler(ctx));
 bot.command('reviews', (ctx) => reviewsCommandHandler(ctx));
 bot.action('update-reviews', (ctx) => reviewsCommandHandler(ctx, true));
+bot.command('updateReviews', (ctx) => reviewsCommandupdateHandler(ctx));
 
 bot.on('text', (ctx) => ctx.reply('Извини, я не могу тебя понять. Используй кнопки. Если не видишь кнопки, отправь мне /start'));
 

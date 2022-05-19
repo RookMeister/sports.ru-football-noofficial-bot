@@ -3,6 +3,7 @@ import { UTCPrev12Hours } from '@bot/helpers/transform-date';
 import { ReviewsModel } from '@bot/models/reviews.model';
 import { inlineKeyboard } from '@bot/helpers/keyboards';
 import { reviewsUpdate } from '@bot/helpers/buttons';
+import { initAgendaNow } from '@bot/helpers/agenda';
 
 export const reviewsCommandHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = reviewsUpdate;
@@ -21,5 +22,13 @@ export const reviewsCommandHandler = async (ctx: Context, update = false) => {
     return await ctx.editMessageText(string, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));
   } else {
     return await ctx.replyWithHTML(string, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard });
+  }
+};
+
+export const reviewsCommandupdateHandler = async (ctx: Context) => {
+  if (ctx.from.id === 302423620) {
+    initAgendaNow();
+  } else {
+    await ctx.reply('Извини, я не могу тебя понять. Используй кнопки. Если не видишь кнопки, отправь мне /start');
   }
 };
