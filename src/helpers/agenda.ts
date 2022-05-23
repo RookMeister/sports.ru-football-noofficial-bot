@@ -21,9 +21,9 @@ agenda.define('check matches', async (job) => {
     const browser = await chromium.launch({ chromiumSandbox: false });
     const context = await browser.newContext();
     const page = await context.newPage();
-    const date = job.attrs.data;
-    logger.info({ msg: `https://www.sports.ru/football/match/${date || UTCNext1Day()}/` });
-    await page.goto(`https://www.sports.ru/football/match/${date || UTCNext1Day()}/`, { waitUntil: 'load', timeout: 0 });
+    const date = job.attrs.data || UTCNext1Day();
+    logger.info({ msg: `https://www.sports.ru/football/match/${date}/` });
+    await page.goto(`https://www.sports.ru/football/match/${date}/`, { waitUntil: 'load', timeout: 0 });
     const ids = await page.$eval('.panel.active-panel', (elms: any) => {
       const matches = [];
       const list = elms.querySelectorAll('[data-match-id]');
@@ -45,10 +45,13 @@ agenda.define('check matches', async (job) => {
   }
 });
 agenda.define('check reviews', async () => {
+  logger.info({ msg: 'start check reviews' });
   const reviews = await getReviewMatches();
   for (const r of reviews) {
     await ReviewsModel.saveReviews(r);
   }
+  logger.info({ msg: 'finish check reviews' });
+
 })
 
 export const initAgenda = async () => {
