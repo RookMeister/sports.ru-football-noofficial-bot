@@ -5,7 +5,8 @@ import { MatchesModel } from '@bot/models/matches.model';
 import { TournamentsModel } from '@bot/models/tournamnets.model';
 import { ReviewsModel } from '@bot/models/reviews.model';
 import { getMatches } from '@bot/helpers/api';
-import { UTCNext1Day } from '@bot/helpers/transform-date';
+import { UTCNext1Day, UTCToDay } from '@bot/helpers/transform-date';
+import logger from '@bot/logger';
 
 const agenda = new Agenda({
   db: {
@@ -14,13 +15,15 @@ const agenda = new Agenda({
   }
 });
 
-agenda.define('check tournaments', async () => {
+agenda.define('check matches', async (job) => {
   try {
+    logger.info({ msg: 'start check matches' });
     const browser = await chromium.launch({ chromiumSandbox: false });
     const context = await browser.newContext();
     const page = await context.newPage();
-    const date = UTCNext1Day();
-    await page.goto(`https://www.sports.ru/football/match/${date}/`, { waitUntil: 'load', timeout: 0 });
+    const date = job.attrs.data;
+    logger.info({ msg: `https://www.sports.ru/football/match/${date || UTCNext1Day()}/` });
+    await page.goto(`https://www.sports.ru/football/match/${date || UTCNext1Day()}/`, { waitUntil: 'load', timeout: 0 });
     const ids = await page.$eval('.panel.active-panel', (elms: any) => {
       const matches = [];
       const list = elms.querySelectorAll('[data-match-id]');
@@ -35,9 +38,10 @@ agenda.define('check tournaments', async () => {
     const tournaments = matches.map(({ name, id }) => ({ name, sports_id: id }))
     await TournamentsModel.create(tournaments).catch(e => console.log(666, e));
     const matchesAll = matches.map(({ name, id, matchesIds, title }) => ({ name, title, id, matchesIds }))
-    await MatchesModel.saveMatchesAll(matchesAll);
+    await MatchesModel.saveMatchesAll({ matchesAll, date });
+    logger.info({ msg: 'finish check matches' });
   } catch (error) {
-    console.log('check tournaments', error);
+    logger.error(undefined, `check tournaments error`, error);
   }
 });
 agenda.define('check reviews', async () => {
@@ -55,8 +59,8 @@ export const initAgenda = async () => {
   } catch {}
 }
 
-export const initAgendaNow = async () => {
+export const updateMathes = async (is: boolean) => {
   try {
-    await agenda.now('check tournaments', {});
+    await agenda.now('check matches', !is ? UTCToDay() : UTCNext1Day());
   } catch {}
 }

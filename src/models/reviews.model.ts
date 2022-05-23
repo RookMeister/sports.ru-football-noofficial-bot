@@ -1,5 +1,6 @@
 import { prop, getModelForClass, ReturnModelType, modelOptions } from '@typegoose/typegoose';
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
+import logger from '@bot/logger';
 
 @modelOptions({ schemaOptions: { timestamps: true } })
 export class Reviews extends TimeStamps {
@@ -13,7 +14,7 @@ export class Reviews extends TimeStamps {
   static async saveReviews(this: ReturnModelType<typeof Reviews>, review: any) {
     const reviewFind = await this.findOne({ videoId: review.videoId });
     if (!reviewFind) {
-      console.log('save', review.title);
+      logger.info({ msg: `save ${review.title}` });
       this.create(review)
     }
   }

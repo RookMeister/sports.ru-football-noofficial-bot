@@ -27,10 +27,10 @@ function main() {
     if (config.isDevelopment || config.isTest) {
       await bot.launch();
     } else if (config.isProduction) {
-      logger.info({
-        msg: "setting webhook",
-        url: `${config.BOT_WEBHOOK_URL}${config.BOT_WEBHOOK_PATH}`,
-      });
+      // logger.info({
+      //   msg: "setting webhook",
+      //   url: `${config.BOT_WEBHOOK_URL}${config.BOT_WEBHOOK_PATH}`,
+      // });
       // await bot.launch({
       //   webhook: {
       //     domain: config.BOT_WEBHOOK_URL,

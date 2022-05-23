@@ -1,6 +1,5 @@
 import { prop, getModelForClass, ReturnModelType, modelOptions, Severity } from '@typegoose/typegoose';
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
-import { UTCNext1Day } from '@bot/helpers/transform-date';
 import { IMatchesSaveAll } from '@bot/interfaces/sports.ru.interface';
 import { TournamentsModel } from '@bot/models/tournamnets.model';
 
@@ -20,8 +19,7 @@ export class Matches extends TimeStamps {
     return ids;
   }
 
-  static async saveMatchesAll(this: ReturnModelType<typeof Matches>, matchesAll: IMatchesSaveAll) {
-    const date = UTCNext1Day();
+  static async saveMatchesAll(this: ReturnModelType<typeof Matches>, { matchesAll, date }: { matchesAll: IMatchesSaveAll, date: string }) {
     const matches = await this.findOne({ date })
     if (matches) {
       matches.allIds = matchesAll;
