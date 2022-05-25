@@ -1,5 +1,6 @@
 import boom from '@hapi/boom';
-import Matches from '@api/models/Matches';
+import MatchesModel from '@api/models/Matches';
+import ReviewsModel from '@api/models/Review';
 import request from '@api/services/request';
 import { RouteHandlerMethod } from 'fastify';
 
@@ -14,19 +15,18 @@ import {
   IDataMatches
 } from '@interfaces/sports.ru.interface';
 
-// export const getTodayTopMatches = async (req: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply): Promise<string[]> => {
 export const getTodayTopMatches: RouteHandlerMethod = async (req, reply): Promise<IDataMatches | null> => {
 	try {
     const { date } = (req.params as  { date: string });
-		const ids = await Matches.getTopMatches(date || '');
-		const matches = await getMatches(ids);
+		const ids = await MatchesModel.getTopMatches(date || '');
+		const matches = await getMatches(ids, date);
 		return matches;
 	} catch (err) {
 		throw boom.boomify(err as Error);
 	}
 };
 
-async function getMatches(ids: string[] | null): Promise<IDataMatches | null>  {
+async function getMatches(ids: string[] | null, date: string): Promise<IDataMatches | null>  {
   if (!ids) {
     return null;
   }
@@ -35,7 +35,11 @@ async function getMatches(ids: string[] | null): Promise<IDataMatches | null>  {
   const response = await Promise.all(requests);
   const data: IDataMatches = [];
   const tournamentIndex: any = {};
+  const reviews = await ReviewsModel.findReviewsToday(date);
   response.forEach((m: ISportsMatchResponse) => {
+    const title = new RegExp(`${m.first_team.name}|${m.second_team.name}`);
+    const review = reviews.find((r: any) => r.title.match(title));
+    const match = { ...m, review };
     if (typeof tournamentIndex[m.tournament.id] === 'undefined') {
       tournamentIndex[m.tournament.id] = Object.keys(tournamentIndex).length;
       const id = m.tournament.id;
@@ -45,9 +49,9 @@ async function getMatches(ids: string[] | null): Promise<IDataMatches | null>  {
         : m.tournament.name;
       data.push({ name, title, id, matches: [], matchesIds: [] });
     }
-    data[tournamentIndex[m.tournament.id]].matches.push(m);
-    data[tournamentIndex[m.tournament.id]].matchesIds.push(m.id.toString());
-  })
+    data[tournamentIndex[m.tournament.id]].matches.push(match);
+    data[tournamentIndex[m.tournament.id]].matchesIds.push(match.id.toString());
+  });
 
   return data;
 }
