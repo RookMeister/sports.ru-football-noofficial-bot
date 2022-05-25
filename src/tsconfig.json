@@ -28,6 +28,8 @@
 		// "moduleResolution": "node",
 		// "sourceMap": true,
 		// "resolveJsonModule": true,
+		"rootDirs": ["./apps/api/src", "./apps/bot/src", "./apps/web/src"],
+		"outDir": "./dist",
 		"baseUrl": ".",
 		"paths": {
 			"~/*": ["./*"],
