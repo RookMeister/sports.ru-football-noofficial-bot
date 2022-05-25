@@ -3,9 +3,9 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"start-api": "node ./apps/api/dist/index.js",
+		"start-api": "node -r module-alias/register -r ./apps/api/dist/apps/api/src/index.js",
 		"start-api-dev": " cd ./apps/api/ && nodemon",
-		"build-api": "rimraf ./apps/api/dist && tsc --traceResolution"
+		"build-api": "rimraf ./apps/api/dist && tsc -p tsconfig.api.json"
 	},
 	"keywords": [
 		"telegram",
@@ -26,7 +26,7 @@
 		"type": "git"
 	},
 	"_moduleAliases": {
-    "@api": "dist"
+    "@api": "./apps/api/dist/apps/api/src"
   },
 	"dependencies": {
 		"@hapi/boom": "^10.0.0",
