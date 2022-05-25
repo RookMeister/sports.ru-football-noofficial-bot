@@ -1,12 +1,12 @@
 import { Context, deunionize } from 'telegraf';
 import { table } from 'table';
-import { selectData } from '@bot/helpers/callback-data';
-import { ReviewsModel } from '@bot/models/reviews.model';
-import { inlineKeyboard } from '@bot/helpers/keyboards';
-import { statTournamentMenu } from '@bot/helpers/buttons';
+import { selectData } from '~/apps/bot/src/helpers/callback-data';
+import { ReviewsModel } from '~/apps/bot/src/models/reviews.model';
+import { inlineKeyboard } from '~/apps/bot/src/helpers/keyboards';
+import { statTournamentMenu } from '~/apps/bot/src/helpers/buttons';
 import {
   getTornaments, getTornamentTable, getTornamentLastMatches, getTornamentFutureMatches, getTornamentPlayersStat
-} from '@bot/helpers/api';
+} from '~/apps/bot/src/helpers/api';
 import {
   ISportsTournamentTableResponse, ISportsTournamentMatchesResponse
 } from '@bot/interfaces/sports.ru.interface';

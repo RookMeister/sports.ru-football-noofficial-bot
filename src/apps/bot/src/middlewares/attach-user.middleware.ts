@@ -1,5 +1,5 @@
 import { DocumentType } from '@typegoose/typegoose';
-import { User, UserModel } from '@bot/models/user.model';
+import { User, UserModel } from '~/apps/bot/src/models/user.model';
 import { Context } from 'telegraf';
 
 declare module 'telegraf' {

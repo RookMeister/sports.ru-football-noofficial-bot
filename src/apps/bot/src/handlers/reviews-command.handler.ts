@@ -1,9 +1,9 @@
 import { Context } from 'telegraf';
-import { UTCPrev12Hours } from '@bot/helpers/transform-date';
-import { ReviewsModel } from '@bot/models/reviews.model';
-import { inlineKeyboard } from '@bot/helpers/keyboards';
-import { reviewsUpdate } from '@bot/helpers/buttons';
-import { updateMathes } from '@bot/helpers/agenda';
+import { UTCPrev12Hours } from '~/apps/bot/src/helpers/transform-date';
+import { ReviewsModel } from '~/apps/bot/src/models/reviews.model';
+import { inlineKeyboard } from '~/apps/bot/src/helpers/keyboards';
+import { reviewsUpdate } from '~/apps/bot/src/helpers/buttons';
+import { updateMathes } from '~/apps/bot/src/helpers/agenda';
 
 export const reviewsCommandHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = reviewsUpdate;

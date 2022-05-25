@@ -1,6 +1,6 @@
 import updateLogger from 'telegraf-update-logger';
 import { Context } from 'telegraf';
-import config from '@bot/config';
+import config from '~/apps/bot/src/config';
 
 export const debugLoggerMiddleware =
   (options?: updateLogger.Options) => (ctx: Context, next) => {

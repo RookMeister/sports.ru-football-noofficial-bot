@@ -1,25 +1,24 @@
-import { inlineKeyboard } from '@bot/helpers/keyboards';
-import { setTime } from '@bot/helpers/transform-date';
-import { UTCDate } from '@bot/helpers/transform-date';
-import { matchesUpdate } from '@bot/helpers/buttons';
+import { inlineKeyboard } from '~/apps/bot/src/helpers/keyboards';
+import { setTime } from '~/apps/bot/src/helpers/transform-date';
+import { UTCDate } from '~/apps/bot/src/helpers/transform-date';
+import { matchesUpdate } from '~/apps/bot/src/helpers/buttons';
 import { Context, deunionize } from 'telegraf';
-import { MatchesModel } from '@bot/models/matches.model';
-import { ReviewsModel } from '@bot/models/reviews.model';
-import { getMatches } from '@bot/helpers/api';
-import { IDataMatches } from '@bot/interfaces/sports.ru.interface';
-import { selectData } from '@bot/helpers/callback-data';
+import { MatchesModel } from '~/apps/bot/src/models/matches.model';
+import { ReviewsModel } from '~/apps/bot/src/models/reviews.model';
+import { getMatches } from '~/apps/bot/src/helpers/api';
+import { selectData } from '~/apps/bot/src/helpers/callback-data';
+import { IDataMatches } from '~/interfaces/sports.ru.interface';
 
 export const matchesHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = matchesUpdate;
-  let date = UTCDate()
-  if (update) {
-    const { code } = selectData('update-matches').parse(deunionize(ctx.callbackQuery).data);
-    date = UTCDate(code);
-  }
-  console.log(date);
+  // let date = UTCDate()
+  // if (update) {
+  //   const { code } = selectData('update-matches').parse(deunionize(ctx.callbackQuery).data);
+  //   date = UTCDate(code);
+  // }
   const keyboard = inlineKeyboard(values, size, column);
-  const ids = await MatchesModel.getTodayTopMatches(date);
-  const matches = await getMatches(ids);
+  // const ids = await MatchesModel.getTodayTopMatches(date);
+  const matches = await getMatches();
   const info = await convertTeaserData(matches, ctx.dbuser.timeZone);
   if (update) {
     return await ctx.editMessageText(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));

@@ -1,0 +1,54 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+    "target": "es2020",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+		// "target": "es2020",
+		// "module": "commonjs",
+		// "lib": [
+		// 	"es6"
+		// ],
+    // "declaration": true,
+    // "noEmit": true,
+    // "downlevelIteration": true,
+    // "noUnusedLocals": false,
+    // "noUnusedParameters": false,
+    // "importHelpers": false,
+    // "removeComments": true,
+    // "strictPropertyInitialization": false,
+    // "allowUnreachableCode": false,
+    // "isolatedModules": false,
+		// "allowJs": true,
+		// "strict": true,
+		// "noImplicitAny": true,
+		// "esModuleInterop": true,
+		// "forceConsistentCasingInFileNames": true,
+		// "moduleResolution": "node",
+		// "sourceMap": true,
+		// "resolveJsonModule": true,
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["./*"],
+			"@api/*": ["./apps/api/src/*"],
+			"@bot/*": ["./apps/bot/src/*"],
+			"@web/*": ["./apps/web/src/*"]
+		},
+		"emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "incremental": true,
+    "skipLibCheck": true
+	},
+	"include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.vue",
+  ],
+	"exclude": [
+		"node_modules",
+		"**/*.spec.ts"
+	]
+}

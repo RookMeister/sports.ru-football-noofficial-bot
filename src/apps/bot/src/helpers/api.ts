@@ -8,7 +8,7 @@ import {
   ISportsTournamentPlayersStatResponse,
   IDataMatches
 } from '@bot/interfaces/sports.ru.interface';
-import { UTCDate } from '@bot/helpers/transform-date';
+import { UTCDate } from '~/apps/bot/src/helpers/transform-date';
 
 const _importDynamic = new Function('modulePath', 'return import(modulePath)')
 
@@ -57,31 +57,35 @@ export async function getReviewMatches(): Promise<any[]> {
   })
   return data
 }
-export async function getMatches(ids: string[] | null): Promise<IDataMatches | null>  {
-  if (!ids) {
-    return null;
-  }
-  const requests =
-    ids.map(id => request(`${process.env.API_SPORTSRU_ONLINE}?args={"id":${id}}`));
-  const response = await Promise.all(requests);
-  const data = [];
-  const tournamentIndex = {};
-  response.forEach((m: ISportsMatchResponse) => {
-    if (typeof tournamentIndex[m.tournament.id] === 'undefined') {
-      tournamentIndex[m.tournament.id] = Object.keys(tournamentIndex).length;
-      const id = m.tournament.id;
-      const name = m.tournament.name;
-      const title = m.tournament.stage_name
-        ? `${m.tournament.name} ${m.tournament.stage_name}`
-        : m.tournament.name;
-      data.push({ name, title, id, matches: [], matchesIds: [] });
-    }
-    data[tournamentIndex[m.tournament.id]].matches.push(m);
-    data[tournamentIndex[m.tournament.id]].matchesIds.push(m.id);
-  })
-
+export async function getMatches(): Promise<IDataMatches | null>  {
+  const data = await request<IDataMatches>('http://127.0.0.1:3000/api/top-matches/2022-05-21/');
   return data;
 }
+// export async function getMatches(ids: string[] | null): Promise<IDataMatches | null>  {
+//   if (!ids) {
+//     return null;
+//   }
+//   const requests =
+//     ids.map(id => request(`${process.env.API_SPORTSRU_ONLINE}?args={"id":${id}}`));
+//   const response = await Promise.all(requests);
+//   const data = [];
+//   const tournamentIndex = {};
+//   response.forEach((m: ISportsMatchResponse) => {
+//     if (typeof tournamentIndex[m.tournament.id] === 'undefined') {
+//       tournamentIndex[m.tournament.id] = Object.keys(tournamentIndex).length;
+//       const id = m.tournament.id;
+//       const name = m.tournament.name;
+//       const title = m.tournament.stage_name
+//         ? `${m.tournament.name} ${m.tournament.stage_name}`
+//         : m.tournament.name;
+//       data.push({ name, title, id, matches: [], matchesIds: [] });
+//     }
+//     data[tournamentIndex[m.tournament.id]].matches.push(m);
+//     data[tournamentIndex[m.tournament.id]].matchesIds.push(m.id);
+//   })
+
+//   return data;
+// }
 export async function getTeaserMatches(): Promise<ISportsTeaserResponse>  {
   const url = process.env.API_SPORTSRU_TEASER;
   return await request(url);

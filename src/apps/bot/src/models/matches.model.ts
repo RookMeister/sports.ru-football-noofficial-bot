@@ -1,7 +1,7 @@
 import { prop, getModelForClass, ReturnModelType, modelOptions, Severity } from '@typegoose/typegoose';
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { IMatchesSaveAll } from '@bot/interfaces/sports.ru.interface';
-import { TournamentsModel } from '@bot/models/tournamnets.model';
+import { TournamentsModel } from '~/apps/bot/src/models/tournamnets.model';
 
 @modelOptions({ schemaOptions: { timestamps: true }, options: { allowMixed: Severity.ALLOW } })
 export class Matches extends TimeStamps {

@@ -38,6 +38,7 @@ const ConfigSchema = z.object({
 });
 
 let config;
+
 try {
   config = ConfigSchema.parse({
     ...process.env,

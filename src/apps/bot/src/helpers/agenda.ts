@@ -1,12 +1,12 @@
 import { Agenda } from 'agenda';
 import { chromium } from 'playwright-chromium';
-import { getReviewMatches } from '@bot/helpers/api'
-import { MatchesModel } from '@bot/models/matches.model';
-import { TournamentsModel } from '@bot/models/tournamnets.model';
-import { ReviewsModel } from '@bot/models/reviews.model';
-import { getMatches } from '@bot/helpers/api';
-import { UTCNext1Day, UTCToDay } from '@bot/helpers/transform-date';
-import logger from '@bot/logger';
+import { getReviewMatches } from '~/apps/bot/src/helpers/api'
+import { MatchesModel } from '~/apps/bot/src/models/matches.model';
+import { TournamentsModel } from '~/apps/bot/src/models/tournamnets.model';
+import { ReviewsModel } from '~/apps/bot/src/models/reviews.model';
+import { getMatches } from '~/apps/bot/src/helpers/api';
+import { UTCNext1Day, UTCToDay } from '~/apps/bot/src/helpers/transform-date';
+import logger from '~/apps/bot/src/logger';
 
 const agenda = new Agenda({
   db: {

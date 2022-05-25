@@ -1,6 +1,6 @@
 import { Context } from 'telegraf';
 import { DocumentType } from '@typegoose/typegoose';
-import { User, UserModel } from '@bot/models/user.model';
+import { User, UserModel } from '~/apps/bot/src/models/user.model';
 import changelog from '@bot/changelog.json';
 
 export const sendChangelogCommandHandler = async (ctx: Context) => {

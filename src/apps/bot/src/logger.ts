@@ -1,5 +1,5 @@
 import Logger from "pino";
-import config from "@bot/config";
+import config from "~/apps/bot/src/config";
 
 export const loggerOptions: Logger.LoggerOptions = {
   level: config.LOG_LEVEL,

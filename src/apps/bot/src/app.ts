@@ -2,9 +2,9 @@ import "module-alias/register";
 
 import mongoose from 'mongoose';
 
-import config from "@bot/config";
-import logger from "@bot/logger";
-import bot from "@bot/bot";
+import config from "~/apps/bot/src/config";
+import logger from "~/apps/bot/src/logger";
+import bot from "~/apps/bot/src/bot";
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));

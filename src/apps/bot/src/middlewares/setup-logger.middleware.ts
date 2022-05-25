@@ -1,4 +1,4 @@
-import logger from '@bot/logger';
+import logger from '~/apps/bot/src/logger';
 import { Logger } from 'pino';
 import { Context } from 'telegraf';
 import { randomUUID } from 'crypto';
