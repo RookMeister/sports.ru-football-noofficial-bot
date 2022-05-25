@@ -1,6 +1,6 @@
 import boom from '@hapi/boom';
-import Matches from '../models/Matches';
-import request from '../services/request';
+import Matches from '@api/models/Matches';
+import request from '@api/services/request';
 import { RouteHandlerMethod } from 'fastify';
 
 import {
@@ -12,7 +12,7 @@ import {
   ISportsMatchResponse,
   ISportsTournamentPlayersStatResponse,
   IDataMatches
-} from '~/interfaces/sports.ru.interface';
+} from '@interfaces/sports.ru.interface';
 
 // export const getTodayTopMatches = async (req: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply): Promise<string[]> => {
 export const getTodayTopMatches: RouteHandlerMethod = async (req, reply): Promise<IDataMatches | null> => {

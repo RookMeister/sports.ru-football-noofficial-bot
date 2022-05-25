@@ -1,6 +1,6 @@
-import * as matchesController from '../controllers/matches';
+import * as matchesController from '@api/controllers/matches';
 import { RouteOptions } from 'fastify';
-import { GetTopMatchesSchema } from './documentation/matchesApi';
+import { GetTopMatchesSchema } from '@api/routes/documentation/matchesApi';
 // import { ApiController } from '@api/services/fastify-types';
 
 // const getTopMatchesRoute: ApiController<any,  { id: string }> = {

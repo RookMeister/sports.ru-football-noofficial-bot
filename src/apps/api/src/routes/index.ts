@@ -1,4 +1,4 @@
-import matchesRoutes from './matches';
+import matchesRoutes from '@api/routes/matches';
 
 const routes = [...matchesRoutes];
 

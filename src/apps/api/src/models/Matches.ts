@@ -1,6 +1,6 @@
 import { prop, getModelForClass, ReturnModelType, modelOptions, Severity } from '@typegoose/typegoose';
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
-import TournamentsModel from './Tournament';
+import TournamentsModel from '@api/models/Tournament';
 
 interface IMatchesSaveAll {
   name: string;
