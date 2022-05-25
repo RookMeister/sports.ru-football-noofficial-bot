@@ -57,8 +57,8 @@ export async function getReviewMatches(): Promise<any[]> {
   })
   return data
 }
-export async function getMatches(): Promise<IDataMatches | null>  {
-  const data = await request<IDataMatches>('http://127.0.0.1:3000/api/top-matches/2022-05-21/');
+export async function getMatches(date: string): Promise<IDataMatches | null>  {
+  const data = await request<IDataMatches>(`http://127.0.0.1:3000/api/top-matches/${date}/`);
   return data;
 }
 // export async function getMatches(ids: string[] | null): Promise<IDataMatches | null>  {
