@@ -11,14 +11,14 @@ import { IDataMatches } from '~/interfaces/sports.ru.interface';
 
 export const matchesHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = matchesUpdate;
-  // let date = UTCDate()
-  // if (update) {
-  //   const { code } = selectData('update-matches').parse(deunionize(ctx.callbackQuery).data);
-  //   date = UTCDate(code);
-  // }
+  let date = UTCDate()
+  if (update) {
+    const { code } = selectData('update-matches').parse(deunionize(ctx.callbackQuery).data);
+    date = UTCDate(code);
+  }
   const keyboard = inlineKeyboard(values, size, column);
   // const ids = await MatchesModel.getTodayTopMatches(date);
-  const matches = await getMatches();
+  const matches = await getMatches(date);
   const info = await convertTeaserData(matches, ctx.dbuser.timeZone);
   if (update) {
     return await ctx.editMessageText(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));
@@ -32,7 +32,7 @@ async function convertTeaserData(matches: IDataMatches | null, timeZone: string)
     return 'Нет подходящих матчей'
   }
 
-  const reducer = (previousValue, currentValue) => previousValue + currentValue;
+  const reducer = (previousValue: string, currentValue: string) => previousValue + currentValue;
   const res = [];
   for (const t of matches) {
     res.push(`\r\n<b><i>${t.title}</i></b>\r\n`);
