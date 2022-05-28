@@ -28,6 +28,7 @@
 		"paths": {
 			"~/*": ["./*"],
 			"@interfaces/*": ["interfaces/*"],
+			"@helpers/*": ["helpers/*"],
 			"@api/*": ["apps/api/src/*"],
 			"@bot/*": ["apps/bot/src/*"],
 			"@web/*": ["apps/web/src/*"]
@@ -37,7 +38,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "incremental": true,
-    "skipLibCheck": true
+    // "skipLibCheck": true
 	},
 	"include": [
 		"./interfaces/**/*.ts",

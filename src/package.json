@@ -5,7 +5,10 @@
 	"scripts": {
 		"start-api": "node -r module-alias/register -r ./apps/api/dist/apps/api/src/index.js",
 		"start-api-dev": " cd ./apps/api/ && nodemon",
-		"build-api": "rimraf ./apps/api/dist && tsc -p tsconfig.api.json"
+		"build-api": "rimraf ./apps/api/dist/apps/api && tsc -p tsconfig.api.json",
+		"start-bot": "node ./apps/api/dist/apps/bot/src/app.js",
+    "start-bot-dev": "cd ./apps/bot/ && nodemon",
+    "build-bot": "rimraf ./apps/api/dist/apps/bot && tsc -p tsconfig.bot.json"
 	},
 	"keywords": [
 		"telegram",
@@ -26,7 +29,8 @@
 		"type": "git"
 	},
 	"_moduleAliases": {
-    "@api": "./apps/api/dist/apps/api/src"
+    "@api": "./apps/api/dist/apps/api/src",
+    "@bot": "./apps/api/dist/apps/bot/src"
   },
 	"dependencies": {
 		"@hapi/boom": "^10.0.0",
