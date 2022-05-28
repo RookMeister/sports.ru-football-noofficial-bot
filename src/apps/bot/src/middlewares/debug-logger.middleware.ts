@@ -1,9 +1,9 @@
 import updateLogger from 'telegraf-update-logger';
 import { Context } from 'telegraf';
-import config from '~/apps/bot/src/config';
+import config from '@bot/config';
 
 export const debugLoggerMiddleware =
-  (options?: updateLogger.Options) => (ctx: Context, next) => {
+  (options?: updateLogger.Options) => (ctx: Context, next: () => Promise<void>) => {
     ctx.logger.trace({
       msg: 'update received',
       update: ctx.update,

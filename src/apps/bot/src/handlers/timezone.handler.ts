@@ -1,8 +1,8 @@
 import { Context, deunionize } from 'telegraf';
-import { ITimeZone } from '~/apps/bot/src/models/user.model';
-import { inlineKeyboard } from '~/apps/bot/src/helpers/keyboards';
-import { setTime } from '~/apps/bot/src/helpers/buttons';
-import { selectData } from '~/apps/bot/src/helpers/callback-data';
+import { ITimeZone } from '@bot/models/user.model';
+import { inlineKeyboard } from '@bot/helpers/keyboards';
+import { setTime } from '@bot/helpers/buttons';
+import { selectData } from '@bot/helpers/callback-data';
 
 const timeHelper = (ctx: Context) => {
   const timeZone = ctx.dbuser.timeZone;
@@ -20,9 +20,11 @@ export const timeCommandHandler = async (ctx: Context) => {
 };
 
 export const setTimeZoneHandler = async (ctx: Context) => {
-  const { code } = selectData('select-time').parse(deunionize(ctx.callbackQuery).data) ;
-  ctx.dbuser.timeZone = code as ITimeZone;
-  ctx.dbuser = await ctx.dbuser.save();
-  const { date, timeZone } = timeHelper(ctx);
-  ctx.editMessageText(`Теперь ваш часовой пояс ${timeZone}. Твоё время ${date}.`);
+  if (ctx.callbackQuery) {
+    const { code } = selectData('select-time').parse(deunionize(ctx.callbackQuery).data) ;
+    ctx.dbuser.timeZone = code as ITimeZone;
+    ctx.dbuser = await ctx.dbuser.save();
+    const { date, timeZone } = timeHelper(ctx);
+    ctx.editMessageText(`Теперь ваш часовой пояс ${timeZone}. Твоё время ${date}.`);
+  }
 }

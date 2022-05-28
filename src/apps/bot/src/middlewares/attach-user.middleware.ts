@@ -1,5 +1,5 @@
 import { DocumentType } from '@typegoose/typegoose';
-import { User, UserModel } from '~/apps/bot/src/models/user.model';
+import { User, UserModel } from '@bot/models/user.model';
 import { Context } from 'telegraf';
 
 declare module 'telegraf' {
@@ -9,7 +9,9 @@ declare module 'telegraf' {
 }
 
 export async function attachUserMiddleware(ctx: Context, next: () => void) {
-  const username = ctx.from.username || ctx.from.first_name || null;
-  ctx.dbuser = await UserModel.findUserOrSave({ id: ctx.from.id, username });
+  if (ctx.from) {
+    const username = ctx.from.username || ctx.from.first_name || 'unknow_user';
+    ctx.dbuser = await UserModel.findUserOrSave(ctx.from.id, username);
+  }
   return next()
 }

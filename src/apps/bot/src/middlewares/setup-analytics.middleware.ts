@@ -1,9 +1,9 @@
 import { Context } from 'telegraf';
-import { StatModel } from '~/apps/bot/src/models/analytics.model';
-import { UTCDate } from '~/apps/bot/src/helpers/transform-date';
+import { StatModel } from '@bot/models/analytics.model';
+import { UTCDate } from '@helpers/transform-date';
 
-export const analyticsMiddleware = async (ctx: Context, next) => {
-  const date = UTCDate();
-  await StatModel.countUpStat({ date, view: 'all' })
+export const analyticsMiddleware = async (ctx: Context, next: () => void) => {
+  // const date = UTCDate();
+  // await StatModel.countUpStat(date, 'all');
   return next();
 };

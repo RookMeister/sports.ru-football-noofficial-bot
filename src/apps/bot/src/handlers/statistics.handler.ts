@@ -1,18 +1,18 @@
 import { Context, deunionize } from 'telegraf';
 import { table } from 'table';
-import { selectData } from '~/apps/bot/src/helpers/callback-data';
-import { ReviewsModel } from '~/apps/bot/src/models/reviews.model';
-import { inlineKeyboard } from '~/apps/bot/src/helpers/keyboards';
-import { statTournamentMenu } from '~/apps/bot/src/helpers/buttons';
+import { selectData } from '@bot/helpers/callback-data';
+import { inlineKeyboard } from '@bot/helpers/keyboards';
+import { statTournamentMenu } from '@bot/helpers/buttons';
 import {
   getTornaments, getTornamentTable, getTornamentLastMatches, getTornamentFutureMatches, getTornamentPlayersStat
-} from '~/apps/bot/src/helpers/api';
+} from '@bot/helpers/api';
 import {
   ISportsTournamentTableResponse, ISportsTournamentMatchesResponse
-} from '@bot/interfaces/sports.ru.interface';
+} from '@interfaces/sports.ru.interface';
 
 export const statCommandHandler = async (ctx: Context, edit = false) => {
   const tournaments = await getTornaments();
+  console.log(tournaments);
   tournaments.tournament_list.length = 10;
   const buttons = tournaments.tournament_list.map(v => ({
     active: 1, label: v.name, value: `select-tournament:${v.id}`
@@ -27,29 +27,31 @@ export const statCommandHandler = async (ctx: Context, edit = false) => {
 
 export const statTournamentTabletHandler = async (ctx: Context) => {
   try {
-    const { code } = selectData('select-tournament').parse(deunionize(ctx.callbackQuery).data);
-    const [id, view] = code.split('.');
-    if (view === 'back') {
-      statCommandHandler(ctx, true);
-    } else {
-      const table = await getTornamentTable(id);
-      let info = '';
-      if (view === 'last') {
-        const last = await getTornamentLastMatches(id);
-        info = await statMatches(last);
-      } else if (view === 'future') {
-        const future = await getTornamentFutureMatches(id);
-        info = await statMatches(future);
-      } else if (view === 'player') {
-        const player = await getTornamentPlayersStat(id);
-        info = 'Игроки матчи';
+    if (ctx.callbackQuery) {
+      const { code } = selectData('select-tournament').parse(deunionize(ctx.callbackQuery).data);
+      const [id, view] = code.split('.');
+      if (view === 'back') {
+        statCommandHandler(ctx, true);
       } else {
-        info = statTable(table);
+        const table = await getTornamentTable(id);
+        let info = '';
+        if (view === 'last') {
+          const last = await getTornamentLastMatches(id);
+          info = await statMatches(last);
+        } else if (view === 'future') {
+          const future = await getTornamentFutureMatches(id);
+          info = await statMatches(future);
+        } else if (view === 'player') {
+          const player = await getTornamentPlayersStat(id);
+          info = 'Игроки матчи';
+        } else {
+          info = statTable(table);
+        }
+        const { size, column, values } = statTournamentMenu;
+        const buttons = values.map(v => { v.value = v.value.replace('$', id); return v; });
+        const keyboard = inlineKeyboard(buttons, size, column);
+        await ctx.editMessageText(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));
       }
-      const { size, column, values } = statTournamentMenu;
-      const buttons = values.map(v => { v.value = v.value.replace('$', id); return v; });
-      const keyboard = inlineKeyboard(buttons, size, column);
-      await ctx.editMessageText(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));
     }
   } catch (err) {
     console.error('statTournamentTabletHandler', err);
@@ -75,6 +77,7 @@ function statTable(data: ISportsTournamentTableResponse) {
     return string;
   } catch (err) {
     console.error('statTable', err);
+    return '';
   }
 }
 
@@ -93,14 +96,14 @@ async function statMatches(data: ISportsTournamentMatchesResponse) {
           string += 'перенесён\r\n';
         } else if (status_id > 1) {
           string += `${first_team.goals}:${second_team.goals}`;
-          const [date] = new Date(start_time.full).toISOString().split('T');
-          const title = new RegExp(`${first_team.name}|${second_team.name}`);
-          const review = await ReviewsModel.findReview({ date, title });
-          if (review) {
-            string += ` <a href="${review.url}">Обзор матча</a>\r\n`
-          } else {
-            string += '\r\n';
-          }
+          // const [date] = new Date(start_time.full).toISOString().split('T');
+          // const title = new RegExp(`${first_team.name}|${second_team.name}`);
+          // const review = await ReviewsModel.findReview({ date, title });
+          // if (review) {
+          //   string += ` <a href="${review.url}">Обзор матча</a>\r\n`
+          // } else {
+          //   string += '\r\n';
+          // }
         } else {
           string += `(${start_time.time} - мск. время)\r\n`;
         }

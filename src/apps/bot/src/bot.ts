@@ -1,35 +1,32 @@
 import { Telegraf } from 'telegraf';
-import config from '~/apps/bot/src/config';
-import { initAgenda } from '~/apps/bot/src/helpers/agenda';
+import config from '@bot/config';
 
-import { selectData } from '~/apps/bot/src/helpers/callback-data';
+import { selectData } from '@bot/helpers/callback-data';
 
-import { setupLoggerMiddleware } from '~/apps/bot/src/middlewares/setup-logger.middleware';
-import { setupSessionMiddleware } from '~/apps/bot/src/middlewares/setup-session.middleware';
-import { debugLoggerMiddleware } from '~/apps/bot/src/middlewares/debug-logger.middleware';
-import { attachUserMiddleware } from '~/apps/bot/src/middlewares/attach-user.middleware';
-import { analyticsMiddleware } from '~/apps/bot/src/middlewares/setup-analytics.middleware';
-import { setLastActionToUserMiddleware } from '~/apps/bot/src/middlewares/last-action-to-user.middleware';
+import { setupLoggerMiddleware } from '@bot/middlewares/setup-logger.middleware';
+// import { setupSessionMiddleware } from '@bot/middlewares/setup-session.middleware';
+import { debugLoggerMiddleware } from '@bot/middlewares/debug-logger.middleware';
+import { attachUserMiddleware } from '@bot/middlewares/attach-user.middleware';
+import { analyticsMiddleware } from '@bot/middlewares/setup-analytics.middleware';
+import { setLastActionToUserMiddleware } from '@bot/middlewares/last-action-to-user.middleware';
 
-import { startCommandHandler } from '~/apps/bot/src/handlers/start-command.handler';
-import { reviewsCommandHandler, updateMatchesHandler } from '~/apps/bot/src/handlers/reviews-command.handler';
-import { matchesHandler } from '~/apps/bot/src/handlers/matches.handler';
-import { statCommandHandler, statTournamentTabletHandler } from '~/apps/bot/src/handlers/statistics.handler';
-import { timeCommandHandler, setTimeZoneHandler } from '~/apps/bot/src/handlers/timezone.handler';
-import { sendChangelogCommandHandler } from '~/apps/bot/src/handlers/send-changelog-command.handler';
-import { changelogCommandHandler } from '~/apps/bot/src/handlers/changelog.command';
-import { statBotCommandHandler, statBotMenuSelectHandler } from '~/apps/bot/src/handlers/stat-bot.command';
+import { startCommandHandler } from '@bot/handlers/start-command.handler';
+// import { reviewsCommandHandler, updateMatchesHandler } from '@bot/handlers/reviews-command.handler';
+import { matchesHandler } from '@bot/handlers/matches.handler';
+import { statCommandHandler, statTournamentTabletHandler } from '@bot/handlers/statistics.handler';
+import { timeCommandHandler, setTimeZoneHandler } from '@bot/handlers/timezone.handler';
+// import { sendChangelogCommandHandler } from '@bot/handlers/send-changelog-command.handler';
+// import { changelogCommandHandler } from '@bot/handlers/changelog.command';
+// import { statBotCommandHandler, statBotMenuSelectHandler } from '@bot/handlers/stat-bot.command';
 
-const bot = new Telegraf(config.BOT_TOKEN, {
+const bot: Telegraf = new Telegraf(config.BOT_TOKEN, {
   telegram: {
     apiRoot: config.BOT_API_ROOT,
   },
 });
 
-initAgenda();
-
 bot.use(setupLoggerMiddleware());
-bot.use(setupSessionMiddleware());
+// bot.use(setupSessionMiddleware());
 bot.use(debugLoggerMiddleware());
 bot.use(analyticsMiddleware);
 bot.use(attachUserMiddleware);
@@ -38,10 +35,10 @@ bot.use(setLastActionToUserMiddleware);
 bot.start(startCommandHandler);
 
 bot.hears('Матчи', (ctx) => matchesHandler(ctx));
-// bot.action(selectData('update-matches').filter(), (ctx) => matchesHandler(ctx, true));
+bot.action(selectData('update-matches').filter(), (ctx) => matchesHandler(ctx, true));
 
 bot.hears('Статистика', (ctx) => statCommandHandler(ctx));
-// bot.action(selectData('select-tournament').filter(), (ctx) => statTournamentTabletHandler(ctx));
+bot.action(selectData('select-tournament').filter(), (ctx) => statTournamentTabletHandler(ctx));
 
 bot.command('time', timeCommandHandler);
 bot.action(selectData('select-time').filter(), setTimeZoneHandler);

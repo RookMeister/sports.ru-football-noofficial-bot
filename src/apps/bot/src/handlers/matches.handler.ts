@@ -1,33 +1,30 @@
-import { inlineKeyboard } from '~/apps/bot/src/helpers/keyboards';
-import { setTime } from '~/apps/bot/src/helpers/transform-date';
-import { UTCDate } from '~/apps/bot/src/helpers/transform-date';
-import { matchesUpdate } from '~/apps/bot/src/helpers/buttons';
+import { inlineKeyboard } from '@bot/helpers/keyboards';
+import { setTime, UTCDate } from '@helpers/transform-date';
+import { matchesUpdate } from '@bot/helpers/buttons';
 import { Context, deunionize } from 'telegraf';
-import { MatchesModel } from '~/apps/bot/src/models/matches.model';
-import { ReviewsModel } from '~/apps/bot/src/models/reviews.model';
-import { getMatches } from '~/apps/bot/src/helpers/api';
-import { selectData } from '~/apps/bot/src/helpers/callback-data';
+import { getMatches } from '@bot/helpers/api';
+import { selectData } from '@bot/helpers/callback-data';
 import { IDataMatches } from '~/interfaces/sports.ru.interface';
 
 export const matchesHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = matchesUpdate;
   let date = UTCDate()
-  if (update) {
+  if (update && ctx.callbackQuery) {
     const { code } = selectData('update-matches').parse(deunionize(ctx.callbackQuery).data);
     date = UTCDate(code);
   }
   const keyboard = inlineKeyboard(values, size, column);
-  // const ids = await MatchesModel.getTodayTopMatches(date);
   const matches = await getMatches(date);
-  const info = await convertTeaserData(matches, ctx.dbuser.timeZone);
+  console.log(666);
+  const info = convertTeaserData(matches, ctx.dbuser.timeZone);
   if (update) {
-    return await ctx.editMessageText(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));
+    await ctx.editMessageText(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));
   } else {
-    return await ctx.replyWithHTML(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard });
+    await ctx.replyWithHTML(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard });
   }
 };
 
-async function convertTeaserData(matches: IDataMatches | null, timeZone: string) {
+function convertTeaserData(matches: IDataMatches | null, timeZone: string) {
   if (!matches || !matches.length) {
     return 'Нет подходящих матчей'
   }
@@ -45,11 +42,8 @@ async function convertTeaserData(matches: IDataMatches | null, timeZone: string)
       string += `<a href="${m.page_info.desktop_url}">${m.first_team.name} \u2014 ${m.second_team.name}</a> `;
       if (m.status_id > 1) {
         string += `${m.first_team.score}:${m.second_team.score} ${m.state_name}`;
-        const [date] = new Date(m.start_time.full).toISOString().split('T');
-        const title = new RegExp(`${m.first_team.name}|${m.second_team.name}`);
-        const review = await ReviewsModel.findReview({ date, title });
-        if (review) {
-          string += ` <a href="${review.url}">Обзор матча</a>\r\n`
+        if (m.review) {
+          string += ` <a href="${m.review.url}">Обзор матча</a>\r\n`
         } else {
           string += '\r\n';
         }

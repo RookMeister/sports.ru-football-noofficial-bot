@@ -10,11 +10,11 @@ export class Stat {
     return this.find().exec();
   }
 
-  static getStatOfDate(this: ReturnModelType<typeof Stat>, { date }) {
+  static getStatOfDate(this: ReturnModelType<typeof Stat>, date: string) {
     return this.find({ date }).exec();
   }
 
-  static async countUpStat(this: ReturnModelType<typeof Stat>, { date, view }) {
+  static async countUpStat(this: ReturnModelType<typeof Stat>, date: string, view: string) {
     const stat = await this.findOne({ date, view }).exec();
     if (stat) {
       stat.count += 1;
