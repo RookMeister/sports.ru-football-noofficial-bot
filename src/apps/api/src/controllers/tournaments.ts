@@ -2,7 +2,17 @@ import boom from '@hapi/boom';
 import request from '@api/services/request';
 import { RouteHandlerMethod } from 'fastify';
 
-import { ISportsTournamentTableResponse, ISportsTournamentMatchesResponse, ISportsTournamentPlayersStatResponse } from '@interfaces/sports.ru.interface';
+import { ISportsTournamentTableResponse, ISportsTournamentMatchesResponse, ISportsTournamentPlayersStatResponse, ISportsTournamentsListResponse } from '@interfaces/sports.ru.interface';
+
+export const getTornaments: RouteHandlerMethod = async (req, reply): Promise<ISportsTournamentsListResponse> => {
+	try {
+    const { id } = (req.params as  { id: string });
+    const tornaments = await request<ISportsTournamentsListResponse>(`${process.env.API_SPORTSRU_TOURNAMENTS}?args={"sport_id":${id}}`);
+    return tornaments
+	} catch (err) {
+		throw boom.boomify(err as Error);
+	}
+};
 
 export const getTornamentTable: RouteHandlerMethod = async (req, reply): Promise<ISportsTournamentTableResponse> => {
 	try {

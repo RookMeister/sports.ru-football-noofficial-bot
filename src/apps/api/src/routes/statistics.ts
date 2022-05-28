@@ -2,6 +2,13 @@ import * as tournamentController from '@api/controllers/tournaments';
 import { RouteOptions } from 'fastify';
 // import { GetTopMatchesSchema } from '@api/routes/documentation/matchesApi';
 
+const getTornaments: RouteOptions = {
+	method: 'GET',
+	url: '/api/tournament/:id/',
+	handler: tournamentController.getTornaments,
+	// schema: GetTopMatchesSchema,
+};
+
 const getTornamentTable: RouteOptions = {
 	method: 'GET',
 	url: '/api/tournament/:id/table/',
@@ -30,6 +37,6 @@ const getTornamentPlayersStat: RouteOptions = {
 	// schema: GetTopMatchesSchema,
 };
 
-const routes = [getTornamentTable, getTornamentLastMatches, getTornamentFutureMatches, getTornamentPlayersStat];
+const routes = [getTornaments, getTornamentTable, getTornamentLastMatches, getTornamentFutureMatches, getTornamentPlayersStat];
 
 export default routes;

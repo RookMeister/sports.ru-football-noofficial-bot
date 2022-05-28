@@ -17,7 +17,7 @@ export const getTodayTopMatches: RouteHandlerMethod = async (req, reply): Promis
 	}
 };
 
-async function getMatches(ids: string[] | null, date: string): Promise<IDataMatches | null>  {
+export const getMatches = async (ids: string[] | null, date: string): Promise<IDataMatches | null> => {
   if (!ids) {
     return null;
   }

@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import routes from '@api/routes';
 import { Options } from '@api/config/swagger';
 import { config } from '@api/config';
+// import { initAgenda } from '@api/services/agenda';
 import swagger from '@fastify/swagger';
 const env = process.env.NODE_ENV;
 
@@ -31,6 +32,9 @@ export default app;
 if (env !== 'test' && config.MONGO) {
 	mongoose
 		.connect(config.MONGO)
-		.then(() => app.log.info('MongoDB connected...'))
+		.then(() => {
+			app.log.info('MongoDB connected...');
+			// initAgenda();
+		})
 		.catch(err => app.log.error(err));
 }
