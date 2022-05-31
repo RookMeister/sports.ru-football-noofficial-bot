@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "outDir": "./apps/api/dist",
-  },
-  "extends": "./tsconfig.json",
-  "include": ["./interfaces/**/*.ts", "./apps/api/src/**/*.ts",],
-  "exclude": ["node_modules", "test", "dist"]
-}

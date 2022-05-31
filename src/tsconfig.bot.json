@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "outDir": "./apps/bot/dist",
-  },
-  "extends": "./tsconfig.json",
-  "include": ["./interfaces/**/*.ts", "./apps/bot/src/**/*.ts",],
-  "exclude": ["node_modules", "test", "dist"]
-}

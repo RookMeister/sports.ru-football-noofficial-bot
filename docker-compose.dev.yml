@@ -1,0 +1,40 @@
+# обновление image
+# docker-compose pull
+# docker image prune -f
+# docker-compose down && docker-compose up --force-recreate -d --build
+# docker-compose down && docker-compose up -d --build
+# docker-compose down && sudo rm -r ./sports.ru-football-noofficial-bot/node_modules/ && sudo rm -r ./sports.ru-football-noofficial-bot/.pnpm-store/ && sudo rm -r ./sports.ru-football-noofficial-bot/dist/ && docker-compose up -d --build && docker-compose logs -f
+version: '3.3'
+services:
+  api:
+    image: mcr.microsoft.com/playwright:focal
+    container_name: api
+    env_file: ./.env
+    working_dir: /home/node
+    command: >
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install && pnpm dev"
+    volumes:
+      - ./src/apps/api:/home/node
+      - ./src/interfaces:/home/node/src/interfaces
+      - ./src/helpers:/home/node/src/helpers
+    networks:
+      - app-network
+  bot:
+    image: node:16
+    container_name: bot
+    env_file: ./.env
+    working_dir: /home/node
+    command: >
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install && pnpm dev"
+    volumes:
+      - ./src/apps/bot:/home/node
+      - ./src/interfaces:/home/node/src/interfaces
+      - ./src/helpers:/home/node/src/helpers
+    depends_on:
+      - api
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

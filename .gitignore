@@ -1,4 +1,5 @@
 sessions.json
+docker-compose.yml
 
 # Editor directories and files
 .vscode/*
