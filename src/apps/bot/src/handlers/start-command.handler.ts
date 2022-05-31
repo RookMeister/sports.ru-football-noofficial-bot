@@ -1,6 +1,6 @@
-import { replyKeyboard } from '@bot/helpers/keyboards';
+import { replyKeyboard } from '@bot/services/keyboards';
 import { Context } from 'telegraf';
-import { mainMenu } from '@bot/helpers/buttons';
+import { mainMenu } from '@bot/services/buttons';
 
 export const startCommandHandler = async (ctx: Context) => {
   const { username } = ctx.dbuser;

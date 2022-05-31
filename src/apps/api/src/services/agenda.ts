@@ -5,8 +5,8 @@ import MatchesModel from '@api/models/Matches';
 import ReviewModel from '@api/models/Review';
 import TournamentModel from '@api/models/Tournament';
 import { getMatches } from '@api/controllers/matches';
-import { UTCNext1Day } from '@helpers/transform-date';
-import logger from '@bot/logger';
+import logger from '@api/helpers/logger';
+import { UTCNext1Day } from '@api/helpers/transform-date';
 import { config } from '@api/config';
 
 const agenda = new Agenda({
@@ -35,13 +35,13 @@ agenda.define('check matches', async () => {
       return matches;
     });
     await browser.close();
-    // const matches = await getMatches(ids, date);
-    // if (matches) {
-    //   const tournaments = matches.map(({ name, id }) => ({ name, sports_id: id }))
-    //   await TournamentModel.create(tournaments).catch(e => logger.info({ msg: e }));
-    //   const matchesAll = matches.map(({ name, id, matchesIds, title }) => ({ name, title, id, matchesIds }));
-    //   await MatchesModel.saveMatchesAll(matchesAll, date);
-    // }
+    const matches = await getMatches(ids, date);
+    if (matches) {
+      const tournaments = matches.map(({ name, id }) => ({ name, sports_id: id }))
+      await TournamentModel.create(tournaments).catch(e => logger.info({ msg: e }));
+      const matchesAll = matches.map(({ name, id, matchesIds, title }) => ({ name, title, id, matchesIds }));
+      await MatchesModel.saveMatchesAll(matchesAll, date);
+    }
 
     logger.info({ msg: 'finish check matches' });
   } catch (error) {
@@ -63,6 +63,7 @@ agenda.define('check reviews', async () => {
 export const initAgenda = async () => {
   try {
     await agenda.start();
+    await agenda.define('check matches', {});
     await agenda.every('0 00,01 * * *', 'check matches');
     await agenda.every('0 01,02,17,20,23 * * *', 'check reviews');
   } catch {}

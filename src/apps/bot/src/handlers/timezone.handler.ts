@@ -1,8 +1,8 @@
 import { Context, deunionize } from 'telegraf';
 import { ITimeZone } from '@bot/models/user.model';
-import { inlineKeyboard } from '@bot/helpers/keyboards';
-import { setTime } from '@bot/helpers/buttons';
-import { selectData } from '@bot/helpers/callback-data';
+import { inlineKeyboard } from '@bot/services/keyboards';
+import { setTime } from '@bot/services/buttons';
+import { selectData } from '@bot/services/callback-data';
 
 const timeHelper = (ctx: Context) => {
   const timeZone = ctx.dbuser.timeZone;

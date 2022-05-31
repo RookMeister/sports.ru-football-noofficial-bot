@@ -1,0 +1,55 @@
+{
+	"name": "sports.ru-football-noofficial-bot",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"start": "node -r module-alias/register -r ./dist/app.js",
+    "dev": "nodemon",
+    "build": "rimraf ./dist && tsc"
+	},
+	"keywords": [
+		"telegram",
+    "telegraf.js",
+    "telegraf",
+    "bot",
+    "telegram-bot",
+		"node",
+		"typescript",
+		"mongo",
+		"mongoose",
+		"fastify",
+		"swagger"
+	],
+	"author": "RookMeister <rookmeister666@gmail.com>",
+	"license": "ISC",
+	"repository": {
+		"type": "git"
+	},
+	"_moduleAliases": {
+    "@bot": "./dist"
+  },
+	"dependencies": {
+		"@typegoose/typegoose": "^9.8.1",
+    "date-fns": "^2.28.0",
+		"debug": "^4.3.4",
+    "dotenv": "^16.0.1",
+    "module-alias": "^2.2.2",
+    "mongoose": "6.3.4",
+    "node-fetch": "^3.2.4",
+    "pino": "^7.11.0",
+    "table": "^6.8.0",
+    "telegraf": "^4.8.2",
+    "telegraf-callback-data": "^0.2.6",
+    "telegraf-session-local": "^2.1.0",
+    "telegraf-update-logger": "^1.5.0",
+    "zod": "^3.17.2"
+	},
+	"devDependencies": {
+		"tsconfig-paths": "^4.0.0",
+		"@types/node": "^17.0.35",
+		"nodemon": "^2.0.16",
+		"rimraf": "^3.0.2",
+		"ts-node": "^10.8.0",
+		"typescript": "^4.6.4"
+	}
+}

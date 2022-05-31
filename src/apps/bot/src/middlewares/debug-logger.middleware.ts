@@ -1,6 +1,5 @@
 import updateLogger from 'telegraf-update-logger';
 import { Context } from 'telegraf';
-import config from '@bot/config';
 
 export const debugLoggerMiddleware =
   (options?: updateLogger.Options) => (ctx: Context, next: () => Promise<void>) => {
@@ -14,7 +13,6 @@ export const debugLoggerMiddleware =
         ctx.logger.debug({
           msg,
         }),
-      colors: config.isDevelopment,
       ...options,
     })(ctx, next);
   };

@@ -1,10 +1,10 @@
-import { inlineKeyboard } from '@bot/helpers/keyboards';
-import { setTime, UTCDate } from '@helpers/transform-date';
-import { matchesUpdate } from '@bot/helpers/buttons';
+import { inlineKeyboard } from '@bot/services/keyboards';
+import { setTime, UTCDate } from '@bot/helpers/transform-date';
+import { matchesUpdate } from '@bot/services/buttons';
 import { Context, deunionize } from 'telegraf';
-import { getMatches } from '@bot/helpers/api';
-import { selectData } from '@bot/helpers/callback-data';
-import { IDataMatches } from '~/interfaces/sports.ru.interface';
+import { getMatches } from '@bot/services/api';
+import { selectData } from '@bot/services/callback-data';
+import { IDataMatches } from '@bot/interfaces/sports.ru.interface';
 
 export const matchesHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = matchesUpdate;
@@ -15,7 +15,6 @@ export const matchesHandler = async (ctx: Context, update = false) => {
   }
   const keyboard = inlineKeyboard(values, size, column);
   const matches = await getMatches(date);
-  console.log(666);
   const info = convertTeaserData(matches, ctx.dbuser.timeZone);
   if (update) {
     await ctx.editMessageText(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));

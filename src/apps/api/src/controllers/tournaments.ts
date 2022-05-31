@@ -1,8 +1,7 @@
-import boom from '@hapi/boom';
-import request from '@api/services/request';
+import request from '@api/helpers/request';
 import { RouteHandlerMethod } from 'fastify';
 
-import { ISportsTournamentTableResponse, ISportsTournamentMatchesResponse, ISportsTournamentPlayersStatResponse, ISportsTournamentsListResponse } from '@interfaces/sports.ru.interface';
+import { ISportsTournamentTableResponse, ISportsTournamentMatchesResponse, ISportsTournamentPlayersStatResponse, ISportsTournamentsListResponse } from '@api/interfaces/sports.ru.interface';
 
 export const getTornaments: RouteHandlerMethod = async (req, reply): Promise<ISportsTournamentsListResponse> => {
 	try {
@@ -10,7 +9,8 @@ export const getTornaments: RouteHandlerMethod = async (req, reply): Promise<ISp
     const tornaments = await request<ISportsTournamentsListResponse>(`${process.env.API_SPORTSRU_TOURNAMENTS}?args={"sport_id":${id}}`);
     return tornaments
 	} catch (err) {
-		throw boom.boomify(err as Error);
+		throw err;
+		// throw boom.boomify(err as Error);
 	}
 };
 
@@ -20,7 +20,8 @@ export const getTornamentTable: RouteHandlerMethod = async (req, reply): Promise
     const table = await request<ISportsTournamentTableResponse>(`${process.env.API_SPORTSRU_TOURNAMENT_TABLE}?args={"tournament_id":${id}}`);
     return table
 	} catch (err) {
-		throw boom.boomify(err as Error);
+		throw err;
+		// throw boom.boomify(err as Error);
 	}
 };
 
@@ -30,7 +31,8 @@ export const getTornamentLastMatches: RouteHandlerMethod = async (req, reply): P
     const lastMatches = await request<ISportsTournamentMatchesResponse>(`${process.env.API_SPORTSRU_TOURNAMENT_LAST_MATCHES}?args={"tournament_id":${id}}`);
     return lastMatches
 	} catch (err) {
-		throw boom.boomify(err as Error);
+		throw err;
+		// throw boom.boomify(err as Error);
 	}
 };
 
@@ -40,7 +42,8 @@ export const getTornamentFutureMatches: RouteHandlerMethod = async (req, reply):
     const futureMatches = await request<ISportsTournamentMatchesResponse>(`${process.env.API_SPORTSRU_TOURNAMENT_FUTURE_MATCHES}?args={"tournament_id":${id}}`);
     return futureMatches
 	} catch (err) {
-		throw boom.boomify(err as Error);
+		throw err;
+		// throw boom.boomify(err as Error);
 	}
 };
 
@@ -50,6 +53,7 @@ export const getTornamentPlayersStat: RouteHandlerMethod = async (req, reply): P
     const playerStat = await request<ISportsTournamentPlayersStatResponse>(`${process.env.API_SPORTSRU_TOURNAMENT_PLAYER_STAT}?args={"tournament_id":${id}}`);
     return playerStat;
 	} catch (err) {
-		throw boom.boomify(err as Error);
+		throw err;
+		// throw boom.boomify(err as Error);
 	}
 };

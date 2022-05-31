@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-import { z, ZodError } from "zod";
+import dotenv from 'dotenv';
+import { z } from 'zod';
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ const ConfigSchema = z.object({
   BOT_TOKEN: z.string().nonempty(),
   BOT_WEBHOOK_URL: z.string(),
   // BOT_WEBHOOK_PATH: z.string(),
-  BOT_HOST: z.string(),
+  // BOT_HOST: z.string(),
   BOT_PORT: z.number(),
   BOT_API_ROOT: z.string().optional(),
   MONGO: z.string(),

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
-import config from "@bot/config";
-import logger from "@bot/logger";
-import bot from "@bot/bot";
+import config from '@bot/config';
+import logger from '@bot/helpers/logger';
+import bot from '@bot/bot';
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));

@@ -1,18 +1,17 @@
 import { Context, deunionize } from 'telegraf';
 import { table } from 'table';
-import { selectData } from '@bot/helpers/callback-data';
-import { inlineKeyboard } from '@bot/helpers/keyboards';
-import { statTournamentMenu } from '@bot/helpers/buttons';
+import { selectData } from '@bot/services/callback-data';
+import { inlineKeyboard } from '@bot/services/keyboards';
+import { statTournamentMenu } from '@bot/services/buttons';
 import {
   getTornaments, getTornamentTable, getTornamentLastMatches, getTornamentFutureMatches, getTornamentPlayersStat
-} from '@bot/helpers/api';
+} from '@bot/services/api';
 import {
   ISportsTournamentTableResponse, ISportsTournamentMatchesResponse
-} from '@interfaces/sports.ru.interface';
+} from '@bot/interfaces/sports.ru.interface';
 
 export const statCommandHandler = async (ctx: Context, edit = false) => {
   const tournaments = await getTornaments();
-  console.log(tournaments);
   tournaments.tournament_list.length = 10;
   const buttons = tournaments.tournament_list.map(v => ({
     active: 1, label: v.name, value: `select-tournament:${v.id}`

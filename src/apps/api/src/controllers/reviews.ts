@@ -1,7 +1,7 @@
-import { UTCDate } from '@helpers/transform-date';
-import request from '@api/services/request';
+import { UTCDate } from '@api/helpers/transform-date';
+import request from '@api/helpers/request';
 import { config } from '@api/config';
-import { IYouTubeVideo } from '@interfaces/sports.ru.interface';
+import { IYouTubeVideo } from '@api/interfaces/sports.ru.interface';
 
 export const getReviewMatches = async (): Promise<any[] | null> => {
   if (config.API_KEY_YOTUBE && config.ID_CHANELS) {

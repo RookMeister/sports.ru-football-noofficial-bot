@@ -1,10 +1,8 @@
-import boom from '@hapi/boom';
 import MatchesModel from '@api/models/Matches';
 import ReviewsModel from '@api/models/Review';
-import request from '@api/services/request';
+import request from '@api/helpers/request';
 import { RouteHandlerMethod } from 'fastify';
-
-import { ISportsMatchResponse, IDataMatches } from '@interfaces/sports.ru.interface';
+import { ISportsMatchResponse, IDataMatches } from '@api/interfaces/sports.ru.interface';
 
 export const getTodayTopMatches: RouteHandlerMethod = async (req, reply): Promise<IDataMatches | null> => {
 	try {
@@ -13,7 +11,8 @@ export const getTodayTopMatches: RouteHandlerMethod = async (req, reply): Promis
 		const matches = await getMatches(ids, date);
 		return matches;
 	} catch (err) {
-		throw boom.boomify(err as Error);
+		// throw boom.boomify(err as Error);
+		throw err;
 	}
 };
 

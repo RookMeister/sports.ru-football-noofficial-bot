@@ -1,11 +1,11 @@
 import { Context, deunionize } from 'telegraf';
 import { UserModel } from '@bot/models/user.model';
 import { StatModel } from '@bot/models/analytics.model';
-import { selectData } from '@bot/helpers/callback-data';
-import { UTCDate, UTCPrev1Day } from '@helpers/transform-date';
+import { selectData } from '@bot/services/callback-data';
+import { UTCDate, UTCPrev1Day } from '@bot/helpers/transform-date';
 import { formatISO } from 'date-fns';
-import { inlineKeyboard } from '@bot/helpers/keyboards';
-import { statBotMenu } from '@bot/helpers/buttons';
+import { inlineKeyboard } from '@bot/services/keyboards';
+import { statBotMenu } from '@bot/services/buttons';
 
 export const statBotCommandHandler = async (ctx: Context, date: string, edit: boolean) => {
   if (ctx.from?.id === 302423620) {

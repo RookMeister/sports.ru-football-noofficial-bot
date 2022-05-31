@@ -7,10 +7,10 @@ import {
   RequestParamsDefault,
   RequestQuerystringDefault,
   RouteShorthandOptions,
-} from "fastify";
-import { RouteHandlerMethod } from "fastify/types/route";
-import { ReplyDefault } from "fastify/types/utils";
-import { FastifySchema } from "fastify/types/schema";
+} from 'fastify';
+import { RouteHandlerMethod } from 'fastify/types/route';
+import { ReplyDefault } from 'fastify/types/utils';
+import { FastifySchema } from 'fastify/types/schema';
 
 export type DefaultQuery = RequestQuerystringDefault;
 export type DefaultParams = RequestParamsDefault;

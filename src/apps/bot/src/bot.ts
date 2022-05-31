@@ -1,7 +1,7 @@
 import { Telegraf } from 'telegraf';
 import config from '@bot/config';
 
-import { selectData } from '@bot/helpers/callback-data';
+import { selectData } from '@bot/services/callback-data';
 
 import { setupLoggerMiddleware } from '@bot/middlewares/setup-logger.middleware';
 // import { setupSessionMiddleware } from '@bot/middlewares/setup-session.middleware';

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import routes from '@api/routes';
 import { Options } from '@api/config/swagger';
 import { config } from '@api/config';
-// import { initAgenda } from '@api/services/agenda';
+import { initAgenda } from '@api/services/agenda';
 import swagger from '@fastify/swagger';
 const env = process.env.NODE_ENV;
 
@@ -17,7 +17,7 @@ routes.forEach(route => {
 
 const start = async (): Promise<void> => {
 	try {
-		await app.listen(config.SERVER_PORT);
+		await app.listen(config.SERVER_PORT, '0.0.0.0');
 		app.swagger();
 	} catch (err) {
 		app.log.error(err);
@@ -34,7 +34,7 @@ if (env !== 'test' && config.MONGO) {
 		.connect(config.MONGO)
 		.then(() => {
 			app.log.info('MongoDB connected...');
-			// initAgenda();
+			initAgenda();
 		})
 		.catch(err => app.log.error(err));
 }
