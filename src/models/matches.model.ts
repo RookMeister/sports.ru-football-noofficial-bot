@@ -2,6 +2,7 @@ import { prop, getModelForClass, ReturnModelType, modelOptions, Severity } from 
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { IMatchesSaveAll } from '@bot/interfaces/sports.ru.interface';
 import { TournamentsModel } from '@bot/models/tournamnets.model';
+import logger from '@bot/logger';
 
 @modelOptions({ schemaOptions: { timestamps: true }, options: { allowMixed: Severity.ALLOW } })
 export class Matches extends TimeStamps {
@@ -20,6 +21,7 @@ export class Matches extends TimeStamps {
   }
 
   static async saveMatchesAll(this: ReturnModelType<typeof Matches>, { matchesAll, date }: { matchesAll: IMatchesSaveAll, date: string }) {
+    logger.info({ msg: 'saveMatchesAll ' + date });
     const matches = await this.findOne({ date })
     if (matches) {
       matches.allIds = matchesAll;

@@ -38,6 +38,7 @@ agenda.define('check matches', async (job) => {
     const tournaments = matches.map(({ name, id }) => ({ name, sports_id: id }))
     await TournamentsModel.create(tournaments).catch(e => console.log(666, e));
     const matchesAll = matches.map(({ name, id, matchesIds, title }) => ({ name, title, id, matchesIds }))
+    logger.info({ msg: 'finish check matches' });
     await MatchesModel.saveMatchesAll({ matchesAll, date });
     logger.info({ msg: 'finish check matches' });
   } catch (error) {
@@ -57,7 +58,7 @@ agenda.define('check reviews', async () => {
 export const initAgenda = async () => {
   try {
     await agenda.start();
-    await agenda.every('0 00,01 * * *', 'check tournaments');
+    await agenda.every('0 00,01 * * *', 'check matches');
     await agenda.every('0 01,02,17,20,23 * * *', 'check reviews');
   } catch {}
 }
