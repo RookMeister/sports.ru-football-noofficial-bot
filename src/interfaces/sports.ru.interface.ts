@@ -38,7 +38,16 @@ export interface ISportsMatchResponse {
   page_info: {
     mobile_url: string;
     desktop_url: string;
-  }
+  };
+  review?: IYouTubeVideo;
+}
+export interface IYouTubeVideo {
+  videoId: string;
+  url: string;
+  date: string;
+  dateDay: string;
+  title: string;
+  channelTitle: string;
 }
 interface ISportsMatchTeam {
   id: number;
