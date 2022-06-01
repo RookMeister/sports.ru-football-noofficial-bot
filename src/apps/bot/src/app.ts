@@ -13,13 +13,14 @@ function main() {
     autoIndex: true, //make this also true
   });
   mongoose.connection.on('error', err => {
-    logger.error( undefined, `mongo connection error`, err);
+    logger.info({ msg: 'mongo connection error'});
     process.exit(1);
   });
   mongoose.connection.on('open', async () => {
     logger.info({ msg: 'mongo connection open' });
     if (config.isDevelopment || config.isTest) {
       await bot.launch();
+      bot.catch(data => console.log('ERROR', data));
     } else if (config.isProduction) {
       // logger.info({
       //   msg: "setting webhook",
