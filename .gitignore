@@ -15,6 +15,7 @@ docker-compose.yml
 
 
 # Logs
+.DS_Store
 logs
 *.log
 npm-debug.log*
