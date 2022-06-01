@@ -1,9 +1,3 @@
-# обновление image
-# docker-compose pull
-# docker image prune -f
-# docker-compose down && docker-compose up --force-recreate -d --build
-# docker-compose down && docker-compose up -d --build
-# docker-compose down && sudo rm -r ./sports.ru-football-noofficial-bot/node_modules/ && sudo rm -r ./sports.ru-football-noofficial-bot/.pnpm-store/ && sudo rm -r ./sports.ru-football-noofficial-bot/dist/ && docker-compose up -d --build && docker-compose logs -f
 version: '3.3'
 services:
   api:
