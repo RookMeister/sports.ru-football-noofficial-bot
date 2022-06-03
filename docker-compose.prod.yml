@@ -8,7 +8,7 @@ services:
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install && pnpm build && pnpm start"
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && pnpm install && pnpm build && pnpm start"
     volumes:
       - ./src/apps/api:/home/node
       - ./src/interfaces:/home/node/src/interfaces
@@ -22,7 +22,7 @@ services:
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install && pnpm build && pnpm start"
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && pnpm install && pnpm build && pnpm start"
     volumes:
       - ./src/apps/bot:/home/node
       - ./src/interfaces:/home/node/src/interfaces
