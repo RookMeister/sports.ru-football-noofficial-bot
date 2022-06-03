@@ -1,5 +1,5 @@
 import { Markup } from 'telegraf';
-import { InlineKeyboardButton } from 'telegraf/src/core/types/typegram';
+import { InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup } from 'telegraf/src/core/types/typegram';
 
 // type TArrayKeyboardButtons = { text: string, callback_data: string, hide: boolean }[];
 // type TArrayKeyboardUrlButtons = { text: string, url: string, hide: boolean }[];

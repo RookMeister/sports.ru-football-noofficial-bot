@@ -3,8 +3,8 @@ import { z } from 'zod';
 
 dotenv.config();
 
-const DEVELOPMENT = "development";
-const PRODUCTION = "production";
+const DEVELOPMENT = "DEVELOPMENT";
+const PRODUCTION = "PRODUCTION";
 const TEST = "test";
 
 /*
