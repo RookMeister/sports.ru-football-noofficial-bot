@@ -51,7 +51,7 @@ agenda.define('check matches', async () => {
 agenda.define('check reviews', async () => {
   logger.info({ msg: 'start check reviews' });
   const reviews = await getReviewMatches();
-  if (reviews) {
+  if (reviews && reviews.length) {
     for (const r of reviews) {
       await ReviewModel.saveReviews(r);
     }
