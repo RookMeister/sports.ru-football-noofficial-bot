@@ -4,7 +4,7 @@ export const mainMenu = {
   'values': [
     { 'label': 'Матчи', 'active': 1 },
     { 'label': 'Статистика', 'active': 1 },
-    { 'label': 'Обзоры', 'active': 1 },
+    { 'label': 'Обзоры', 'active': 0 },
     { 'label': 'О боте', 'active': 0 }
   ]
 }
@@ -14,7 +14,8 @@ export const matchesUpdate = {
   'values': [
     { 'label': 'Вчера', 'value': 'update-matches:yesterday', 'active': 1 },
     { 'label': 'Сегодня', 'value': 'update-matches:today', 'active': 1 },
-    { 'label': 'Завтра', 'value': 'update-matches:tomorrow', 'active': 1 }
+    { 'label': 'Завтра', 'value': 'update-matches:tomorrow', 'active': 1 },
+    { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, url: true }
   ]
 }
 export const reviewsUpdate = {

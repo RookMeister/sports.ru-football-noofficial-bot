@@ -11,7 +11,6 @@ interface IMatchesSaveAll {
 
 @modelOptions({ schemaOptions: { timestamps: true }, options: { allowMixed: Severity.ALLOW } })
 export class Matches extends TimeStamps {
-  @prop({ required: true, default: [] }) ids!: [string];
   @prop({ required: true, default: [] }) allIds!: IMatchesSaveAll[];
   @prop({ required: true, default: '' }) date!: string;
 
