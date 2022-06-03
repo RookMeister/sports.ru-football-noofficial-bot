@@ -26,11 +26,14 @@ const bot: Telegraf = new Telegraf(config.BOT_TOKEN, {
 });
 
 bot.use(setupLoggerMiddleware());
-// bot.use(setupSessionMiddleware());
-bot.use(debugLoggerMiddleware());
-bot.use(analyticsMiddleware);
 bot.use(attachUserMiddleware);
-bot.use(setLastActionToUserMiddleware);
+// bot.use(setupSessionMiddleware());
+if (config.isProduction) {
+  bot.use(analyticsMiddleware);
+  bot.use(setLastActionToUserMiddleware);
+}
+bot.use(debugLoggerMiddleware());
+
 
 bot.start(startCommandHandler);
 
