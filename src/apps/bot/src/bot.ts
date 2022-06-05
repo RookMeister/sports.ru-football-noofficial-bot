@@ -34,13 +34,15 @@ if (config.isProduction) {
 }
 bot.use(debugLoggerMiddleware());
 
-
 bot.start(startCommandHandler);
 
-bot.hears('Матчи', (ctx) => matchesHandler(ctx));
+// bot.hears('Матчи', (ctx) => matchesHandler(ctx));
+bot.command('matches', (ctx) => matchesHandler(ctx));
 bot.action(selectData('update-matches').filter(), (ctx) => matchesHandler(ctx, true));
 
-bot.hears('Статистика', (ctx) => statCommandHandler(ctx));
+// bot.hears('Статистика', (ctx) => statCommandHandler(ctx));
+bot.command('statistics', (ctx) => statCommandHandler(ctx));
+bot.action('select-tournament', (ctx) => statCommandHandler(ctx, true));
 bot.action(selectData('select-tournament').filter(), (ctx) => statTournamentTabletHandler(ctx));
 
 bot.command('time', timeCommandHandler);

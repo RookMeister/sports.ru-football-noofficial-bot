@@ -1,11 +1,12 @@
 export const mainMenu = {
-  'size': 1,
+  'size': 2,
   'column': false,
   'values': [
-    { 'label': 'Матчи', 'active': 1 },
-    { 'label': 'Статистика', 'active': 1 },
-    { 'label': 'Обзоры', 'active': 0 },
-    { 'label': 'О боте', 'active': 0 }
+    { 'label': 'Матчи', 'value': 'update-matches:yesterday', 'active': 1 },
+    { 'label': 'Статистика', 'value': 'select-tournament', 'active': 1 },
+    { 'label': 'Обзоры за день', 'active': 0 },
+    { 'label': 'О боте', 'active': 0 },
+    { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, url: true }
   ]
 }
 export const matchesUpdate = {
@@ -15,6 +16,7 @@ export const matchesUpdate = {
     { 'label': 'Вчера', 'value': 'update-matches:yesterday', 'active': 1 },
     { 'label': 'Сегодня', 'value': 'update-matches:today', 'active': 1 },
     { 'label': 'Завтра', 'value': 'update-matches:tomorrow', 'active': 1 },
+    { 'label': '⏪Назад', 'value': 'update-matches:back', 'active': 1 },
     { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, url: true }
   ]
 }
@@ -23,6 +25,11 @@ export const reviewsUpdate = {
   'column': false,
   'values': [{ 'label': 'Обновить', 'value': 'update-reviews', 'active': 1 }]
 }
+export const donate = {
+  'size': 1,
+  'column': false,
+  'values': [{ 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, url: true }]
+}
 export const statTournamentMenu = {
   'size': 3,
   'column': false,
@@ -30,8 +37,9 @@ export const statTournamentMenu = {
     { 'active': 1, 'value': 'select-tournament:$.table', 'label':	'Таблица' },
     { 'active': 1, 'value': 'select-tournament:$.last', 'label':	' Результаты' },
     { 'active': 1, 'value': 'select-tournament:$.future', 'label':	'Календарь' },
-    { 'active': 1, 'value': 'select-tournament:$.back', 'label':	'Назад' },
-    { 'active': 0, 'value': 'select-tournament:$.player', 'label':	'Статистика игроков' }
+    { 'active': 1, 'value': 'select-tournament:$.back', 'label':	'⏪Назад' },
+    { 'active': 0, 'value': 'select-tournament:$.player', 'label':	'Статистика игроков' },
+    { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, url: true }
   ]
 }
 export const statBotMenu = {
