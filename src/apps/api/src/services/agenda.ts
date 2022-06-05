@@ -16,13 +16,13 @@ const agenda = new Agenda({
   }
 });
 
-agenda.define('check matches', async () => {
+agenda.define('check matches', async (job: any) => {
   try {
     logger.info({ msg: 'start check matches' });
     const browser = await chromium.launch({ chromiumSandbox: false });
     const context = await browser.newContext();
     const page = await context.newPage();
-    const date = UTCNext1Day();
+    const date = job.attrs.data || UTCNext1Day();
     logger.info({ msg: `https://www.sports.ru/football/match/${date}/` });
     await page.goto(`https://www.sports.ru/football/match/${date}/`, { waitUntil: 'load', timeout: 0 });
     const ids = await page.$eval('.panel.active-panel', (elms) => {
@@ -45,7 +45,7 @@ agenda.define('check matches', async () => {
 
     logger.info({ msg: 'finish check matches' });
   } catch (error) {
-    logger.error(undefined, `check matches error`, error);
+    logger.error(undefined, `error check matches`, error);
   }
 });
 agenda.define('check reviews', async () => {
@@ -63,8 +63,13 @@ agenda.define('check reviews', async () => {
 export const initAgenda = async () => {
   try {
     await agenda.start();
-    await agenda.define('check matches', {});
     await agenda.every('0 00,01 * * *', 'check matches');
     await agenda.every('0 01,02,17,20,23 * * *', 'check reviews');
+  } catch {}
+}
+
+export const checkMatches = async (date: string) => {
+  try {
+    await agenda.now('check matches', date);
   } catch {}
 }
