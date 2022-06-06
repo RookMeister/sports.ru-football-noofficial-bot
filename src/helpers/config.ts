@@ -19,12 +19,13 @@ const ConfigSchema = z.object({
   ]),
   BOT_TOKEN: z.string().nonempty(),
   BOT_WEBHOOK_URL: z.string(),
-  // BOT_WEBHOOK_PATH: z.string(),
-  // BOT_HOST: z.string(),
+  SERVER_PORT: z.number(),
   BOT_PORT: z.number(),
   BOT_API_ROOT: z.string().optional(),
   MONGO: z.string(),
   API_URL: z.string(),
+  API_KEY_YOTUBE: z.string(),
+  ID_CHANNELS: z.string(),
   LOG_LEVEL: z.union([
     z.literal("fatal"),
     z.literal("error"),
@@ -41,6 +42,7 @@ const ConfigSchema = z.object({
 
 export default ConfigSchema.parse({
   ...process.env,
+  SERVER_PORT: parseInt(process.env.SERVER_PORT || '4000'),
   BOT_PORT: parseInt(process.env.BOT_PORT || '3000'),
   isProduction: process.env.NODE_ENV === 'PRODUCTION',
   isDevelopment: process.env.NODE_ENV === 'DEVELOPMENT',
