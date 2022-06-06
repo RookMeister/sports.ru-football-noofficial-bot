@@ -1,9 +1,7 @@
 import * as matchesController from '@api/controllers/matches';
 import { RouteOptions } from 'fastify';
 // import { GetTopMatchesSchema } from '@api/routes/documentation/matchesApi';
-// import { ApiController } from '@api/services/fastify-types';
 
-// const getTopMatchesRoute: ApiController<any,  { id: string }> = {
 const getTopMatchesRoute: RouteOptions = {
 	method: 'GET',
 	url: '/api/top-matches/:date/',
