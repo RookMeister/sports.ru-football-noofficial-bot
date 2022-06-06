@@ -28,6 +28,23 @@ services:
       - api
     networks:
       - app-network
+  web:
+    image: node:16
+    container_name: web
+    ports:
+      - 3000:3000
+    env_file: ./.env
+    working_dir: /home/node
+    command: >
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install && pnpm dev"
+    tty: true
+    volumes:
+      - ./src/apps/web:/home/node
+      - ./src/interfaces:/home/node/src/interfaces
+    depends_on:
+      - api
+    networks:
+      - app-network
 
 networks:
   app-network:
