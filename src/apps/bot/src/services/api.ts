@@ -5,7 +5,7 @@ import {
   ISportsTournamentPlayersStatResponse,
   IDataMatches
 } from '@bot/interfaces/sports.ru.interface';
-import config from '@bot/config';
+import config from '@bot/helpers/config';
 
 import request from '@bot/helpers/request';
 

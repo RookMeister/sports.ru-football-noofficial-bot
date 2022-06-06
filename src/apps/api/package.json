@@ -39,7 +39,8 @@
     "module-alias": "^2.2.2",
     "mongoose": "6.3.4",
     "node-fetch": "^3.2.4",
-    "playwright-chromium": "^1.22.2"
+    "playwright-chromium": "^1.22.2",
+		"zod": "^3.17.2"
 	},
 	"devDependencies": {
 		"tsconfig-paths": "^4.0.0",

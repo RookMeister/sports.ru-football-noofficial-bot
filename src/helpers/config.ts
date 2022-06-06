@@ -39,28 +39,10 @@ const ConfigSchema = z.object({
   isTest: z.boolean(),
 });
 
-// let config;
-
-// try {
-//   config = ConfigSchema.parse({
-//     ...process.env,
-//     BOT_PORT: parseInt(process.env.BOT_PORT || '3000'),
-//     isProduction: process.env.NODE_ENV === PRODUCTION,
-//     isDevelopment: process.env.NODE_ENV === DEVELOPMENT,
-//     isTest: process.env.NODE_ENV === TEST,
-//   });
-// } catch (e) {
-//   if (e instanceof ZodError) {
-//     console.error("config error", e.message);
-//     process.exit(1);
-//   }
-//   throw e;
-// }
-
 export default ConfigSchema.parse({
   ...process.env,
   BOT_PORT: parseInt(process.env.BOT_PORT || '3000'),
-  isProduction: process.env.NODE_ENV === PRODUCTION,
-  isDevelopment: process.env.NODE_ENV === DEVELOPMENT,
+  isProduction: process.env.NODE_ENV === 'PRODUCTION',
+  isDevelopment: process.env.NODE_ENV === 'DEVELOPMENT',
   isTest: process.env.NODE_ENV === TEST,
 });

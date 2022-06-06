@@ -7,7 +7,7 @@ import TournamentModel from '@api/models/Tournament';
 import { getMatches } from '@api/controllers/matches';
 import logger from '@api/helpers/logger';
 import { UTCNext1Day } from '@api/helpers/transform-date';
-import { config } from '@api/config';
+import config from '@api/helpers/config';
 
 const agenda = new Agenda({
   db: {

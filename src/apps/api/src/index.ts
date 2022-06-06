@@ -2,7 +2,7 @@ import * as fastify from 'fastify';
 import mongoose from 'mongoose';
 import routes from '@api/routes';
 import { Options } from '@api/config/swagger';
-import { config } from '@api/config';
+import config from '@api/helpers/config';
 import { initAgenda } from '@api/services/agenda';
 import swagger from '@fastify/swagger';
 const env = process.env.NODE_ENV;
@@ -29,12 +29,12 @@ start();
 export default app;
 
 // Configure DB
-if (env !== 'test' && config.MONGO) {
+if (config.MONGO) {
 	mongoose
 		.connect(config.MONGO)
 		.then(() => {
 			app.log.info('MongoDB connected...');
-			initAgenda();
+			config.isProduction && initAgenda();
 		})
 		.catch(err => app.log.error(err));
 }

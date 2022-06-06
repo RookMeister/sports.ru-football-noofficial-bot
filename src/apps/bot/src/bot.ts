@@ -1,5 +1,5 @@
 import { Telegraf } from 'telegraf';
-import config from '@bot/config';
+import config from '@bot/helpers/config';
 
 import { selectData } from '@bot/services/callback-data';
 
