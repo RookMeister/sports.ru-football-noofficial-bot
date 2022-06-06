@@ -1,7 +1,19 @@
 import { UTCDate } from '@api/helpers/transform-date';
 import request from '@api/helpers/request';
-import { config } from '@api/config';
 import { IYouTubeVideo } from '@api/interfaces/sports.ru.interface';
+import { RouteHandlerMethod } from 'fastify';
+import ReviewsModel from '@api/models/Review';
+
+export const getReviews: RouteHandlerMethod = async (req, reply): Promise<any> => {
+	try {
+    const { date } = (req.params as  { date: string });
+    const reviews = await ReviewsModel.findReviewsToday(date);
+		return reviews;
+	} catch (err) {
+		// throw boom.boomify(err as Error);
+		throw err;
+	}
+};
 
 export const getReviewMatches = async (): Promise<any[] | null> => {
   if (config.API_KEY_YOTUBE && config.ID_CHANNELS) {
