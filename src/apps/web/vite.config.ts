@@ -1,7 +1,10 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import Pages from 'vite-plugin-pages';
+import Layouts from 'vite-plugin-vue-layouts';
+import AutoImport from 'unplugin-auto-import/vite';
+import { fileURLToPath, URL } from 'url';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   server: {
     watch: {
@@ -12,5 +15,24 @@ export default defineConfig({
     hmr: {
     },
   },
-  plugins: [vue()]
+  plugins: [
+    vue(), Pages(), Layouts(),
+    AutoImport({
+      imports: [
+        'vue',
+        'vue-router',
+        '@vueuse/head',
+        '@vueuse/core',
+      ],
+      dts: 'src/auto-imports.d.ts',
+      eslintrc: {
+        enabled: true,
+      },
+    }),
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
 })
