@@ -6,7 +6,8 @@ import ApiService from './services/ApiService';
 onMounted( async () => {
   try {
     console.log(233);
-    await ApiService.apiGetAllTournaments()
+    // await ApiService.apiGetAllTournaments()
+    await ApiService.apiGetTournamentInfo('rpl')
     // console.log('users', users.value)
   } catch (err) {
     console.log('err', err)
