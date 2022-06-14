@@ -1,15 +1,26 @@
-export const mainMenu = {
+import config from '@bot/helpers/config';
+
+interface ISettingsButtons {
+  size: number;
+  column: boolean;
+  values: TArrayButtons;
+}
+
+type TArrayButtons = { label: string, value?: string, active: number, view?: 'url' | 'webApp' }[];
+
+
+export const mainMenu: ISettingsButtons = {
   'size': 2,
   'column': false,
   'values': [
-    { 'label': 'Матчи', 'value': 'update-matches:today', 'active': 1 },
-    { 'label': 'Статистика', 'value': 'select-tournament', 'active': 1 },
+    { 'label': 'Матчи', 'value': config.WEB_URL, 'active': 1, view: 'webApp' },
+    { 'label': 'Статистика', 'value': config.WEB_URL, 'active': 1, view: 'webApp' },
     { 'label': 'Обзоры за день', 'active': 0 },
     { 'label': 'О боте', 'active': 0 },
-    { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, url: true }
+    { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, view: 'url' }
   ]
 }
-export const matchesUpdate = {
+export const matchesUpdate: ISettingsButtons = {
   'size': 3,
   'column': false,
   'values': [
@@ -17,20 +28,20 @@ export const matchesUpdate = {
     { 'label': 'Сегодня', 'value': 'update-matches:today', 'active': 1 },
     { 'label': 'Завтра', 'value': 'update-matches:tomorrow', 'active': 1 },
     { 'label': '⏪Назад', 'value': 'update-matches:back', 'active': 0 },
-    { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, url: true }
+    { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, view: 'url' }
   ]
 }
-export const reviewsUpdate = {
+export const reviewsUpdate: ISettingsButtons = {
   'size': 1,
   'column': false,
   'values': [{ 'label': 'Обновить', 'value': 'update-reviews', 'active': 1 }]
 }
-export const donate = {
+export const donate: ISettingsButtons = {
   'size': 1,
   'column': false,
-  'values': [{ 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, url: true }]
+  'values': [{ 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, view: 'url' }]
 }
-export const statTournamentMenu = {
+export const statTournamentMenu: ISettingsButtons = {
   'size': 3,
   'column': false,
   'values': [
@@ -39,10 +50,10 @@ export const statTournamentMenu = {
     { 'active': 1, 'value': 'select-tournament:$.future', 'label':	'Календарь' },
     { 'active': 1, 'value': 'select-tournament:$.back', 'label':	'⏪Назад' },
     { 'active': 0, 'value': 'select-tournament:$.player', 'label':	'Статистика игроков' },
-    { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, url: true }
+    { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, view: 'url' }
   ]
 }
-export const statBotMenu = {
+export const statBotMenu: ISettingsButtons = {
   'size': 3,
   'column': false,
   'values': [
@@ -50,7 +61,7 @@ export const statBotMenu = {
     { 'active': 1, 'label':'Сегодня', 'value': 'select-stat-bot:now' }
   ]
 }
-export const setTime = {
+export const setTime: ISettingsButtons = {
   'size': 6,
   'column': false,
   'values': [

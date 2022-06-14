@@ -20,4 +20,13 @@ export default {
   apiGetAllUsers() {
     return instance.get('/users')
   },
+  apiGetAllTournaments() {
+    return instance.get('https://api.sport24.ru/hub/v1/statistics/widget/sports/football/competitions')
+  },
+  apiGetTournamentInfo(urn: string) {
+    return instance.get(`https://api.sport24.ru/api-aggregator/v1/competitions/${urn}/review?materialsLimit=0&newsLimit=0`)
+  },
+  apiGetTournamentStanding(id: number) {
+    return instance.get(`https://api.sport24.ru/hub/v2/statistics/widget/competitions/standings/${id}`)
+  }
 }

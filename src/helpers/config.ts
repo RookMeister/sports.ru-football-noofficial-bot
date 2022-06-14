@@ -24,6 +24,7 @@ const ConfigSchema = z.object({
   BOT_API_ROOT: z.string().optional(),
   MONGO: z.string(),
   API_URL: z.string(),
+  WEB_URL: z.string(),
   API_KEY_YOTUBE: z.string(),
   ID_CHANNELS: z.string(),
   LOG_LEVEL: z.union([

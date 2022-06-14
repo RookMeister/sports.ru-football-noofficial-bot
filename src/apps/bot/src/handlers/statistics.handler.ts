@@ -47,7 +47,7 @@ export const statTournamentTabletHandler = async (ctx: Context) => {
           info = statTable(table);
         }
         const { size, column, values } = statTournamentMenu;
-        const buttons = values.map(v => { v.value = v.value.replace('$', id); return v; });
+        const buttons = values.map(v => { v.value = v.value && v.value.replace('$', id); return v; });
         const keyboard = inlineKeyboard(buttons, size, column);
         await ctx.editMessageText(info, { disable_web_page_preview: true, parse_mode: 'HTML', ...keyboard }).catch((err) => ctx.answerCbQuery('Уже выведено'));
       }

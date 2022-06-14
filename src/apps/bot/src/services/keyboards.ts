@@ -3,7 +3,7 @@ import { InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup } from 
 
 // type TArrayKeyboardButtons = { text: string, callback_data: string, hide: boolean }[];
 // type TArrayKeyboardUrlButtons = { text: string, url: string, hide: boolean }[];
-type TArrayButtons = { label: string, value?: string, active: number, url?: boolean }[];
+type TArrayButtons = { label: string, value?: string, active: number, view?: 'url' | 'webApp' }[];
 type Hideable<B> = B & { hide?: boolean }
 
 export const inlineKeyboard = (array: TArrayButtons, size: number = 1, column = false) => {
@@ -18,14 +18,16 @@ export const replyKeyboard = (array: TArrayButtons, size: number = 1, column = f
 const markupButtons = (buttons: TArrayButtons) => {2
   const arr = buttons.filter(b => b.active);
   return arr.map(b => {
-    if (b.url) {
-      return Markup.button.url(b.label, b.value || b.label);
-    } else {
-      return Markup.button.callback(b.label, b.value || b.label);
-    }
+    const view = b.view || 'callback';
+    return Markup.button[view](b.label, b.value || b.label);
+    // if (b.url) {
+    //   return Markup.button.url(b.label, b.value || b.label);
+    // } else {
+    //   return Markup.button.callback(b.label, b.value || b.label);
+    // }
   })
 };
-const constructorPosKey = (buttons: (Hideable<InlineKeyboardButton.CallbackButton> | Hideable<InlineKeyboardButton.UrlButton>)[], size: number, column: boolean) => {
+const constructorPosKey = (buttons: (Hideable<InlineKeyboardButton.CallbackButton> | Hideable<InlineKeyboardButton.UrlButton> | Hideable<InlineKeyboardButton.WebAppButton>)[], size: number, column: boolean) => {
   const res = []; //массив в который будет выведен результат.
   if (column) {
     let length = buttons.length;
