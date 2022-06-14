@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import ApiService from './services/ApiService';
 
-
+const tournaments = ref();
 onMounted( async () => {
   try {
-    console.log(233);
-    // await ApiService.apiGetAllTournaments()
-    await ApiService.apiGetTournamentInfo('rpl')
-    // console.log('users', users.value)
+    const { data: { items } } = await ApiService.apiGetAllTournaments();
+    tournaments.value = items;
   } catch (err) {
     console.log('err', err)
   }
@@ -18,6 +16,8 @@ onMounted( async () => {
 
 <template>
   <div class="p-8">
-    888999
+    <div class="flex flex-wrap">
+      <div v-for="item in tournaments" class="p-4"><img class="w-16 h-16" :src="'https://s74794.cdn.ngenix.net/m/' + item.image" alt="" srcset=""></div>
+    </div>
   </div>
 </template>
