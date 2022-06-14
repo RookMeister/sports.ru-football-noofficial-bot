@@ -3,31 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --tp-primary-color-text: #0F1111;
-  /* --tp-secondary-color-text: #485656;
-  --tp-tertiary-color-text: #627070; */
-
-  --tp-primary-background-color: #F5F5F5;
-  /* --tp-secondary-background-color: #FFFFFF;
-  --tp-tertiary-background-color: #EDF3F3;
-
-  --tp-primary-border-color: #EAEAEA; */
-}
-.dark {
-  --tp-primary-color-text: #EEF2F1;
-  /* --tp-secondary-color-text: #C5D3D3;
-  --tp-tertiary-color-text: #768787; */
-
-  --tp-primary-background-color: #0D0D0D;
-  /* --tp-secondary-background-color: #181D1C;
-  --tp-tertiary-background-color: #212828;
-
-  --tp-primary-border-color: #252525; */
+  /* var(--tg-theme-bg-color)
+  var(--tg-theme-text-color)
+  var(--tg-theme-hint-color)
+  var(--tg-theme-link-color)
+  var(--tg-theme-button-color)
+  var(--tg-theme-button-text-color) */
 }
 
 body {
-  color: var(--tp-primary-color-text);
-  background-color: var(--tp-primary-background-color);
+  color: var(--tg-theme-text-color);
+  background-color: var(--tg-theme-bg-color, #FFFFFF);
 }
 
 button {
