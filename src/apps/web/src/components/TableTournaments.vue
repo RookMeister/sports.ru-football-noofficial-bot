@@ -43,7 +43,7 @@ onMounted( async () => {
         {{ item.titleRu }}
       </div>
     </nav>
-    <table v-if="season" class="w-full mt-6 text-xs text-left border-spacing-y-2 border-separate table-auto">
+    <table v-if="season" class="w-full mt-6 text-sm text-left border-spacing-y-2 border-separate table-auto">
       <thead>
         <tr>
           <th class="py-2 border-b border-b-gray-300" scope="col">#</th>
