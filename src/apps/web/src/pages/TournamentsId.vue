@@ -4,17 +4,20 @@ import { useRoute } from 'vue-router'
 import ApiService from '@/services/ApiService';
 
 const route = useRoute()
-const tournament = ref(null);
-const season = ref(null);
+const tournament: any = ref(null);
+const season: any = ref(null);
 
 onMounted( async () => {
-  try {
-    const { data: info } = await ApiService.apiGetTournamentInfo(route.params.id);
-    const { data: standing } = await ApiService.apiGetTournamentStanding(info.stages.actualId);
-    tournament.value = info;
-    season.value = standing;
-  } catch (err) {
-    console.log('err', err)
+  const id = route.params.id;
+  if (id) {
+    try {
+      const { data: info } = await ApiService.apiGetTournamentInfo(id.toString());
+      const { data: standing } = await ApiService.apiGetTournamentStanding(info.stages.actualId);
+      tournament.value = info;
+      season.value = standing;
+    } catch (err) {
+      console.log('err', err)
+    }
   }
 })
 </script>
@@ -36,7 +39,7 @@ onMounted( async () => {
           <th scope="col">PTS</th>
         </tr>
       </thead>
-      <tr v-for="item in season.items.sort((a, b) => a.standingTable.rank - b.standingTable.rank)" :key="item.participantId">
+      <tr v-for="item in season.items.sort((a: any, b: any) => a.standingTable.rank - b.standingTable.rank)" :key="item.participantId">
         <td>{{ item.standingTable.rank }}</td>
         <td>{{ season.participants[item.participantId].titleRu }}</td>
         <td>{{ item.standingTable.win }}</td>
