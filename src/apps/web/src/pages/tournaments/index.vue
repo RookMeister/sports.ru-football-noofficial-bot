@@ -17,7 +17,7 @@ onMounted( async () => {
 
 <template>
   <div v-if="tournaments" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-12 gap-4">
-    <router-link :to="{ name: 'tournamentsId', params: { id: item.urn } }" class="p-2 text-center min-h-40" v-for="item in tournaments" :key="item.title">
+    <router-link :to="`/tournaments/${item.urn}`" class="p-2 text-center min-h-40" v-for="item in tournaments" :key="item.title">
       <img :src="'https://s74794.cdn.ngenix.net/m/' + item.image" alt="" srcset="">
       <p>{{ item.titleShort }}</p>
     </router-link>
