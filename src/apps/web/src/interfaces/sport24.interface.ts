@@ -1,7 +1,7 @@
 export interface ISport24CompetitionsResponce {
   items: ISport24Competition[];
 }
-interface ISport24Competition {
+export interface ISport24Competition {
   id: number;
   urn: string;
   title: string;
@@ -30,7 +30,7 @@ interface ISport24Sport {
 }
 
 export interface ISport24CompetitionReviewResponce {
-  header: {};
+  header: ISport24CompetitionHeader;
   materials: {  items: []; };
   topNews: {  items: []; };
   allNews: {  items: []; };

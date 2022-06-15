@@ -2,9 +2,9 @@
 import { onMounted, ref } from 'vue';
 import ContentLoader from '@web/components/ContentLoader.vue';
 import ApiService from '@web/services/ApiService';
-import { ISport24Competition, ISport24Region } from '@web/interfaces/sport24.interface';
+import { ISport24Competition } from '@web/interfaces/sport24.interface';
 
-type TypeTournaments = { NATIONAL: ISport24Competition[], CLUB: ISport24Competition[], INTERNATIONAL: ISport24Competition[], FRIENDLY: ISport24Competition[] };
+// type TypeTournaments = { NATIONAL: ISport24Competition[], CLUB: ISport24Competition[], INTERNATIONAL: ISport24Competition[], FRIENDLY: ISport24Competition[] };
 
 // const regions = ref<{ [key: string] :ISport24Region}>({})
 // const regions = ['GR', 'RU', 'EU', 'EN', 'ES', 'IT', 'DE', 'FR', 'WSA', 'SRR', 'FFF', 'NL', 'TR', 'PT', 'BE', 'UA', 'KZ', 'BY', 'US', 'CN'];

@@ -37,7 +37,7 @@ onMounted( async () => {
 <template>
   <div v-if="tournament" class="flex flex-col items-center">
     <img class="h-24 w-24" :src="'https://s74794.cdn.ngenix.net/m/' + tournament.header.image" alt="" srcset="">
-    <h1><b>{{ tournament.header.title }}</b></h1>
+    <h1><b>{{ (tournament.header).title }}</b></h1>
     <nav class="flex w-full justify-between text-center">
       <div @click="getStanding(item.id)" v-for="item in tournament.stages.items" :class="tournament.stages.items.length > 1 ? `w-1/${tournament.stages.items.length}` : 'w-full'" class="p-2 block text-red-500 border-b-2 font-medium border-b-red-500">
         {{ item.titleRu }}
