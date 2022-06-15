@@ -16,7 +16,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/sports.ru-football-noofficial-bot'),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 });
 
