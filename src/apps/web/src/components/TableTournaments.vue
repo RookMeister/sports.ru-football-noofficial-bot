@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router'
+import { onMounted, ref, defineProps } from 'vue';
 import ApiService from '@/services/ApiService';
 
-const route = useRoute()
 const tournament: any = ref(null);
 const season: any = ref(null);
 
+const props = defineProps({
+  view: String
+})
+
 onMounted( async () => {
-  const id = route.params.id;
-  if (id) {
+  if (props.view) {
     try {
-      const { data: info } = await ApiService.apiGetTournamentInfo(id.toString());
+      const { data: info } = await ApiService.apiGetTournamentInfo(props.view);
       const { data: standing } = await ApiService.apiGetTournamentStanding(info.stages.actualId);
       tournament.value = info;
       season.value = standing;
