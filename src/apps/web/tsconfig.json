@@ -29,7 +29,7 @@
       "vite/client",
     ],
     "paths": {
-			"@/*": ["src/*"],
+			"@web/*": ["src/*"],
 		},
     "skipLibCheck": true
   },

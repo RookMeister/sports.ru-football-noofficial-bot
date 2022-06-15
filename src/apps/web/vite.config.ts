@@ -46,7 +46,7 @@ function cloneIndexHtmlPlugin(routes: string[] = []): PluginOption {
 }
 
 export default defineConfig({
-  base: '/sports.ru-football-noofficial-bot',
+  base: '/sports.ru-football-noofficial-bot/',
   // base: process.env.GH ? '/sports.ru-football-noofficial-bot' : '/',
   server: {
     watch: {
@@ -58,7 +58,7 @@ export default defineConfig({
   },
   resolve:{
     alias:{
-      '@' : pathResolve(__dirname, './src')
+      '@web' : pathResolve(__dirname, './src')
     },
   },
   plugins: [ vue(), cloneIndexHtmlPlugin() ]
