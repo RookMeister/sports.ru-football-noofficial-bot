@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import ContentLoader from '@/components/ContentLoader.vue';
 import TableTournaments from '@/components/TableTournaments.vue';
 import { useRoute } from 'vue-router';
 import ApiService from '@/services/ApiService';
 
 const route = useRoute();
-const id = route.query.view || '';
-console.log(id);
+const id = computed(() => {
+  return route.query.view || '';
+})
 
 const tournaments: any = ref(null);
 onMounted( async () => {
