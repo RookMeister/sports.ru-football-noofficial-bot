@@ -59,7 +59,7 @@ export interface ISport24CompetitionHeader {
   officialSite: string;
 }
 export interface ISport24CompetitionStages extends ISport24CompetitionStagesGroups {
-  stageType: string;
+  stageType: 'LEAGUE' | 'CUP';
 }
 export interface ISport24CompetitionStagesGroups {
   id: number;
@@ -90,15 +90,21 @@ export interface ISport24TournamentSeason {
   actual: boolean;
 }
 
-export interface ISport24CompetitionStandingResponce {
+export interface ISport24CompetitionStandingLeagueResponce {
   '@type': string;
   items: ISport24StandingItem[];
   events: { [key: number]: ISport24EventMatch };
-  participants: ISport24StandingParticipant;
+  participants: { [key: number]: ISport24StandingParticipant; };
   stage: ISport24CompetitionStages;
-  stageGroups: ISport24CompetitionStagesGroups;
+  stageGroups: { [key: number]:ISport24CompetitionStagesGroups; };
 }
-export interface ISport24StandingParticipant {
+export interface ISport24CompetitionStandingCupResponce {
+  '@type': string;
+  cupRounds: ISport24StandingCupRounds[];
+  participants: { [key: number]: ISport24StandingParticipant; };
+  stage: ISport24CompetitionStages;
+}
+interface ISport24StandingParticipant {
   '@type': string;
   national: boolean;
   areaDto: {
@@ -121,7 +127,7 @@ export interface ISport24StandingParticipant {
   virtual: boolean;
   cityTitleRu:string;
 }
-export interface ISport24StandingItem {
+interface ISport24StandingItem {
   stageGroupId: number;
   participantId: number;
   eventIds: number[];
@@ -129,7 +135,7 @@ export interface ISport24StandingItem {
   outcome?: string;
   outcomeColor?: string;
 }
-export interface ISport24StandingTable {
+interface ISport24StandingTable {
   win: number;
   draw: number;
   loss: number;
@@ -141,9 +147,9 @@ export interface ISport24StandingTable {
   goalsDiff: number;
   goalsAgainst: number;
 }
-export interface ISport24EventMatch {
+interface ISport24EventMatch {
   seasonId: number;
-  competitors: [],
+  competitors: ISport24EventCompetitorsMatch[],
   stageIds: { id: number; groupIds: number[] }[],
   id: number;
   urn: string;
@@ -153,10 +159,45 @@ export interface ISport24EventMatch {
   technical: boolean;
   titleRu: string;
   titleRuShort: string;
-  eventStatus: {},
+  eventStatus: {
+    titleRu: string;
+    id: string;
+    commonStatus: string;
+    titleRuShort: string;
+    live: boolean;
+    ended: boolean;
+    notStarted: boolean;
+    frontConfig: {
+      '@class': string;
+      text: boolean;
+      time: boolean;
+      scores: boolean;
+    }
+  },
   roundDto: { titleRu: string; priority: number; periodUrn: string; },
   priority: number;
   frontConfig: { '@type': string; attendance: number; neutralVenue: boolean; channels: { country: string; name: string; }[] },
   eventType: { frontConfig: { '@class': string; config: []; }; urn: string; titleRu: string; };
   medalEvent: boolean;
+}
+interface ISport24EventCompetitorsMatch {
+  participantId: number;
+  priority: number;
+  results: {
+    value: number;
+    valueType: string;
+    summaryType: string;
+    periodType: string;
+    periodName: string;
+    summaryTitle: string;
+    periodTitle: string;
+    periodPriority: number;
+  }[];
+  place: number;
+}
+
+interface ISport24StandingCupRounds {
+  roundTitle: string;
+  roundPriority: number;
+  eventGroups: { events: ISport24EventMatch[]; wins: { participantId: number; wins: number; }[] }[];
 }
