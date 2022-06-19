@@ -39,7 +39,7 @@ onMounted( async () => {
   <div v-if="!loading" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-12 gap-4">
     <router-link v-for="item in tournamentsAll" :key="item.titleShort" :to="`/tournaments/?view=${item.urn}`" class="flex items-center flex-col text-center p-2 rounded-lg overflow-hidden" >
       <img class="h-20 w-20" :src="'https://s74794.cdn.ngenix.net/m/' + item.image" alt="" srcset="">
-      <div class="text-xs mt-1 mb-auto">{{ item.titleShort }}</div>
+      <div class="mt-1 mb-auto">{{ item.titleShort }}</div>
     </router-link>
   </div>
   <ContentLoader class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-12 gap-4" v-else>

@@ -51,8 +51,10 @@ onMounted( async () => {
   if (props.view) {
     try {
       const { data: info } = await ApiService.apiGetTournamentInfo(props.view);
-      getStanding(info.stages.actualId)
-      tournament.value = info;
+      if (info.stages.actualId) {
+        getStanding(info.stages.actualId)
+        tournament.value = info;
+      }
     } catch (err) {
       console.log('err', err)
     }
@@ -62,7 +64,7 @@ onMounted( async () => {
 
 
 <template>
-  <div v-if="tournament" class="flex flex-col items-center text-base">
+  <div v-if="tournament" class="flex flex-col items-center">
     <img class="h-24 w-24" :src="'https://s74794.cdn.ngenix.net/m/' + tournament.header.image" alt="" srcset="">
     <h1><b>{{ (tournament.header).title }}</b></h1>
     <nav class="flex w-full justify-between text-center">
@@ -114,7 +116,7 @@ onMounted( async () => {
           {{ round.roundTitle }}
         </div>
       </nav>
-      <div v-if="playoff" class="flex mt-4 w-full text-base">
+      <div v-if="playoff" class="flex mt-4 w-full">
         <div v-for="round in playoff.cupRounds" v-show="round.roundTitle === activeRound" class="w-full flex gap-2 flex-col">
           <table v-for="round in playoff.cupRounds" v-show="round.roundTitle === activeRound" class="w-full text-left border-spacing-y-2 table-auto">
             <thead>
