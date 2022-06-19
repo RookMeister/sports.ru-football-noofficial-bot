@@ -47,6 +47,17 @@ const getStanding = (id: number) => {
 
 const setActiveRound = (title: string) => activeRound.value = title;
 
+const sortCompetitors = (arr: any[], condition = false) => {
+  const newArr = [...arr];
+  return newArr.sort((a, b) => {
+    if (condition) {
+      return (b.priority - a.priority)
+    } else {
+      return (a.priority - b.priority)
+    }
+  })
+}
+
 onMounted( async () => {
   if (props.view) {
     try {
@@ -117,8 +128,8 @@ onMounted( async () => {
         </div>
       </nav>
       <div v-if="playoff" class="flex mt-4 w-full">
-        <div v-for="round in playoff.cupRounds" v-show="round.roundTitle === activeRound" class="w-full flex gap-2 flex-col">
-          <table v-for="round in playoff.cupRounds" v-show="round.roundTitle === activeRound" class="w-full text-left border-spacing-y-2 table-auto">
+        <template v-show="round.roundTitle === activeRound" v-for="round in playoff.cupRounds">
+          <table v-if="round.roundTitle === activeRound" class="w-full text-left border-spacing-y-2 table-auto">
             <thead>
               <tr>
                 <th class="py-2 border-b border-b-gray-300" scope="col">Team</th>
@@ -131,7 +142,7 @@ onMounted( async () => {
                 <template v-for="(event, i) in math.events">
                   <div v-if="i === 0" class="mr-auto">
                     <div
-                      v-for="competitor in event.competitors.sort((a, b) => a.priority - b.priority)"
+                      v-for="competitor in sortCompetitors(event.competitors)"
                       class="flex items-center"
                       :class="(winsTeam[competitor.participantId] !== round.roundTitle) && 'font-bold'"
                     >
@@ -143,7 +154,7 @@ onMounted( async () => {
               </td>
               <td v-for="(event, i) in math.events" class="text-center py-2 relative" :class="[(i === 0) && 'align-top', (i === 1) && 'align-bottom']">
                 <div
-                  v-if="i === 0" v-for="competitor in event.competitors.sort((a, b) => a.priority - b.priority)"
+                  v-if="i === 0" v-for="competitor in sortCompetitors(event.competitors)"
                   :class="(competitor.place === 1) && 'font-bold'"
                 >
                   <template v-if="competitor.results[0].periodName === 'normaltime_and_overtime'">{{ competitor.results[0].value }}</template>
@@ -151,7 +162,7 @@ onMounted( async () => {
                 <div class="absolute flex flex-col justify-center inset-y-0 right-0">
                   <div
                     v-if="i === 0"
-                    v-for="competitor in event.competitors.sort((a, b) => a.priority - b.priority)"
+                    v-for="competitor in sortCompetitors(event.competitors)"
                     class="text-gray-400 text-xs"
                     :class="(competitor.place === 1) && 'font-bold'"
                   >
@@ -160,13 +171,13 @@ onMounted( async () => {
                 </div>
                 <div v-if="i === 1" class="flex justify-center relative">
                   <div>
-                    <div v-for="competitor in event.competitors.sort((a, b) => b.priority - a.priority)" :class="(competitor.place === 1) && 'font-bold'">
+                    <div v-for="competitor in sortCompetitors(event.competitors, true)" :class="(competitor.place === 1) && 'font-bold'">
                       <template v-if="competitor.results[0].periodName === 'normaltime_and_overtime'">{{ competitor.results[0].value }}</template>
                     </div>
                   </div>
                   <div class="absolute flex flex-col justify-center inset-y-0 right-0">
                     <div
-                      v-for="competitor in event.competitors.sort((a, b) => a.priority - b.priority)"
+                      v-for="competitor in sortCompetitors(event.competitors)"
                       class="text-gray-400 text-xs"
                       :class="(competitor.place === 1) && 'font-bold'"
                     >
@@ -177,7 +188,7 @@ onMounted( async () => {
               </td>
             </tr>
           </table>
-        </div>
+        </template>
       </div>
     </template>
   </div>
