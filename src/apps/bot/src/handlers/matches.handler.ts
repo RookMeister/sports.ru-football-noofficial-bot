@@ -4,7 +4,7 @@ import { matchesUpdate } from '@bot/services/buttons';
 import { Context, deunionize } from 'telegraf';
 import { getMatches } from '@bot/services/api';
 import { selectData } from '@bot/services/callback-data';
-import { IDataMatches } from '@bot/interfaces/sports.ru.interface';
+import { IDataMatches } from '@interfaces/sports.ru.interface';
 
 export const matchesHandler = async (ctx: Context, update = false) => {
   const { size, column, values } = matchesUpdate;

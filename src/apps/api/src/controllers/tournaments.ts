@@ -1,7 +1,7 @@
 import request from '@api/helpers/request';
 import { RouteHandlerMethod } from 'fastify';
 
-import { ISportsTournamentTableResponse, ISportsTournamentMatchesResponse, ISportsTournamentPlayersStatResponse, ISportsTournamentsListResponse } from '@api/interfaces/sports.ru.interface';
+import { ISportsTournamentTableResponse, ISportsTournamentMatchesResponse, ISportsTournamentPlayersStatResponse, ISportsTournamentsListResponse } from '@interfaces/sports.ru.interface';
 
 export const getTornaments: RouteHandlerMethod = async (req, reply): Promise<ISportsTournamentsListResponse> => {
 	try {

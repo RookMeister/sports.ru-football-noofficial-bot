@@ -22,7 +22,7 @@
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
 
-    "rootDir": "./src",
+    "rootDir": "../../",
 		"outDir": "./dist",
 		"baseUrl": "./",
     "types": [
@@ -30,6 +30,7 @@
     ],
     "paths": {
 			"@web/*": ["src/*"],
+      "@interfaces/*": ["../../interfaces/*"]
 		},
     "skipLibCheck": true
   },

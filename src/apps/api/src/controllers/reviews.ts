@@ -1,6 +1,6 @@
 import { UTCDate } from '@api/helpers/transform-date';
 import request from '@api/helpers/request';
-import { IYouTubeVideo } from '@api/interfaces/sports.ru.interface';
+import { IYouTubeVideo } from '@interfaces/sports.ru.interface';
 import { RouteHandlerMethod } from 'fastify';
 import ReviewsModel from '@api/models/Review';
 import config from '@api/helpers/config';

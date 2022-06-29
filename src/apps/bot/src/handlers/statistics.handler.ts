@@ -8,7 +8,7 @@ import {
 } from '@bot/services/api';
 import {
   ISportsTournamentTableResponse, ISportsTournamentMatchesResponse
-} from '@bot/interfaces/sports.ru.interface';
+} from '@interfaces/sports.ru.interface';
 
 export const statCommandHandler = async (ctx: Context, edit = false) => {
   const tournaments = await getTornaments();

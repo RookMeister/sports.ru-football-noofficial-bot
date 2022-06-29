@@ -2,7 +2,7 @@ import MatchesModel from '@api/models/Matches';
 import ReviewsModel from '@api/models/Review';
 import request from '@api/helpers/request';
 import { RouteHandlerMethod } from 'fastify';
-import { ISportsMatchResponse, IDataMatches } from '@api/interfaces/sports.ru.interface';
+import { ISportsMatchResponse, IDataMatches } from '@interfaces/sports.ru.interface';
 
 export const getTodayTopMatches: RouteHandlerMethod = async (req, reply): Promise<IDataMatches | null> => {
 	try {
