@@ -9,6 +9,13 @@ const getTopMatchesRoute: RouteOptions = {
 	// schema: GetTopMatchesSchema,
 };
 
-const routes = [getTopMatchesRoute];
+const getListMatchesRoute: RouteOptions = {
+	method: 'GET',
+	url: '/api/matches/:date/',
+	handler: matchesController.getListMatches,
+	// schema: GetTopMatchesSchema,
+};
+
+const routes = [getTopMatchesRoute, getListMatchesRoute];
 
 export default routes;

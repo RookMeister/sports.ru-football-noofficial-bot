@@ -2,7 +2,8 @@ import MatchesModel from '@api/models/Matches';
 import ReviewsModel from '@api/models/Review';
 import request from '@api/helpers/request';
 import { RouteHandlerMethod } from 'fastify';
-import { ISportsMatchResponse, IDataMatches } from '@interfaces/sports.ru.interface';
+import { ISportsMatchResponse, IDataMatches } from '@api/interfaces/sports.ru.interface';
+import { ISport24MatchesResponce } from '@api/interfaces/sport24.interface';
 
 export const getTodayTopMatches: RouteHandlerMethod = async (req, reply): Promise<IDataMatches | null> => {
 	try {
@@ -45,3 +46,15 @@ export const getMatches = async (ids: string[] | null, date: string): Promise<ID
 
   return data;
 }
+
+export const getListMatches: RouteHandlerMethod = async (req, reply): Promise<ISport24MatchesResponce> => {
+	try {
+    // &competitionUrn=primera-division
+    const { date } = (req.params as  { date: string });
+    const matches = await request<ISport24MatchesResponce>(`${process.env.FETCH_GET_MATCHES_URL}?sportUrn=football&publishMatchbar=true&onDate=${date}`);
+		return matches;
+	} catch (err) {
+		// throw boom.boomify(err as Error);
+		throw err;
+	}
+};
