@@ -22,11 +22,28 @@ services:
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && pnpm install && pnpm build && pnpm preview"
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && pnpm install && pnpm build && pnpm start"
     volumes:
       - ./src/apps/bot:/home/node
       - ./src/interfaces:/home/node/src/interfaces
       - ./src/helpers:/home/node/src/helpers
+    depends_on:
+      - api
+    networks:
+      - app-network
+  web:
+    image: node:16
+    container_name: web
+    ports:
+      - 3000:3000
+    env_file: ./.env
+    working_dir: /home/node
+    command: >
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && pnpm install && pnpm build && pnpm preview""
+    tty: true
+    volumes:
+      - ./src/apps/web:/home/node
+      - ./src/interfaces:/home/node/src/interfaces
     depends_on:
       - api
     networks:
