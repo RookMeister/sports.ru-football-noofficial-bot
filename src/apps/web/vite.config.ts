@@ -5,6 +5,7 @@ import { resolve as pathResolve } from 'path';
 export default defineConfig({
   base: '/',
   server: {
+    host: true,
     port: 3000,
     proxy: {
       '^/api': {
