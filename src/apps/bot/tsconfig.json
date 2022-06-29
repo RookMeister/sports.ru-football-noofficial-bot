@@ -21,7 +21,7 @@
 		"strict": true,
 		"noImplicitAny": true,
 		"forceConsistentCasingInFileNames": true,
-    "rootDir": "../../",
+    "rootDir": "./src",
 		"outDir": "./dist",
 		"baseUrl": "./",
 		"paths": {

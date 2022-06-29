@@ -14,7 +14,7 @@ export const mainMenu: ISettingsButtons = {
   'column': false,
   'values': [
     { 'label': 'Матчи', 'value': config.WEB_URL + '/matches', 'active': 1, view: 'webApp' },
-    { 'label': 'Статистика', 'value': config.WEB_URL + '/tournaments', 'active': 1, view: 'webApp' },
+    { 'label': 'Статистика', 'value': config.WEB_URL + '/standings', 'active': 1, view: 'webApp' },
     { 'label': 'Обзоры за день', 'active': 0 },
     { 'label': 'О боте', 'active': 0 },
     { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, view: 'url' }
