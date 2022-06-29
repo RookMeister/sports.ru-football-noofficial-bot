@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-// import config from '@web/helpers/config';
-import { api } from '@web/services/ApiService';
+import { ref, computed } from 'vue';
+import { useFetch } from '@vueuse/core';
 import {
   ISport24CompetitionReviewResponce,
   ISport24CompetitionStandingLeagueResponce,
   ISport24CompetitionStandingCupResponce
-} from '@interfaces/sport24.interface';
+} from '@web/interfaces/sport24.interface';
 
 type TLEAGUEORCUP = ISport24CompetitionStandingLeagueResponce | ISport24CompetitionStandingCupResponce;
 
@@ -18,16 +17,18 @@ const table = ref<ISport24CompetitionStandingLeagueResponce | null>(null);
 const playoff = ref<ISport24CompetitionStandingCupResponce | null>(null);
 const activeBlock = ref(0);
 const activeRound = ref('');
+const activeSeason = ref('');
 const winsTeam = ref<{ [key: number]: string }>({});
 
 function tableType(standing: TLEAGUEORCUP): standing is ISport24CompetitionStandingLeagueResponce {
   return (standing as ISport24CompetitionStandingLeagueResponce).stage.stageType === 'LEAGUE';
 }
 
-const { data: tournament, onFetchFinally } = api<ISport24CompetitionReviewResponce>('getCompetition', ref({ urn: props.view }))
+const urlSCompetition = computed(() => `/api/competition/${props.view}/${activeSeason.value}`);
+const { data: tournament, onFetchFinally  } = useFetch(urlSCompetition, { method: 'GET' }, { refetch: true }).json<ISport24CompetitionReviewResponce>();
 onFetchFinally(() => (activeBlock.value = tournament.value?.stages.actualId || 0));
-
-const { data: standing, onFetchResponse } = api<TLEAGUEORCUP>('getStanding', activeBlock);
+const urlStanding = computed(() => `/api/standing/${activeBlock.value}/`);
+const { data: standing, onFetchResponse  } = useFetch(urlStanding, { method: 'GET' }, { refetch: true, immediate: false }).json<TLEAGUEORCUP>();
 onFetchResponse(() => getStanding());
 
 const getStanding = () => {

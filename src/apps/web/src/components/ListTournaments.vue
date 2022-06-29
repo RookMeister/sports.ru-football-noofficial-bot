@@ -2,8 +2,8 @@
 import { computed, ref } from 'vue';
 import ContentLoader from '@web/components/ContentLoader.vue';
 // import config from '@web/helpers/config';
-import { api } from '@web/services/ApiService';
-import { ISport24CompetitionsResponce } from '@interfaces/sport24.interface';
+import { useFetch } from '@vueuse/core';
+import { ISport24CompetitionsResponce } from '@web/interfaces/sport24.interface';
 
 const IMG_URL = import.meta.env.VITE_IMG_URL;
 
@@ -17,8 +17,8 @@ const viewsStanding = [
 ];
 
 const activeBlock = ref('NATIONAL');
+const { isFetching, data  } = useFetch('/api/competition/', { method: 'GET' }, { refetch: true }).json<ISport24CompetitionsResponce>();
 
-const { isFetching, data } = api<ISport24CompetitionsResponce>('getAllCompetitions');
 
 const tournamentsAll = computed(() => {
   if (data.value) {

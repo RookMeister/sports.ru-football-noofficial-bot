@@ -2,9 +2,8 @@
 import { computed, ref } from 'vue';
 import ContentLoader from '@web/components/ContentLoader.vue';
 import { format, formatISO, startOfYesterday, startOfTomorrow  } from 'date-fns';
-// import config from '@web/helpers/config';
-import { api } from '@web/services/ApiService';
-import { ISport24MatchesResponce } from '@interfaces/sport24.interface';
+import { useFetch } from '@vueuse/core';
+import { ISport24MatchesResponce } from '@web/interfaces/sport24.interface';
 
 const IMG_URL = import.meta.env.VITE_IMG_URL;
 
@@ -14,9 +13,10 @@ const dates = [
   { title: 'Завтра', date: formatISO(startOfTomorrow(), { representation: 'date' }) }
 ];
 const activeDate = ref(formatISO(new Date(), { representation: 'date' }));
+const url = computed(() => `/api/matches/${activeDate.value}/`);
 const seasons = computed(() => matches.value ? Object.values(matches.value.seasons).sort((a, b) => a.competition.priority - b.competition.priority) : []);
 
-const { isFetching, data: matches } = api<ISport24MatchesResponce>('getMatches', activeDate);
+const { isFetching, data: matches } = useFetch(url, { method: 'GET' }, { refetch: true }).json<ISport24MatchesResponce>();
 
 const getSlugForImg = (key: number) => matches.value && (matches.value.participants[key].frontConfig.logos.default || '').replace('500_500.png', '30_30.png');
 const getLiveMin = (time: string) => {
