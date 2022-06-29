@@ -1,48 +1,72 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import ContentLoader from '@web/components/ContentLoader.vue';
-import ApiService from '@web/services/ApiService';
-import { ISport24Competition } from '@web/interfaces/sport24.interface';
+// import config from '@web/helpers/config';
+import { api } from '@web/services/ApiService';
+import { ISport24CompetitionsResponce } from '@interfaces/sport24.interface';
 
-// type TypeTournaments = { NATIONAL: ISport24Competition[], CLUB: ISport24Competition[], INTERNATIONAL: ISport24Competition[], FRIENDLY: ISport24Competition[] };
+const IMG_URL = import.meta.env.VITE_IMG_URL;
 
-// const regions = ref<{ [key: string] :ISport24Region}>({})
-// const regions = ['GR', 'RU', 'EU', 'EN', 'ES', 'IT', 'DE', 'FR', 'WSA', 'SRR', 'FFF', 'NL', 'TR', 'PT', 'BE', 'UA', 'KZ', 'BY', 'US', 'CN'];
-const topStanding = ['Российская Премьер-Лига', 'Английская Премьер-лига', 'Ла Лига', 'Серия A', 'Бундеслига', 'Лига 1', 'Лига чемпионов', 'Лига Европы', 'Лига конференций']
+const topStanding = [
+  'Российская Премьер-Лига', 'Английская Премьер-лига', 'Ла Лига', 'Серия A', 'Бундеслига', 'Лига 1', 'Эредивизи', 'MLS'
+];
+const viewsStanding = [
+  { title: 'Национальные', leagueType: 'NATIONAL'},
+  { title: 'Клубные', leagueType: 'CLUB'},
+  { title: 'Сборные', leagueType: 'INTERNATIONAL'}
+];
 
-const tournamentsAll = ref<ISport24Competition[]>([]);
-// const tournaments = ref<ISport24Competition[]>([]);
-const loading = ref(true);
+const activeBlock = ref('NATIONAL');
 
-// const setTour = (iso: string) => (tournaments.value = tournamentsAll.value.filter(item => item.region.iso === iso))
+const { isFetching, data } = api<ISport24CompetitionsResponce>('getAllCompetitions');
 
-onMounted( async () => {
-  try {
-    const { data } = await ApiService.apiGetAllTournaments();
-    topStanding.forEach((t) => {
-      const item = data.items.find(s => s.title === t);
-      item && tournamentsAll.value.push(item);
-    });
-    // tournamentsAll.value = data.items.reverse().sort((a, b) => {
-    //   if (topStanding.includes(a.title)) { return -1 }
-    //   else if (topStanding.includes(b.title)) { return 1 }
-    //   else { return 0 }
-    // });
-  } catch (err) {
-    console.log('err', err)
+const tournamentsAll = computed(() => {
+  if (data.value) {
+    return data.value.items.sort((a, b) => {
+      const find1 = topStanding.find(s => s === a.title);
+      const find2 = topStanding.find(s => s === b.title);
+      if (find1 && find2) {
+        return 1;
+      } else if (find1) {
+        return -1;
+      } else if (find2) {
+        return 1;
+      } else if (a.title.includes('Кубок')) {
+        return -1;
+      } if (b.title.includes('Кубок')) {
+        return 1;
+      }
+
+      return a.title.localeCompare(b.title)
+    })
   }
-  loading.value = false;
+
+  return [];
 })
+
 </script>
 
 <template>
-  <div v-if="!loading" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-12 gap-4">
-    <router-link v-for="item in tournamentsAll" :key="item.titleShort" :to="`/tournaments/?view=${item.urn}`" class="flex items-center flex-col text-center p-2 rounded-lg overflow-hidden" >
-      <img class="h-20 w-20" :src="'https://s74794.cdn.ngenix.net/m/' + item.image" alt="" srcset="">
-      <div class="mt-1 mb-auto">{{ item.titleShort }}</div>
-    </router-link>
+  <nav class="flex w-full justify-between text-center px-6">
+    <div
+      @click="activeBlock = item.leagueType"
+      v-for="item in viewsStanding"
+      :class="(activeBlock === item.leagueType) && 'text-red-500 border-b-red-500'"
+      class="w-1/3 p-2 block grow border-b-2 truncate"
+    >
+      {{ item.title }}
+    </div>
+  </nav>
+  <div v-if="!isFetching" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-12 gap-4 mt-4 px-6">
+    <template v-for="item in tournamentsAll">
+      <router-link v-if="activeBlock === item.leagueType" :to="`/standings/?view=${item.urn}`" class="flex items-center flex-col text-center p-2 rounded-lg overflow-hidden" >
+        <img v-if="item.image" class="h-20 w-20" :src="IMG_URL + item.image">
+        <div v-else class="h-20 w-20" />
+        <div class="mt-1 mb-auto">{{ item.titleShort || item.title }}</div>
+      </router-link>
+    </template>
   </div>
-  <ContentLoader class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-12 gap-4" v-else>
-    <div class="w-full h-32 rounded-lg" v-for="i in 9" :key="i"></div>
+  <ContentLoader class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-12 gap-4 mt-4 px-6" v-else>
+    <div class="w-full h-32 rounded-lg" v-for="i in 12" :key="i"></div>
   </ContentLoader>
 </template>

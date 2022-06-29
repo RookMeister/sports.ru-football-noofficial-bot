@@ -1,39 +1,30 @@
-import axios from 'axios';
-import {
-  ISport24CompetitionsResponce,
-  ISport24CompetitionReviewResponce,
-  ISport24CompetitionStandingLeagueResponce,
-  ISport24CompetitionStandingCupResponce
-} from '@web/interfaces/sport24.interface';
+import { useFetch, UseFetchReturn } from '@vueuse/core';
+import { ref, watch, Ref } from 'vue';
+// import config from '@web/helpers/config';
 
-const instance = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com',
-  timeout: 10000,
-  headers: {
-    'Accept': '*/*',
+const urls = {
+  getMatches: (date: string) => import.meta.env.VITE_FETCH_GET_MATCHES_URL + date,
+  getCompetition: ({ urn, seasonUrn = '' }: any) => {
+    const season = seasonUrn ? `seasonUrn=${seasonUrn}` : '';
+    return import.meta.env.VITE_FETCH_GET_COMPETITION_URL + `${urn}/review?materialsLimit=0&newsLimit=0&${season}`;
   },
-})
+  getStanding: (id: string) => import.meta.env.VITE_FETCH_GET_STANDING_URL + id,
+  getAllCompetitions: () => import.meta.env.VITE_FETCH_GET_ALL_COMPETITIONS_URL
+}
 
-instance.interceptors.request.use((config) => {
-  return config
-})
+type viewRequest = 'getMatches' | 'getAllCompetitions' | 'getStanding' | 'getCompetition';
 
-instance.interceptors.response.use((response) => {
-  return response
-})
+export function api<T>(method: viewRequest, query?: Ref<any>): UseFetchReturn<T> {
+  const url = ref('')
+  watch(() => query && query.value, (newValues) => {
+    url.value = urls[method](newValues)
+  }, { deep: true, immediate: true });
 
-export default {
-  apiGetAllUsers() {
-    return instance.get('/users')
-  },
-  apiGetAllTournaments(): Promise<{ data: ISport24CompetitionsResponce }> {
-    return instance.get('https://api.sport24.ru/hub/v1/statistics/widget/sports/football/competitions')
-  },
-  apiGetTournamentInfo(urn: string, seasonUrn: string =''): Promise<{ data: ISport24CompetitionReviewResponce }> {
-    const season = seasonUrn && `seasonUrn=${seasonUrn}&`;
-    return instance.get(`https://api.sport24.ru/api-aggregator/v1/competitions/${urn}/review?${season}materialsLimit=0&newsLimit=0`)
-  },
-  apiGetTournamentStanding(id: number): Promise<{ data: ISport24CompetitionStandingLeagueResponce | ISport24CompetitionStandingCupResponce }> {
-    return instance.get(`https://api.sport24.ru/hub/v2/statistics/widget/competitions/standings/${id}`)
+  const options = { refetch: true, immediate: true };
+
+  if (query && (query).value === 0) {
+    options.immediate = false;
   }
+
+  return useFetch(url, options).get().json();
 }
