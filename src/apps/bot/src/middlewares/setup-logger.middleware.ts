@@ -1,16 +1,16 @@
-import logger from '@bot/helpers/logger';
-import { Logger } from 'pino';
+import Logger from '@helpers/logger';
+// import { Logger } from 'pino';
 import { Context } from 'telegraf';
 import { randomUUID } from 'crypto';
 
 declare module 'telegraf' {
   interface Context {
-    logger: Logger;
+    logger: typeof Logger;
   }
 }
 
 export const setupLoggerMiddleware = () => (ctx: Context, next: () => void) => {
-  ctx.logger = logger.child({
+  ctx.logger = Logger.child({
     requestId: randomUUID(),
   });
   next();

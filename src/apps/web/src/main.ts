@@ -5,7 +5,6 @@ import App from './App.vue';
 import Home from '@web/pages/index.vue'
 import Matches from '@web/pages/matches/index.vue'
 import Standings from '@web/pages/standings/index.vue'
-// import Matches from '@web/pages/matches/index.vue'
 // css
 import './assets/css/vendor.css';
 

@@ -1,4 +1,4 @@
-import config from '@bot/helpers/config';
+import config from '@helpers/config';
 
 interface ISettingsButtons {
   size: number;
@@ -13,8 +13,8 @@ export const mainMenu: ISettingsButtons = {
   'size': 2,
   'column': false,
   'values': [
-    { 'label': 'Матчи', 'value': config.WEB_URL + '/bot/matches', 'active': 1, view: 'webApp' },
-    { 'label': 'Статистика', 'value': config.WEB_URL + '/bot/standings', 'active': 1, view: 'webApp' },
+    { 'label': 'Матчи', 'value': config.WEB_URL + '/matches', 'active': 1, view: 'webApp' },
+    { 'label': 'Статистика', 'value': config.WEB_URL + '/standings', 'active': 1, view: 'webApp' },
     { 'label': 'Обзоры за день', 'active': 0 },
     { 'label': 'О боте', 'active': 0 },
     { 'label': 'Donate', 'value': 'https://www.tinkoff.ru/cf/4320g6jTu2L', 'active': 1, view: 'url' }

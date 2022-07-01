@@ -1,8 +1,6 @@
 import { Markup } from 'telegraf';
 import { InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup } from 'telegraf/src/core/types/typegram';
 
-// type TArrayKeyboardButtons = { text: string, callback_data: string, hide: boolean }[];
-// type TArrayKeyboardUrlButtons = { text: string, url: string, hide: boolean }[];
 type TArrayButtons = { label: string, value?: string, active: number, view?: 'url' | 'webApp' }[];
 type Hideable<B> = B & { hide?: boolean }
 
@@ -15,16 +13,11 @@ export const replyKeyboard = (array: TArrayButtons, size: number = 1, column = f
   return Markup.keyboard(constructorPosKey(buttons, size, column)).resize();
 };
 
-const markupButtons = (buttons: TArrayButtons) => {2
+const markupButtons = (buttons: TArrayButtons) => {
   const arr = buttons.filter(b => b.active);
   return arr.map(b => {
     const view = b.view || 'callback';
     return Markup.button[view](b.label, b.value || b.label);
-    // if (b.url) {
-    //   return Markup.button.url(b.label, b.value || b.label);
-    // } else {
-    //   return Markup.button.callback(b.label, b.value || b.label);
-    // }
   })
 };
 const constructorPosKey = (buttons: (Hideable<InlineKeyboardButton.CallbackButton> | Hideable<InlineKeyboardButton.UrlButton> | Hideable<InlineKeyboardButton.WebAppButton>)[], size: number, column: boolean) => {

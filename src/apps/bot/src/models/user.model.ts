@@ -1,6 +1,6 @@
 import { prop, getModelForClass, ReturnModelType, modelOptions } from '@typegoose/typegoose';
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
-import logger from '@bot/helpers/logger';
+import logger from '@helpers/logger';
 
 export type ITimeZone = '-12' | '-11' | '-10' | '-9' | '-8' | '-7' | '-6' | '-5' | '-4' | '-3' | '-2' | '-1' | '0' | '+1' | '+2' | '+3' | '+4' | '+5' | '+6' | '+7' | '+8' | '+9' | '+10' | '+11';
 
@@ -36,6 +36,5 @@ export class User extends TimeStamps {
   }
 }
 
-// Get User model
 export const UserModel = getModelForClass(User) ;
 

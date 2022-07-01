@@ -2,7 +2,7 @@ import { Context, deunionize } from 'telegraf';
 import { UserModel } from '@bot/models/user.model';
 import { StatModel } from '@bot/models/analytics.model';
 import { selectData } from '@bot/services/callback-data';
-import { UTCDate, UTCYesterday } from '@bot/helpers/transform-date';
+import { UTCDate, UTCYesterday } from '@helpers/transform-date';
 import { formatISO } from 'date-fns';
 import { inlineKeyboard } from '@bot/services/keyboards';
 import { statBotMenu } from '@bot/services/buttons';

@@ -21,11 +21,10 @@
 		"strict": true,
 		"noImplicitAny": true,
 		"forceConsistentCasingInFileNames": true,
-    "rootDir": "../../../",
+    "rootDir": "../../",
 		"outDir": "./dist",
 		"baseUrl": "./",
 		"paths": {
-			"~/*": ["./*"],
 			"@api/*": ["./src/*"],
       "@interfaces/*": ["../../interfaces/*"],
       "@helpers/*": ["../../helpers/*"],

@@ -1,14 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_NODE_ENV: string
-  readonly VITE_LOG_LEVEL: string
   readonly VITE_IMG_URL: string
-  readonly VITE_FETCH_BASE_URL: string
-  readonly VITE_FETCH_GET_MATCHES_URL: string
-  readonly VITE_FETCH_GET_ALL_COMPETITIONS_URL: string
-  readonly VITE_FETCH_GET_STANDING_URL: string
-  readonly VITE_FETCH_GET_COMPETITION_URL: string
 }
 
 interface ImportMeta {

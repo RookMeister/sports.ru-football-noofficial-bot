@@ -6,11 +6,11 @@ services:
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install && pnpm dev"
+      /bin/bash -c "npm install --global pnpm@latest-6 && cd ./helpers && pnpm install && cd ../apps/api/ && pnpm install && pnpm dev"
     volumes:
-      - ./src/apps/api:/home/node
-      - ./src/interfaces:/home/node/src/interfaces
-      - ./src/helpers:/home/node/src/helpers
+      - ./src/apps/api:/home/node/apps/api
+      - ./src/interfaces:/home/node/interfaces
+      - ./src/helpers:/home/node/helpers
     networks:
       - app-network
   bot:
@@ -19,11 +19,11 @@ services:
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install && pnpm dev"
+      /bin/bash -c "npm install --global pnpm@latest-6 && cd ./helpers && pnpm install && cd ../apps/bot/ && pnpm install && pnpm dev"
     volumes:
-      - ./src/apps/bot:/home/node
-      - ./src/interfaces:/home/node/src/interfaces
-      - ./src/helpers:/home/node/src/helpers
+      - ./src/apps/bot:/home/node/apps/bot
+      - ./src/interfaces:/home/node/interfaces
+      - ./src/helpers:/home/node/helpers
     depends_on:
       - api
     networks:
@@ -32,15 +32,16 @@ services:
     image: node:16
     container_name: web
     ports:
-      - 3000:3000
+      - 80:3000
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install && pnpm dev"
+      /bin/bash -c "npm install --global pnpm@latest-6 && cd ./helpers && pnpm install && cd ../apps/web/ && pnpm install && pnpm dev"
     tty: true
     volumes:
-      - ./src/apps/web:/home/node
-      - ./src/interfaces:/home/node/src/interfaces
+      - ./src/apps/web:/home/node/apps/web
+      - ./src/interfaces:/home/node/interfaces
+      - ./src/helpers:/home/node/helpers
     depends_on:
       - api
     networks:

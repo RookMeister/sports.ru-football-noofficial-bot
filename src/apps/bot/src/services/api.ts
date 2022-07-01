@@ -4,10 +4,10 @@ import {
   ISportsTournamentMatchesResponse,
   ISportsTournamentPlayersStatResponse,
   IDataMatches
-} from '@bot/interfaces/sports.ru.interface';
-import config from '@bot/helpers/config';
+} from '@interfaces/sports.ru.interface';
+import config from '@helpers/config';
 
-import request from '@bot/helpers/request';
+import request from '@helpers/request';
 
 export async function getMatches(date: string): Promise<IDataMatches | null>  {
   const data = await request<IDataMatches>(`${config.API_URL}/api/top-matches/${date}/`);

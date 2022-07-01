@@ -5,6 +5,6 @@ export const loggerOptions: Logger.LoggerOptions = {
   timestamp: () => `,"time":"${new Date(Date.now()).toISOString()}"`
 };
 
-const logger = Logger(loggerOptions);
+const loggerExp = Logger(loggerOptions);
 
-export default logger;
+export default loggerExp;

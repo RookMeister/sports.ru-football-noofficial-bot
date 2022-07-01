@@ -25,5 +25,4 @@ export class Stat {
   }
 }
 
-// Get Stat model
 export const StatModel = getModelForClass(Stat) ;

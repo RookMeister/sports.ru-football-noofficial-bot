@@ -1,5 +1,5 @@
 import { Telegraf } from 'telegraf';
-import config from '@bot/helpers/config';
+import config from '@helpers/config';
 
 import { selectData } from '@bot/services/callback-data';
 
@@ -12,8 +12,8 @@ import { setLastActionToUserMiddleware } from '@bot/middlewares/last-action-to-u
 
 import { startCommandHandler } from '@bot/handlers/start-command.handler';
 // import { reviewsCommandHandler, updateMatchesHandler } from '@bot/handlers/reviews-command.handler';
-import { matchesHandler } from '@bot/handlers/matches.handler';
-import { statCommandHandler, statTournamentTabletHandler } from '@bot/handlers/statistics.handler';
+// import { matchesHandler } from '@bot/handlers/matches.handler';
+// import { statCommandHandler, statTournamentTabletHandler } from '@bot/handlers/statistics.handler';
 import { timeCommandHandler, setTimeZoneHandler } from '@bot/handlers/timezone.handler';
 // import { sendChangelogCommandHandler } from '@bot/handlers/send-changelog-command.handler';
 // import { changelogCommandHandler } from '@bot/handlers/changelog.command';
@@ -36,13 +36,13 @@ bot.use(debugLoggerMiddleware());
 
 bot.start(startCommandHandler);
 
-bot.hears('Матчи', (ctx) => matchesHandler(ctx));
-bot.command('matches', (ctx) => matchesHandler(ctx));
-bot.action(selectData('update-matches').filter(), (ctx) => matchesHandler(ctx, true));
+// bot.hears('Матчи', (ctx) => matchesHandler(ctx));
+// bot.command('matches', (ctx) => matchesHandler(ctx));
+// bot.action(selectData('update-matches').filter(), (ctx) => matchesHandler(ctx, true));
 
 // bot.hears('Статистика', (ctx) => statCommandHandler(ctx));
-bot.command('standings', (ctx) => statCommandHandler(ctx));
-bot.action(selectData('select-tournament').filter(), (ctx) => statTournamentTabletHandler(ctx));
+// bot.command('standings', (ctx) => statCommandHandler(ctx));
+// bot.action(selectData('select-tournament').filter(), (ctx) => statTournamentTabletHandler(ctx));
 
 bot.command('time', timeCommandHandler);
 bot.action(selectData('select-time').filter(), setTimeZoneHandler);
