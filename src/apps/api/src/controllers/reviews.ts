@@ -1,10 +1,9 @@
-import { UTCDate } from '@api/helpers/transform-date';
-import request from '@api/helpers/request';
-import { IYouTubeVideo } from '@api/interfaces/sports.ru.interface';
+import { UTCToday } from '@helpers/transform-date';
+import request from '@helpers/request';
+import { IYouTubeVideo } from '@interfaces/sports.ru.interface';
 import { RouteHandlerMethod } from 'fastify';
 import ReviewsModel from '@api/models/Review';
-import config from '@api/helpers/config';
-
+import config from '@helpers/config';
 
 export const getReviews: RouteHandlerMethod = async (req, reply): Promise<any> => {
 	try {
@@ -38,7 +37,7 @@ export const getReviewMatches = async (): Promise<any[] | null> => {
               videoId: v.id.videoId,
               url: `https://www.youtube.com/watch?v=${v.id.videoId}`,
               date: v.snippet.publishedAt,
-              dateDay: UTCDate(),
+              dateDay: UTCToday(),
               title: v.snippet.title.replace('-', '—'),
               channelTitle: v.snippet.channelTitle
             })

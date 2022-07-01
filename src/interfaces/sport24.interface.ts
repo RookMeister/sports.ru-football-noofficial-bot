@@ -160,6 +160,7 @@ export interface ISport24EventMatch {
   technical: boolean;
   titleRu: string;
   titleRuShort: string;
+  reviewUrl?: string;
   eventStatus: {
     titleRu: string;
     id: string;
@@ -208,6 +209,7 @@ export interface ISport24MatchesResponce {
   participants: { [key: number]: ISport24StandingParticipant; };
   stages: { [key: number]:ISport24CompetitionStagesGroups; };
   stageGroups: { [key: number]:ISport24CompetitionStagesGroups; };
+  reviews?: any;
 }
 export interface ISport24MatchesSeason {
   id: number;

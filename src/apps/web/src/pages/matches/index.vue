@@ -14,7 +14,6 @@ const dates = [
 ];
 const activeDate = ref(formatISO(new Date(), { representation: 'date' }));
 const url = computed(() => `/api/matches/${activeDate.value}/`);
-const seasons = computed(() => matches.value ? Object.values(matches.value.seasons).sort((a, b) => a.competition.priority - b.competition.priority) : []);
 
 const { isFetching, data: matches } = useFetch(url, { method: 'GET' }, { refetch: true }).json<ISport24MatchesResponce>();
 
@@ -40,11 +39,11 @@ const getLiveMin = (time: string) => {
   </nav>
   <div v-if="!isFetching" class="flex flex-col">
     <template v-if="matches">
-      <div v-for="season in seasons" :key="season.id" class="mt-4 divide-y divide-y-reverse">
+      <div v-for="season in matches.seasons" :key="season.id" class="mt-4 divide-y divide-y-reverse">
         <div class="px-6 py-2 font-bold border-b">{{ season.titleRu }}</div>
         <template v-for="match in matches.items">
           <div v-if="match.seasonId === season.id" :key="match.id" class="px-6 flex justify-between py-2">
-            <div class="w-64">
+            <div class="w-56">
               <div v-for="team in match.competitors" :key="team.participantId" class="flex items-center">
                 <img
                   v-if="getSlugForImg(team.participantId)"
@@ -62,6 +61,7 @@ const getLiveMin = (time: string) => {
               <div v-if="match.eventStatus.live && match.eventClock" class="text-xs mr-2 text-amber-400">
                 {{ getLiveMin(match.eventClock) }}
               </div>
+              <a v-if="match.eventStatus.ended && match.reviewUrl" :href="match.reviewUrl"><img class="h-3" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOSAxNCI+CiAgPHBhdGggZD0iTTE0LjkgMEg0LjFDMS44IDAgMCAxLjggMCA0LjF2NS44QzAgMTIuMiAxLjggMTQgNC4xIDE0aDEwLjhjMi4zIDAgNC4xLTEuOCA0LjEtNC4xVjQuMUMxOSAxLjggMTcuMiAwIDE0LjkgMHpNNyAxMC41di03TDE0IDdsLTcgMy41eiIvPgo8L3N2Zz4K" alt="с видео"></a>
               <div>
                 <div
                   v-for="team in match.competitors"

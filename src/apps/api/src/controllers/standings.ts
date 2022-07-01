@@ -1,11 +1,11 @@
-import request from '@api/helpers/request';
+import request from '@helpers/request';
 import { RouteHandlerMethod } from 'fastify';
 import {
   ISport24CompetitionStandingLeagueResponce,
   ISport24CompetitionStandingCupResponce,
   ISport24CompetitionsResponce,
 	ISport24CompetitionReviewResponce
-} from '@api/interfaces/sport24.interface';
+} from '@interfaces/sport24.interface';
 
 type TLEAGUEORCUP = ISport24CompetitionStandingLeagueResponce | ISport24CompetitionStandingCupResponce;
 

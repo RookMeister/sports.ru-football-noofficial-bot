@@ -12,36 +12,25 @@ type TDay = 'today' | 'yesterday' | 'tomorrow';
 
 export const UTCDate = (day: TDay = 'today') => {
   const date = {
-    today: UTCToDay(),
-    yesterday: UTCPrev1Day(),
-    tomorrow: UTCNext1Day()
+    today: UTCToday(),
+    yesterday: UTCYesterday(),
+    tomorrow: UTCTomorrow()
   }
   return date[day];
 }
 
-export const UTCToDay = () => {
-  const today = new Date();
-  const date = formatISO(today, { representation: 'date' });
-  return date;
+export const UTCToday = () => {
+  return formatISO(new Date(), { representation: 'date' });;
 }
 
-export const UTCNext1Day = () => {
+export const UTCTomorrow = () => {
   const today = new Date();
   today.setUTCDate(today.getUTCDate() + 1);
-  const date = formatISO(today, { representation: 'date' });
-  return date;
+  return formatISO(today, { representation: 'date' });
 }
 
-export const UTCPrev1Day = () => {
+export const UTCYesterday = () => {
   const today = new Date();
   today.setUTCDate(today.getUTCDate() - 1);
-  const date = formatISO(today, { representation: 'date' });
-  return date;
-}
-
-export const UTCPrev12Hours = () => {
-  const today = new Date();
-  today.setHours(today.getUTCHours() - 12);
-  const date = formatISO(today, { representation: 'date' });
-  return date;
+  return formatISO(today, { representation: 'date' });;
 }

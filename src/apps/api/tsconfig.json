@@ -21,13 +21,14 @@
 		"strict": true,
 		"noImplicitAny": true,
 		"forceConsistentCasingInFileNames": true,
-    "rootDir": "./src",
+    "rootDir": "../../../",
 		"outDir": "./dist",
 		"baseUrl": "./",
 		"paths": {
 			"~/*": ["./*"],
-			"@api/*": ["src/*"],
-      "@interfaces/*": ["../../interfaces/*"]
+			"@api/*": ["./src/*"],
+      "@interfaces/*": ["../../interfaces/*"],
+      "@helpers/*": ["../../helpers/*"],
 		},
 		"emitDecoratorMetadata": true,
     "experimentalDecorators": true,

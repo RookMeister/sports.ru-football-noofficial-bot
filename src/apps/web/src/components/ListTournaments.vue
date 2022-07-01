@@ -59,7 +59,7 @@ const tournamentsAll = computed(() => {
   </nav>
   <div v-if="!isFetching" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-12 gap-4 mt-4 px-6">
     <template v-for="item in tournamentsAll">
-      <router-link v-if="activeBlock === item.leagueType" :to="`/standings/?view=${item.urn}`" class="flex items-center flex-col text-center p-2 rounded-lg overflow-hidden" >
+      <router-link v-if="activeBlock === item.leagueType" :to="`/bot/standings/${item.urn}`" class="flex items-center flex-col text-center p-2 rounded-lg overflow-hidden" >
         <img v-if="item.image" class="h-20 w-20" :src="IMG_URL + item.image">
         <div v-else class="h-20 w-20" />
         <div class="mt-1 mb-auto">{{ item.titleShort || item.title }}</div>

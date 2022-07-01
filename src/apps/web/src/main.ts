@@ -27,10 +27,10 @@ import './assets/css/vendor.css';
 // ];
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/matches', component: Matches  },
-  { path: '/standings', component: Standings  },
-  { path: '/standings/:id', component: Standings  }
+  { path: '/bot/', component: Home },
+  { path: '/bot/matches/', component: Matches  },
+  { path: '/bot/standings/', component: Standings  },
+  { path: '/bot/standings/:id/', component: Standings  }
 ]
 
 const router = createRouter({

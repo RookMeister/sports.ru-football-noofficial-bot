@@ -5,9 +5,9 @@ import MatchesModel from '@api/models/Matches';
 import ReviewModel from '@api/models/Review';
 import TournamentModel from '@api/models/Tournament';
 import { getMatches } from '@api/controllers/matches';
-import logger from '@api/helpers/logger';
-import { UTCNext1Day } from '@api/helpers/transform-date';
-import config from '@api/helpers/config';
+import logger from '@helpers/logger';
+import { UTCTomorrow } from '@helpers/transform-date';
+import config from '@helpers/config';
 
 const agenda = new Agenda({
   db: {
@@ -22,7 +22,7 @@ agenda.define('check matches', async (job: any) => {
     const browser = await chromium.launch({ chromiumSandbox: false });
     const context = await browser.newContext();
     const page = await context.newPage();
-    const date = job.attrs.data || UTCNext1Day();
+    const date = job.attrs.data || UTCTomorrow();
     logger.info({ msg: `https://www.sports.ru/football/match/${date}/` });
     await page.goto(`https://www.sports.ru/football/match/${date}/`, { waitUntil: 'load', timeout: 0 });
     const ids = await page.$eval('.panel.active-panel', (elms) => {

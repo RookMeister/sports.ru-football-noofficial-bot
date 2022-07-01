@@ -77,7 +77,7 @@ const getSlugImg = (key: number, data: TLEAGUEORCUP) => (data.participants[key].
       <div
         @click="activeBlock = item.id"
         v-for="item in tournament.stages.items"
-        :class="(activeBlock === item.id) && 'text-red-500 border-b-red-500'"
+        :class="[(activeBlock === item.id) && 'text-red-500 border-b-red-500', `w-1/${tournament.stages.items.length}`]"
         class="p-2 block grow border-b-2"
       >
         {{ item.titleRu }}

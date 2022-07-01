@@ -5,7 +5,7 @@ import ListTournaments from '@web/components/ListTournaments.vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const id = computed(() => route.query.view || '')
+const id = computed(() => route.params.id || '')
 </script>
 
 <template>

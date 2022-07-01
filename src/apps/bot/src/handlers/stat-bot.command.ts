@@ -2,14 +2,14 @@ import { Context, deunionize } from 'telegraf';
 import { UserModel } from '@bot/models/user.model';
 import { StatModel } from '@bot/models/analytics.model';
 import { selectData } from '@bot/services/callback-data';
-import { UTCDate, UTCPrev1Day } from '@bot/helpers/transform-date';
+import { UTCDate, UTCYesterday } from '@bot/helpers/transform-date';
 import { formatISO } from 'date-fns';
 import { inlineKeyboard } from '@bot/services/keyboards';
 import { statBotMenu } from '@bot/services/buttons';
 
 export const statBotCommandHandler = async (ctx: Context, date: string, edit: boolean) => {
   if (ctx.from?.id === 302423620) {
-    const stringDate = (date === 'prev') ? UTCPrev1Day() : UTCDate();
+    const stringDate = (date === 'prev') ? UTCYesterday() : UTCDate();
 
     const usersData = await UserModel.findAllUsers();
     const statsData = await StatModel.getStatOfDate(stringDate);

@@ -1,8 +1,8 @@
 import * as fastify from 'fastify';
 import mongoose from 'mongoose';
 import routes from '@api/routes';
-import { Options } from '@api/config/swagger';
-import config from '@api/helpers/config';
+import { Options } from '@api/swagger';
+import config from '@helpers/config';
 import { initAgenda } from '@api/services/agenda';
 import swagger from '@fastify/swagger';
 const env = process.env.NODE_ENV;

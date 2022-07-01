@@ -1,5 +1,5 @@
-@sportsru_football_noofficial_bot
+@scoresfootball_bot
 =========================
 
-Неофициальный футбольный Бот Sport.Ru.
-Вы можете добавить его себе в Telegram, перейдя по ссылке: [@Sport.Ru Bot](http://telegram.me/sportsru_football_noofficial_bot)
+Футбольные результаты, статистика национальных, клубных и международных турниров в одном боте.
+Вы можете добавить его себе в Telegram, перейдя по ссылке: [@Sport.Ru Bot](http://telegram.me/@scoresfootball_bot)
