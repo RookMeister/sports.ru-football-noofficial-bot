@@ -1,9 +1,9 @@
 import MatchesModel from '@api/models/Matches';
 import ReviewsModel from '@api/models/Review';
-import request from '@api/helpers/request';
+import request from '@helpers/request';
 import { RouteHandlerMethod } from 'fastify';
-import { ISportsMatchResponse, IDataMatches } from '@api/interfaces/sports.ru.interface';
-import { ISport24MatchesResponce } from '@api/interfaces/sport24.interface';
+import { ISportsMatchResponse, IDataMatches } from '@interfaces/sports.ru.interface';
+import { ISport24MatchesResponce } from '@interfaces/sport24.interface';
 
 export const getTodayTopMatches: RouteHandlerMethod = async (req, reply): Promise<IDataMatches | null> => {
 	try {
@@ -47,14 +47,29 @@ export const getMatches = async (ids: string[] | null, date: string): Promise<ID
   return data;
 }
 
-export const getListMatches: RouteHandlerMethod = async (req, reply): Promise<ISport24MatchesResponce> => {
+export const getListMatches: RouteHandlerMethod = async (req, reply): Promise<any> => {
 	try {
     // &competitionUrn=primera-division
     const { date } = (req.params as  { date: string });
     const matches = await request<ISport24MatchesResponce>(`${process.env.FETCH_GET_MATCHES_URL}?sportUrn=football&publishMatchbar=true&onDate=${date}`);
-		return matches;
+    const data = await updateMatches(matches, date);
+		return data;
 	} catch (err) {
 		// throw boom.boomify(err as Error);
 		throw err;
 	}
 };
+
+const updateMatches = async (matches: ISport24MatchesResponce, date: string): Promise<any> => {
+  const reviews = await ReviewsModel.findReviewsToday(date);
+  matches.seasons = Object.values(matches.seasons).sort((a, b) => a.competition.priority - b.competition.priority);
+  matches.items.forEach((match) => {
+    const team1 = matches.participants[match.competitors[0].participantId].titleRu;
+    const team2 = matches.participants[match.competitors[1].participantId].titleRu;
+    const title = new RegExp(`${team1}|${team2}`);
+    const review = reviews.find(r => r.title.match(title));
+    match.reviewUrl = review ? review.url : '';
+    match.competitors = match.competitors.sort((a, b) => a.priority - b.priority);
+  });
+  return matches;
+}
