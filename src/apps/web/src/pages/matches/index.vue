@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import ContentLoader from '@web/components/ContentLoader.vue';
 import { format, formatISO, startOfYesterday, startOfTomorrow  } from 'date-fns';
 import { useFetch } from '@vueuse/core';
-import { ISport24MatchesResponce } from '@web/interfaces/sport24.interface';
+import { ISport24MatchesResponce } from '@interfaces/sport24.interface';
 
 const IMG_URL = import.meta.env.VITE_IMG_URL;
 

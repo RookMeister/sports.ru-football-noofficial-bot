@@ -3,31 +3,19 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"start": "node -r module-alias/register -r ./dist/app.js",
+		"start": "node -r module-alias/register -r ./dist/apps/bot/src/app.js",
     "dev": "nodemon",
     "build": "rimraf ./dist && tsc"
 	},
-	"keywords": [
-		"telegram",
-    "telegraf.js",
-    "telegraf",
-    "bot",
-    "telegram-bot",
-		"node",
-		"typescript",
-		"mongo",
-		"mongoose",
-		"fastify",
-		"swagger"
-	],
 	"author": "RookMeister <rookmeister666@gmail.com>",
 	"license": "ISC",
 	"repository": {
 		"type": "git"
 	},
 	"_moduleAliases": {
-    "@bot": "./dist",
-		"@interfaces": "./dist"
+    "@bot": "./dis/apps/bot/src",
+		"@interfaces": "./dist/interfaces",
+		"@helpers": "./dist/helpers"
   },
 	"dependencies": {
 		"@typegoose/typegoose": "^9.9.0",
@@ -38,7 +26,12 @@
     "telegraf": "^4.8.5",
     "telegraf-callback-data": "^0.2.6",
     "telegraf-session-local": "^2.1.0",
-    "telegraf-update-logger": "^1.5.0"
+    "telegraf-update-logger": "^1.5.0",
+		"dotenv": "^16.0.1",
+		"pino": "^8.1.0",
+    "date-fns": "^2.28.0",
+    "node-fetch": "^3.2.6",
+		"zod": "^3.17.3"
 	},
 	"devDependencies": {
 		"tsconfig-paths": "^4.0.0",

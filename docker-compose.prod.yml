@@ -4,29 +4,29 @@ services:
   api:
     image: mcr.microsoft.com/playwright:focal
     container_name: api
-    restart: unless-stopped
+    # restart: unless-stopped
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && pnpm install && pnpm build && pnpm start"
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && cd ./helpers && pnpm install && cd ../apps/api/ && pnpm install && pnpm build && pnpm start"
     volumes:
-      - ./src/apps/api:/home/node
-      - ./src/interfaces:/home/node/src/interfaces
-      - ./src/helpers:/home/node/src/helpers
+      - ./src/apps/api:/home/node/apps/api
+      - ./src/interfaces:/home/node/interfaces
+      - ./src/helpers:/home/node/helpers
     networks:
       - app-network
   bot:
     image: node:16
     container_name: bot
-    restart: unless-stopped
+    # restart: unless-stopped
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && pnpm install && pnpm build && pnpm start"
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && cd ./helpers && pnpm install && cd ../apps/bot/ && pnpm install && pnpm build && pnpm start"
     volumes:
-      - ./src/apps/bot:/home/node
-      - ./src/interfaces:/home/node/src/interfaces
-      - ./src/helpers:/home/node/src/helpers
+      - ./src/apps/bot:/home/node/apps/bot
+      - ./src/interfaces:/home/node/interfaces
+      - ./src/helpers:/home/node/helpers
     depends_on:
       - api
     networks:
@@ -34,17 +34,18 @@ services:
   web:
     image: node:16
     container_name: web
-    restart: unless-stopped
+    # restart: unless-stopped
     ports:
       - 80:3000
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && pnpm install && pnpm build && pnpm preview""
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install -g typescript && cd ./helpers && pnpm install && cd ../apps/web/ && pnpm install && pnpm build && pnpm preview"
     tty: true
     volumes:
-      - ./src/apps/web:/home/node
-      - ./src/interfaces:/home/node/src/interfaces
+      - ./src/apps/web:/home/node/apps/web
+      - ./src/interfaces:/home/node/interfaces
+      - ./src/helpers:/home/node/helpers
     depends_on:
       - api
     networks:

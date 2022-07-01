@@ -5,7 +5,7 @@ import {
   ISport24CompetitionReviewResponce,
   ISport24CompetitionStandingLeagueResponce,
   ISport24CompetitionStandingCupResponce
-} from '@web/interfaces/sport24.interface';
+} from '@interfaces/sport24.interface';
 
 type TLEAGUEORCUP = ISport24CompetitionStandingLeagueResponce | ISport24CompetitionStandingCupResponce;
 

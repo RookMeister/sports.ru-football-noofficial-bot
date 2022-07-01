@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"start": "node -r module-alias/register -r ./dist/index.js",
+		"start": "node -r module-alias/register -r ./dist/apps/api/src/index.js",
 		"dev": "nodemon",
 		"build": "rimraf ./dist && tsc"
 	},
@@ -13,8 +13,9 @@
 		"type": "git"
 	},
 	"_moduleAliases": {
-    "@api": "./dist",
-		"@interfaces": "./dist"
+    "@api": "./dist/apps/api/src",
+		"@interfaces": "./dist/interfaces",
+		"@helpers": "./dist/helpers"
   },
 	"dependencies": {
 		"@fastify/swagger": "^7.4.1",
@@ -23,7 +24,12 @@
     "fastify": "^4.2.0",
     "module-alias": "^2.2.2",
     "mongoose": "6.4.1",
-    "playwright-chromium": "^1.22.2"
+    "playwright-chromium": "^1.22.2",
+		"dotenv": "^16.0.1",
+		"pino": "^8.1.0",
+    "date-fns": "^2.28.0",
+    "node-fetch": "^3.2.6",
+		"zod": "^3.17.3"
 	},
 	"devDependencies": {
 		"tsconfig-paths": "^4.0.0",
