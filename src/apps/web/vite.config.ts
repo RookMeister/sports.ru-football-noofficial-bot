@@ -6,7 +6,7 @@ export default defineConfig({
   base: '/',
   server: {
     host: true,
-    port: 3000,
+    port: process.env.WEB_PORT,
     proxy: {
       '^/api': {
         target: process.env.API_URL,

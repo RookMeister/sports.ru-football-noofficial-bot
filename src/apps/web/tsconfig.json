@@ -22,7 +22,7 @@
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
 
-    "rootDir": "../../",
+    "rootDir": "../",
 		"outDir": "./dist",
 		"baseUrl": "./",
 		"paths": {
@@ -35,6 +35,6 @@
     ],
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["./**/*.ts", "./**/*.d.ts", "./**/*.tsx", "./**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

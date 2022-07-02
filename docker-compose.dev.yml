@@ -22,11 +22,14 @@ services:
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && cd ./helpers && pnpm install && cd ../apps/bot/ && pnpm install && pnpm dev"
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install && pnpm dev"
     volumes:
       - ./src/apps/bot:/home/node/apps/bot
       - ./src/interfaces:/home/node/interfaces
       - ./src/helpers:/home/node/helpers
+      - ./src/package.bot.json:/home/node/package.json
+      - ./src/nodemon.bot.json:/home/node/nodemon.json
+      - ./src/tsconfig.bot.json:/home/node/tsconfig.json
     depends_on:
       - api
     networks:
@@ -39,7 +42,7 @@ services:
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && cd ./helpers && pnpm install && cd ../apps/web/ && pnpm install && pnpm dev"
+      /bin/bash -c "npm install --global pnpm@latest-6 && cd ./apps/web && pnpm install && pnpm dev"
     tty: true
     volumes:
       - ./src/apps/web:/home/node/apps/web

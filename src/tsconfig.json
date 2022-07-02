@@ -1,0 +1,44 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+    "target": "es2020",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+		// "lib": [
+		// 	"es6"
+		// ],
+    "declaration": true,
+    "downlevelIteration": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "importHelpers": false,
+    "removeComments": true,
+    "strictPropertyInitialization": false,
+    "allowUnreachableCode": false,
+    "isolatedModules": false,
+		"allowJs": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"forceConsistentCasingInFileNames": true,
+    "rootDir": "./",
+		"outDir": "./dist",
+		"baseUrl": "./",
+		"paths": {
+			"@api/*": ["./apps/api/*"],
+			"@bot/*": ["./apps/bot/*"],
+      "@interfaces/*": ["./interfaces/*"],
+      "@helpers/*": ["./helpers/*"],
+		},
+		"emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    // "incremental": true,
+    // "skipLibCheck": true
+	},
+	"include": [
+    "**/*.ts",
+  ],
+  "exclude": ["node_modules", "test", "dist"]
+}

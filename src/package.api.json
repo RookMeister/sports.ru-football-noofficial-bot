@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"start": "node -r module-alias/register -r ./dist/apps/api/src/index.js",
+		"start": "node -r module-alias/register -r ./dist/apps/api/index.js",
 		"dev": "nodemon",
 		"build": "rimraf ./dist && tsc"
 	},
