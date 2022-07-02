@@ -6,11 +6,14 @@ services:
     env_file: ./.env
     working_dir: /home/node
     command: >
-      /bin/bash -c "npm install --global pnpm@latest-6 && cd ./helpers && pnpm install && cd ../apps/api/ && pnpm install && pnpm dev"
+      /bin/bash -c "npm install --global pnpm@latest-6 && pnpm install && pnpm dev"
     volumes:
       - ./src/apps/api:/home/node/apps/api
       - ./src/interfaces:/home/node/interfaces
       - ./src/helpers:/home/node/helpers
+      - ./src/package.api.json:/home/node/package.json
+      - ./src/nodemon.api.json:/home/node/nodemon.json
+      - ./src/tsconfig.api.json:/home/node/tsconfig.json
     networks:
       - app-network
   bot:
